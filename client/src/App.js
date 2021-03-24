@@ -5,7 +5,6 @@ import ProductListing from './components/ProductListing';
 import WishList from './components/WishList';
 
 import './App.css';
-import { WishlistContextProvider } from './contexts/WishListContext';
 import { ProductContextProvider } from './contexts/ProductContext';
 
 const App = () => {
@@ -13,8 +12,7 @@ const App = () => {
   const [route,setRoute] = useState("ProductListing");
 
   return (
-    <WishlistContextProvider>
-      <ProductContextProvider>
+    <ProductContextProvider>
        <div>
           <button onClick={() => setRoute("ProductListing")}>Home</button>
           <button onClick={() => setRoute("WishList")}>WishList</button>
@@ -23,8 +21,7 @@ const App = () => {
           { route === "WishList" && <WishList/>}
           { route === "Cart" && <Cart/>}
        </div>
-       </ProductContextProvider>
-    </WishlistContextProvider>
+    </ProductContextProvider>
   );
 };
 

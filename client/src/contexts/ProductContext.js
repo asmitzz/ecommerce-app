@@ -1,4 +1,4 @@
-import React, { createContext,useReducer } from 'react';
+import React, { createContext,useReducer,useContext } from 'react';
 import { products } from '../productsDb';
 
 export const productContext = createContext();
@@ -18,9 +18,15 @@ export const ProductContextProvider = ({children}) => {
 
     const [state,dispatch] = useReducer(productsReducer,{products});
 
+    const wishlist = state.products.filter( i => i.isWishlist);
+
     return(
-        <productContext.Provider value={{ products:state.products, dispatchProducts:dispatch }}>
+        <productContext.Provider value={{ products:state.products, dispatch,wishlist }}>
             {children}
         </productContext.Provider>
     );
 };
+
+export const useProducts = () => (
+    useContext(productContext)
+)
