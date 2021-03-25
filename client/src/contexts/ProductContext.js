@@ -1,28 +1,11 @@
-import React, { createContext,useReducer,useContext } from 'react';
-import { productsDb } from '../productsDb';
+import React, { createContext,useContext } from 'react';
+import ProductReducer from '../reducers/ProductReducer';
 
 export const productContext = createContext();
 
 export const ProductContextProvider = ({children}) => {
     
-    const productsReducer = (state,action) => {
-        switch(action.type){
-            case "SORT":
-            return {...state,sortBy:action.payload};
-            case "INCLUDE_OUT_STOCK":
-            return {...state,includeOutOfStock:!state.includeOutOfStock};
-            case "FAST_DELIVERY":
-            return {...state,fastDelivery:!state.fastDelivery};
-            case "ADDTOWISHLIST":
-            return { ...state,products:state.products.map( i => i.id === action.id ? {...i,isWishlist:true} : i ) }
-            case "REMOVEFROMWISHLIST":
-            return { ...state,products:state.products.map( i => i.id === action.id ? {...i,isWishlist:false} : i ) }
-            default:
-            return state;
-        }
-    }
-
-    const [state,dispatch] = useReducer(productsReducer,{products:productsDb,sortBy:null,includeOutOfStock:true,fastDelivery:false});
+    const { state,dispatch } = ProductReducer();
 
     const getSortedProducts = (state) => {
         if( state.sortBy === "LOW_TO_HIGH" ) return {...state,products:state.products.sort( (a,b) => a.price - b.price)};
@@ -36,13 +19,12 @@ export const ProductContextProvider = ({children}) => {
     }
 
     const sortedProducts = getSortedProducts(state);
-    const {includeOutOfStock,products,sortBy,fastDelivery} = getFilteredProducts(sortedProducts); 
+    const { includeOutOfStock,products,sortBy,fastDelivery } = getFilteredProducts(sortedProducts); 
 
     const wishlist = state.products.filter( i => i.isWishlist);
-    console.log(wishlist);
 
     return(
-        <productContext.Provider value={{ includeOutOfStock,products,sortBy, dispatch,wishlist,fastDelivery }}>
+        <productContext.Provider value={{ includeOutOfStock,products,sortBy, dispatchProduct:dispatch,wishlist,fastDelivery }}>
             {children}
         </productContext.Provider>
     );
