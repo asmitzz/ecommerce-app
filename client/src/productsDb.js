@@ -10,7 +10,6 @@ export const productsDb = [...Array(50)].map((item) => ({
   material: faker.commerce.productMaterial(),
   brand: faker.lorem.word(),
   inStock: faker.random.boolean(),
-  isWishlist:false,
   fastDelivery: faker.random.boolean(),
   ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
   offer: faker.random.arrayElement([

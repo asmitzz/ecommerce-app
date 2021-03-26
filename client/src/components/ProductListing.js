@@ -1,19 +1,28 @@
 import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useProducts } from '../contexts/ProductContext';
+import { useWishlist } from '../contexts/WishContext';
 
-const ProductListing = () => {
+const ProductListing = ({route}) => {
 
     const {products,dispatchProduct,sortBy,includeOutOfStock,fastDelivery} = useProducts();
-    const { dispatchCart } = useCart();
+    const { cart,dispatchCart } = useCart();
+    const {wishlist,dispatchWishlist} = useWishlist();
+
 
 
     const addToWishlist = (item) => {
-        if( item.isWishlist ){
-            dispatchProduct({ type:"REMOVEFROMWISHLIST",id:item.id });
-            return;
+        if( wishlist.find( i => i.id === item.id) ){
+            return dispatchWishlist({ type:"REMOVE_FROM_WISHLIST",payload:item.id });
         }
-        dispatchProduct({ type:"ADDTOWISHLIST",id:item.id });
+        dispatchWishlist({ type:"ADD_TO_WISHLIST",payload:item });
+    }
+
+    const cartHandler = (item) => {
+        if( cart.find( i => i.id === item.id) ){
+            return route("Cart")
+        }
+        dispatchCart({ type:"ADD_TO_CART" , payload:item }) 
     }
 
     return (
@@ -36,7 +45,7 @@ const ProductListing = () => {
             {
                 products.map( item => (
                     <div key={item.id} className={ item.inStock ? "card" : "card out-of-stock"}>
-                      <i onClick={() => addToWishlist(item)} style={{ color:item.isWishlist ? 'red' : 'white'}} className="fa fa-heart" aria-hidden="true"></i>
+                      <i onClick={() => addToWishlist(item)} style={{ color:wishlist.find( i => i.id === item.id) ? 'red' : 'white'}} className="fa fa-heart" aria-hidden="true"></i>
                       <img alt="product" className="card-img" src={item.image}/>
                       <div className="card-content">
                         <h3>{item.name}</h3>
@@ -44,7 +53,7 @@ const ProductListing = () => {
                         <span>{ item.inStock ? "Instock" : "out of stock" }</span>
                         { item.fastDelivery && <span style={{flex: 1}}>Fast Delivery available</span>}
                       </div>
-                      <button onClick={() => dispatchCart({ type:"ADD_TO_CART" , payload:item }) } className="btn" disabled={!item.inStock}>{!item.inStock ? "Out of Stock" : "Add to cart"}</button>
+                      <button onClick={() => cartHandler(item)} className="btn" disabled={!item.inStock}>{!item.inStock ? "Out of Stock" : cart.find( i => i.id === item.id ) ? "Go to cart" : "Add to cart" }</button>
                     </div>
                 ))
             }

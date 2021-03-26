@@ -10,20 +10,6 @@ const ProductReducer = () => {
         return { ...state, includeOutOfStock: !state.includeOutOfStock };
       case "FAST_DELIVERY":
         return { ...state, fastDelivery: !state.fastDelivery };
-      case "ADDTOWISHLIST":
-        return {
-          ...state,
-          products: state.products.map((i) =>
-            i.id === action.id ? { ...i, isWishlist: true } : i
-          ),
-        };
-      case "REMOVEFROMWISHLIST":
-        return {
-          ...state,
-          products: state.products.map((i) =>
-            i.id === action.id ? { ...i, isWishlist: false } : i
-          ),
-        };
       default:
         return state;
     }
