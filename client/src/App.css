@@ -3,6 +3,10 @@ body{
   margin:0;
 }
 
+h3,h4{
+  margin: 0;
+}
+
 .routeBtn{
   border:none;
   background:transparent;
@@ -89,28 +93,33 @@ body{
   right:0.5rem;
   font-size:1.5rem;
   cursor: pointer;
-  /* transition: transform 0.5s; */
 }
 
 .card i:hover{
   font-size:1.8rem;
-  /* transform: scale(1.2); */
 }
 
-.btn{
-  width:100%;
+.primary-btn{
   background:rgb(17, 17, 173);
-  padding:8px 16px;
-  border: none;
   color: white;
+  border: 1px solid white;
   cursor: pointer;
+  padding:8px 16px;
 }
 
-.btn:hover{
-  opacity: 0.8;
+.secondary-btn{
+  background:white;
+  color: rgb(17, 17, 173);
+  padding:8px 16px;
+  cursor: pointer;
+  border: 1px solid rgb(17, 17, 173);
 }
 
-.btn:focus{
+.primary-btn:hover,.secondary-btn:hover{
+  opacity: 0.5;
+}
+
+.primary-btn:focus,.secondary-btn:focus{
   outline:none;
 }
 
@@ -131,4 +140,37 @@ body{
   100% {
     transform:translateX(0)
   }
+}
+.cart-container{
+  padding:1rem;
+}
+
+.card-horizontal{
+   display:grid;
+   width:65%;
+   grid-template-columns: 1fr 4fr;
+   border: 1px solid grey;
+   height:30vh;
+   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   0 2px 2px rgba(0,0,0,0.12), 
+   0 4px 4px rgba(0,0,0,0.12), 
+   0 8px 8px rgba(0,0,0,0.12),
+   0 16px 16px rgba(0,0,0,0.12);
+   margin-bottom: 0.5rem;
+}
+
+.card-horizontal .card-img{
+   height:100%;
+}
+
+.card-horizontal .card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding:0 1rem;
+}
+
+.card-body .card-footer{
+   display:flex;
+   align-items: center;
 }

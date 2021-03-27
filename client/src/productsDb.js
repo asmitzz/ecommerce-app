@@ -8,6 +8,7 @@ export const productsDb = [...Array(50)].map((item) => ({
   image: faker.random.image(),
   price: faker.commerce.price(),
   material: faker.commerce.productMaterial(),
+  seller: faker.lorem.word(),
   brand: faker.lorem.word(),
   inStock: faker.random.boolean(),
   fastDelivery: faker.random.boolean(),

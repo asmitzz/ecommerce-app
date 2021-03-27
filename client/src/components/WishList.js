@@ -25,7 +25,7 @@ const WishList = () => {
                       <button onClick={() => {
                         dispatchCart({ type:"ADD_TO_CART" , payload:item });
                         dispatchWishlist({ type:"REMOVE_FROM_WISHLIST",payload:item.id });
-                        } } className="btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
+                        } } className="primary-btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
                     </div>
                   ))
               }

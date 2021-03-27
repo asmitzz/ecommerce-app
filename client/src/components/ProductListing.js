@@ -53,7 +53,7 @@ const ProductListing = ({route}) => {
                         <span>{ item.inStock ? "Instock" : "out of stock" }</span>
                         { item.fastDelivery && <span style={{flex: 1}}>Fast Delivery available</span>}
                       </div>
-                      <button onClick={() => cartHandler(item)} className="btn" disabled={!item.inStock}>{!item.inStock ? "Out of Stock" : cart.find( i => i.id === item.id ) ? "Go to cart" : "Add to cart" }</button>
+                      <button onClick={() => cartHandler(item)} className="primary-btn" disabled={!item.inStock}>{!item.inStock ? "Out of Stock" : cart.find( i => i.id === item.id ) ? "Go to cart" : "Add to cart" }</button>
                     </div>
                 ))
             }
