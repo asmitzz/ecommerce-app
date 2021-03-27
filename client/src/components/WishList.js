@@ -8,8 +8,9 @@ const WishList = () => {
   const { dispatchCart } = useCart();
   
     return (
+      <div className="wishlist-container">
+        <h1>Wishlist ({wishlist.length})</h1>
         <div className="products">
-          <h1>Wishlist ({wishlist.length})</h1>
               {
                 wishlist.map( item => (
                     <div key={item.id} className={ item.inStock ? "card" : "card out-of-stock"}>
@@ -30,6 +31,7 @@ const WishList = () => {
                     </div>
                   ))
               }
+        </div>
         </div>
     );
 };

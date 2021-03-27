@@ -6,6 +6,10 @@ body{
   font-family: 'Montserrat', sans-serif;
 }
 
+.container{
+  position: relative;
+  min-height: 100vh;
+}
 
 h1,h3,h4{
   margin: 0;
@@ -13,11 +17,16 @@ h1,h3,h4{
 
 .nav{
    background:#181818;
-   height:10vh;
-   padding:0.5rem;
+   height:7vh;
+   padding:1rem;
    position: sticky;
    top: 0;
    z-index: 1;
+   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   0 2px 2px rgba(0,0,0,0.12), 
+   0 4px 4px rgba(0,0,0,0.12), 
+   0 8px 8px rgba(0,0,0,0.12),
+   0 16px 16px rgba(0,0,0,0.12);
 }
 
 .nav ul{
@@ -34,7 +43,7 @@ h1,h3,h4{
   display: flex;
   flex-direction:column;
   justify-content:center;
-  margin: 0 1rem;
+  margin-left: 1rem;
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
   position: relative;
@@ -110,6 +119,7 @@ h1,h3,h4{
    0 4px 4px rgba(0,0,0,0.12), 
    0 8px 8px rgba(0,0,0,0.12),
    0 16px 16px rgba(0,0,0,0.12);
+   border-radius: 5px;
 }
 
 .card-content{
@@ -150,6 +160,8 @@ h1,h3,h4{
   border: 1px solid white;
   cursor: pointer;
   padding:8px 16px;
+  outline: #dab600;
+  border-radius: 5px;
 }
 
 .secondary-btn{
@@ -158,14 +170,12 @@ h1,h3,h4{
   padding:8px 16px;
   cursor: pointer;
   border: 1px solid #dab600;
+  outline: #dab600;
+  border-radius: 5px;
 }
 
 .primary-btn:hover,.secondary-btn:hover{
   opacity: 0.5;
-}
-
-.primary-btn:focus,.secondary-btn:focus{
-  outline:none;
 }
 
 .removeIcon:hover{
@@ -187,7 +197,7 @@ h1,h3,h4{
   }
 }
 .cart-container{
-  padding:1rem;
+  padding:1rem 0;
   width:800px;
 }
 
@@ -244,4 +254,36 @@ h1,h3,h4{
 .card-body .card-footer{
    display:flex;
    align-items: center;
+}
+
+.wishlist-container{
+  padding:1rem 0;
+}
+
+.footer{
+  padding:1rem 0;
+  background:#181818;
+  position: relative;
+  bottom:0;
+  width:100%;
+}
+
+.footer-header{
+  color:#dab600;
+  text-align:center;
+  font-size:1.5rem;
+}
+
+.footer ul {
+  display:flex;
+  justify-content: center;
+}
+
+.footer li {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+.footer img{
+  height:2rem;
 }
