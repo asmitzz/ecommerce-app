@@ -27,14 +27,14 @@ const Cart = () => {
                          <div>
                            <p>₹{item.price}</p>
                            <button disabled={item.qty <= 1} onClick={() => dispatchCart({ type:"REMOVE_QTY",payload:item.id })}>- </button>
-                            {item.qty}
-                           <button onClick={() => dispatchCart({ type:"ADD_QTY",payload:item.id })}> +</button>
+                           &nbsp;{item.qty}&nbsp;
+                           <button onClick={() => dispatchCart({ type:"ADD_QTY",payload:item.id })}>+</button>
                          </div>
                          <div className="card-footer">
                            <button onClick={() => {
                              dispatchWishlist({ type:"ADD_TO_WISHLIST",payload:item })
                              dispatchCart({ type:"REMOVE_FROM_CART",payload:item.id })
-                           }} className="primary-btn" style={{margin:'0.2rem'}}>SAVE TO WISHLIST</button>
+                           }} className="primary-btn" style={{margin:'0.2rem'}}>WISHLIST</button>
                            <button onClick={() => dispatchCart({ type:"REMOVE_FROM_CART",payload:item.id })} className="secondary-btn">REMOVE</button>
                          </div>
                       </div>

@@ -1,10 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 body{
   background: aliceblue;
   margin:0;
+  font-family: 'Montserrat', sans-serif;
 }
 
-h3,h4{
+
+h1,h3,h4{
   margin: 0;
+}
+
+.nav{
+   background:#181818;
+   height:10vh;
+   padding:0.5rem;
+   position: sticky;
+   top: 0;
+   z-index: 1;
+}
+
+.nav ul{
+  display: flex;
+  align-items:center;
+  height:100%;
+  margin:0;
+  padding:0;
+}
+
+.nav li{
+  list-style: none;
+  color: #dab600;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  margin: 0 1rem;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  cursor: pointer;
+  align-items: center;
+}
+
+.badge{
+  position: absolute;
+  top: -0.7rem;
+}
+
+.icon-name{
+  font-size:0.6rem;
+  margin-top: 0.2rem;
 }
 
 .routeBtn{
@@ -100,7 +145,7 @@ h3,h4{
 }
 
 .primary-btn{
-  background:rgb(17, 17, 173);
+  background:#dab600;
   color: white;
   border: 1px solid white;
   cursor: pointer;
@@ -109,10 +154,10 @@ h3,h4{
 
 .secondary-btn{
   background:white;
-  color: rgb(17, 17, 173);
+  color: #dab600;
   padding:8px 16px;
   cursor: pointer;
-  border: 1px solid rgb(17, 17, 173);
+  border: 1px solid #dab600;
 }
 
 .primary-btn:hover,.secondary-btn:hover{
@@ -143,11 +188,17 @@ h3,h4{
 }
 .cart-container{
   padding:1rem;
+  width:800px;
+}
+
+@media(max-width:845px){
+  .cart-container{
+    width:96%;
+  }
 }
 
 .card-horizontal{
    display:grid;
-   width:65%;
    grid-template-columns: 1fr 4fr;
    border: 1px solid grey;
    height:30vh;
@@ -156,7 +207,27 @@ h3,h4{
    0 4px 4px rgba(0,0,0,0.12), 
    0 8px 8px rgba(0,0,0,0.12),
    0 16px 16px rgba(0,0,0,0.12);
-   margin-bottom: 0.5rem;
+   margin: 0.5rem 0;
+}
+
+@media(max-width:725px){
+  .card-horizontal{
+     grid-template-columns: 1fr 3fr;
+  }
+}
+
+@media(max-width:650px){
+  .card-horizontal{
+     grid-template-columns: 1fr 2fr;
+  }
+}
+
+@media(max-width:475px){
+  .card-horizontal{
+     grid-template-columns: 1fr 1fr;
+     height:35vh;
+  }
+  
 }
 
 .card-horizontal .card-img{
