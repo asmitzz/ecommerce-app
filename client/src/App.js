@@ -12,7 +12,7 @@ import EditAddress from "./components/address-management/EditAddress";
 import AddNewAddress from "./components/address-management/AddNewAddress";
 
 const App = () => {
-  const [route, setRoute] = useState("AddNewAddress");
+  const [route, setRoute] = useState("ProductListing");
   const { cart } = useCart();
   const { wishlist } = useWishlist();
 

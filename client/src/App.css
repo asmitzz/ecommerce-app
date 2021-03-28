@@ -334,6 +334,14 @@ fieldset input {
   margin:auto;
 }
 
+@media(max-width:800px){
+  .address_container{
+    width: 100%;
+    padding:1rem 0;
+    margin: 0;
+  }
+}
+
 .address_container > h3 {
   padding: 0.5rem;
   background: #181818;
