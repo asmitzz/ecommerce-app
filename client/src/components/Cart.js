@@ -17,7 +17,7 @@ const Cart = () => {
         <div className="cart-container">
           <h1>My Cart({ totalItem() })</h1>
               {
-                cart.map( item => (
+                cart.length > 0 ? cart.map( item => (
                     <div key={item.id} className="card-horizontal">
                         <img alt="product" className="card-img" src={item.image}/>
                       <div className="card-body">
@@ -40,7 +40,7 @@ const Cart = () => {
                       </div>
                     </div>
                   ))
-              }
+              : <p style={{textAlign:'center'}}>Your cart is empty</p>}
             { cart.length > 0 && <h2>Total Price: ₹{price()}</h2>}
         </div>
     );

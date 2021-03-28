@@ -12,7 +12,7 @@ const WishList = () => {
         <h1 style={{textAlign: 'center'}}>Wishlist ({wishlist.length})</h1>
         <div style={{display: wishlist.length > 0 ? 'grid': "block"}}  className="products">
               {
-                wishlist.map( item => (
+                 wishlist.length > 0 ? wishlist.map( item => (
                     <div key={item.id} className={ item.inStock ? "card" : "card out-of-stock"}>
                       <div className="removeIcon">
                       <i onClick={() => dispatchWishlist({ type:"REMOVE_FROM_WISHLIST",payload:item.id })} style={{ color:'rgb(223, 71, 89)' }} className="fa fa-trash" aria-hidden="true"></i>
@@ -30,7 +30,7 @@ const WishList = () => {
                         } } disabled={!item.inStock} className="primary-btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
                     </div>
                   ))
-              }
+              : <p style={{textAlign:'center'}}>nothing in wishlist</p>}
         </div>
         </div>
     );
