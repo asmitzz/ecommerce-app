@@ -15,8 +15,11 @@ export const ProductContextProvider = ({children}) => {
     }
 
     const getFilteredProducts = (sortedProducts) => {
+        console.log(sortedProducts.priceRange);
         return {...sortedProducts, products:sortedProducts.products.filter( p => sortedProducts.includeOutOfStock ? true : p.inStock)
-        .filter( p => sortedProducts.fastDelivery ? p.fastDelivery : true )}
+        .filter( p => sortedProducts.fastDelivery ? p.fastDelivery : true )
+        .filter( p => sortedProducts.priceRange !== null ? parseInt(p.price) <= parseInt(sortedProducts.priceRange) : true )     
+    }
     }
 
     const sortedProducts = getSortedProducts(state);

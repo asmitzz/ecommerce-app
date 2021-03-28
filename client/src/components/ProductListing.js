@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
@@ -11,8 +11,12 @@ const ProductListing = ({ route }) => {
     includeOutOfStock,
     fastDelivery,
   } = useProducts();
+
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
+
+  const [min] = useState( () => [...products].sort( (a,b) => a.price - b.price )[0].price);
+  const [max] = useState( () => [...products].sort( (a,b) => b.price - a.price )[0].price);
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i.id === item.id)) {
@@ -59,18 +63,33 @@ const ProductListing = ({ route }) => {
 
         <fieldset>
           <legend>Filter :</legend>
+          <label>
           <input
             type="checkbox"
             checked={includeOutOfStock}
             onChange={() => dispatchProduct({ type: "INCLUDE_OUT_STOCK" })}
           />
           Include Out Of Stock
-          <input
+          </label>
+         
+          <label>
+          &nbsp; <input
             type="checkbox"
             checked={fastDelivery}
             onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
           />
           Fast Delivery
+          </label>
+
+          <label>
+            &nbsp; Price : <input
+            type="range"
+            min={min}
+            max={max}
+            defaultValue={50}
+            onChange={(e) => dispatchProduct({ type:"SORT_BY_PRICE_RANGE",payload:e.target.value })}
+          />
+          </label>
         </fieldset>
 
       <div className="products">
@@ -117,6 +136,7 @@ const ProductListing = ({ route }) => {
             <a className="link" href="https://github.com/asmitzz">
               <img
                 alt="social-media"
+                loading="lazy"
                 src="https://img.icons8.com/fluent/50/000000/github.png"
               />
             </a>

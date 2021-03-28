@@ -10,6 +10,8 @@ const ProductReducer = () => {
         return { ...state, includeOutOfStock: !state.includeOutOfStock };
       case "FAST_DELIVERY":
         return { ...state, fastDelivery: !state.fastDelivery };
+      case "SORT_BY_PRICE_RANGE":
+        return { ...state, priceRange: action.payload}
       default:
         return state;
     }
@@ -20,6 +22,7 @@ const ProductReducer = () => {
     sortBy: null,
     includeOutOfStock: true,
     fastDelivery: false,
+    priceRange:null
   });
 
   return { state, dispatch };
