@@ -162,6 +162,12 @@ h1,h3,h4{
   padding:8px 16px;
   outline: #dab600;
   border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   0 2px 2px rgba(0,0,0,0.12), 
+   0 4px 4px rgba(0,0,0,0.12), 
+   0 8px 8px rgba(0,0,0,0.12),
+   0 16px 16px rgba(0,0,0,0.12);
+   transition: all 0.2s ease-in-out;
 }
 
 .secondary-btn{
@@ -172,10 +178,19 @@ h1,h3,h4{
   border: 1px solid #dab600;
   outline: #dab600;
   border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   0 2px 2px rgba(0,0,0,0.12), 
+   0 4px 4px rgba(0,0,0,0.12), 
+   0 8px 8px rgba(0,0,0,0.12),
+   0 16px 16px rgba(0,0,0,0.12);
+   transition: all 0.2s ease-in-out;
 }
 
 .primary-btn:hover,.secondary-btn:hover{
-  opacity: 0.5;
+  opacity: 0.9;
+  box-shadow: 0 -1px 1px rgba(0,0,0,0.12), 
+   -2px -2px 2px rgba(0,0,0,0.12), 
+   -4px -4px 4px rgba(0,0,0,0.12); 
 }
 
 .removeIcon:hover{
@@ -197,13 +212,15 @@ h1,h3,h4{
   }
 }
 .cart-container{
-  padding:1rem 0;
+  padding:1rem;
   width:800px;
+  margin: auto;
 }
 
 @media(max-width:845px){
   .cart-container{
     width:96%;
+    padding:1rem 0;
   }
 }
 

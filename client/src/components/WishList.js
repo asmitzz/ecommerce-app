@@ -9,7 +9,7 @@ const WishList = () => {
   
     return (
       <div className="wishlist-container">
-        <h1>Wishlist ({wishlist.length})</h1>
+        <h1 style={{textAlign: 'center'}}>Wishlist ({wishlist.length})</h1>
         <div className="products">
               {
                 wishlist.map( item => (
@@ -27,7 +27,7 @@ const WishList = () => {
                       <button onClick={() => {
                         dispatchCart({ type:"ADD_TO_CART" , payload:item });
                         dispatchWishlist({ type:"REMOVE_FROM_WISHLIST",payload:item.id });
-                        } } className="primary-btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
+                        } } disabled={!item.inStock} className="primary-btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
                     </div>
                   ))
               }
