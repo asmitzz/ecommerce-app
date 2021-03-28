@@ -2,7 +2,7 @@ import faker from "faker";
 
 faker.seed(123);
 
-export const productsDb = [...Array(50)].map((item) => ({
+export const products = [...Array(50)].map((item) => ({
   id: faker.random.uuid(),
   name: faker.commerce.productName(),
   image: faker.random.image(),

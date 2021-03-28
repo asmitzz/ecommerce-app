@@ -1,5 +1,4 @@
 import { useReducer } from "react";
-import { productsDb } from "../productsDb";
 
 const ProductReducer = () => {
   const productsReducer = (state, action) => {
@@ -18,7 +17,6 @@ const ProductReducer = () => {
   };
 
   const [state, dispatch] = useReducer(productsReducer, {
-    products: productsDb,
     sortBy: null,
     includeOutOfStock: true,
     fastDelivery: false,
