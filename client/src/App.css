@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+:root{
+  --danger-color:red; 
+}
+
 body{
   background: aliceblue;
   margin:0;
@@ -322,4 +326,135 @@ fieldset input {
 
 .footer img{
   height:2rem;
+}
+
+.address_container {
+  width: 70%;
+  padding: 1rem;
+  margin:auto;
+}
+
+.address_container > h3 {
+  padding: 0.5rem;
+  background: #181818;
+  color: #dab600;
+  text-align: center;
+}
+
+.addresses_container {
+  position: relative;
+}
+
+.addresses_container > input {
+  position: absolute;
+  top: 44%;
+  left: 10px;
+  cursor: pointer;
+}
+
+.addresses {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #181818;
+}
+
+.addresses > div {
+  display: flex;
+  align-items: center;
+}
+
+.addresses span {
+  margin-right: 1rem;
+}
+
+.addresses div,
+p {
+  margin-left: 1rem;
+}
+
+.addresses .number {
+  flex: 1;
+}
+
+.address_type {
+  background: #181818;
+  padding: 0.2rem;
+  color: #dab600;
+  width: fit-content;
+  margin-left: 1rem;
+  border-radius: 5px;
+}
+
+.newAddress {
+  width:70%;
+  margin: 1rem auto;
+}
+
+.newAddress button {
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.editAddress{
+  width: 98%;
+}
+
+.editAddress button {
+  margin: 1rem 0;
+  margin-right: 1rem;
+}
+
+.form-group{
+   display: flex;
+   align-items: center;
+}
+
+.form-group label{
+   flex:1
+}
+
+.form-group div{
+  width: 70%;
+  margin: 0.3rem 0;
+}
+
+.form-group .form-control{
+   width:100%;
+   border-radius:5px;
+   border: 3px solid transparent;
+   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   0 2px 2px rgba(0,0,0,0.12), 
+   0 4px 4px rgba(0,0,0,0.12), 
+   0 8px 8px rgba(0,0,0,0.12),
+   0 16px 16px rgba(0,0,0,0.12);
+   transition: all 0.3s ease-out;
+   padding:0.3rem;
+   font-size: 1rem;
+   font-weight:500;
+}
+
+.form-group .form-control:focus{
+  border: 2px solid #dab600;
+  outline: #dab600;
+}
+
+.invalid-feedback{
+  color: var(--danger-color);
+  margin-top: 7px;
+  font-size: 0.9rem;
+}
+
+.is-invalid{
+  border: 1px solid var(--danger-color);
+}
+
+.valid-feedback{
+  color: var(--success-color);
+  margin-top: 7px;
+  font-size: 0.9rem;
+}
+
+.is-valid{
+  border: 1px solid var(--success-color);
 }

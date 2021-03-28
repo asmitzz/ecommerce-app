@@ -7,9 +7,12 @@ import { useCart } from "./contexts/CartContext";
 
 import "./App.css";
 import { useWishlist } from "./contexts/WishContext";
+import DisplayAddresses from "./components/address-management/DisplayAddresses";
+import EditAddress from "./components/address-management/EditAddress";
+import AddNewAddress from "./components/address-management/AddNewAddress";
 
 const App = () => {
-  const [route, setRoute] = useState("ProductListing");
+  const [route, setRoute] = useState("AddNewAddress");
   const { cart } = useCart();
   const { wishlist } = useWishlist();
 
@@ -40,7 +43,10 @@ const App = () => {
 
       {route === "ProductListing" && <ProductListing route={setRoute} />}
       {route === "WishList" && <WishList />}
-      {route === "Cart" && <Cart />}
+      {route === "Cart" && <Cart route={setRoute}/>}
+      {route === "DisplayAddresses" && <DisplayAddresses route={setRoute}/>}
+      {route === "EditAddress" && <EditAddress route={setRoute}/>}
+      {route === "AddNewAddress" && <AddNewAddress route={setRoute}/>}
       
     </div>
   );

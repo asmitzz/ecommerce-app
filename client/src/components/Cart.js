@@ -2,9 +2,10 @@ import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useWishlist } from '../contexts/WishContext';
 
-const Cart = () => {
+const Cart = ({route}) => {
   const {dispatchWishlist} = useWishlist();
   const {cart,dispatchCart} = useCart();
+
   const price = () => {
     return cart.reduce( (total,i) => parseInt(total) + parseInt(i.price*i.qty) , 0)
   }
@@ -41,7 +42,11 @@ const Cart = () => {
                     </div>
                   ))
               : <p style={{textAlign:'center'}}>Your cart is empty</p>}
-            { cart.length > 0 && <h2>Total Price: ₹{price()}</h2>}
+            { cart.length > 0 && 
+            <>
+             <h2>Total Price: ₹{price()}</h2>
+             <button className="primary-btn" onClick={() => route("DisplayAddresses")}>Proceed to checkout</button>
+            </>}
         </div>
     );
 };
