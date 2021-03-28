@@ -67,19 +67,22 @@ h1,h3,h4{
 }
 
 .products{
-  display:grid;
   grid-template-columns: repeat(auto-fill, 200px);
-  grid-gap: 40px;
+  grid-gap:0 20px;
   padding:1rem 0;
   justify-content: center;
+  min-height: 39.5vh;
 }
 
 fieldset label{
   margin:0.2rem 0.5rem;
 }
 
+fieldset input {
+  cursor: pointer;
+}
+
 @media(max-width:600px){
-  
   fieldset{
     display:flex;
     flex-direction:column;
@@ -126,12 +129,16 @@ fieldset label{
   overflow: hidden;
   display: flex;
   flex-direction:column;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.card:hover{
   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
    0 2px 2px rgba(0,0,0,0.12), 
    0 4px 4px rgba(0,0,0,0.12), 
    0 8px 8px rgba(0,0,0,0.12),
    0 16px 16px rgba(0,0,0,0.12);
-   border-radius: 5px;
 }
 
 .card-content{

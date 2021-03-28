@@ -15,8 +15,11 @@ const ProductListing = ({ route }) => {
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
 
-  const [min] = useState( () => [...products].sort( (a,b) => a.price - b.price )[0].price);
-  const [max] = useState( () => [...products].sort( (a,b) => b.price - a.price )[0].price);
+  const [{min,max,value},setState] = useState( {
+    min:  products.length > 0 ? [...products].sort( (a,b) => a.price - b.price )[0].price : 0,
+    max: products.length > 0 ? [...products].sort( (a,b) => b.price - a.price )[0].price : 0,
+    value: products.length > 0 ? [...products].sort( (a,b) => b.price - a.price )[0].price : 0
+  });
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i.id === item.id)) {
@@ -73,7 +76,7 @@ const ProductListing = ({ route }) => {
           </label>
          
           <label>
-           <input
+         <input
             type="checkbox"
             checked={fastDelivery}
             onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
@@ -82,18 +85,22 @@ const ProductListing = ({ route }) => {
           </label>
 
           <label>
-             Price : <input
+           Price-range : 0 <input
             type="range"
             min={min}
             max={max}
-            defaultValue={50}
-            onChange={(e) => dispatchProduct({ type:"SORT_BY_PRICE_RANGE",payload:e.target.value })}
+            defaultValue={value}
+            onChange={(e) => {
+              dispatchProduct({ type:"SORT_BY_PRICE_RANGE",payload:e.target.value })
+              setState({min,max,value:e.target.value})
+            }}
           />
+           {value}
           </label>
         </fieldset>
 
-      <div className="products">
-        {products.map((item) => (
+      <div style={{display: products.length > 0 ? 'grid': "block"}} className="products">
+        { products.length > 0 ? products.map((item) => (
           <div
             key={item.id}
             className={item.inStock ? "card" : "card out-of-stock"}
@@ -127,7 +134,7 @@ const ProductListing = ({ route }) => {
                 : "Add to cart"}
             </button>
           </div>
-        ))}
+        )) : <p style={{textAlign:'center'}}>No results found</p> }
       </div>
       <footer className="footer">
         <div className="footer-header">Connect with me on Social media</div>

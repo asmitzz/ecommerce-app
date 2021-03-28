@@ -10,7 +10,7 @@ const WishList = () => {
     return (
       <div className="wishlist-container">
         <h1 style={{textAlign: 'center'}}>Wishlist ({wishlist.length})</h1>
-        <div className="products">
+        <div style={{display: wishlist.length > 0 ? 'grid': "block"}}  className="products">
               {
                 wishlist.map( item => (
                     <div key={item.id} className={ item.inStock ? "card" : "card out-of-stock"}>
