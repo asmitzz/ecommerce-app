@@ -74,6 +74,18 @@ h1,h3,h4{
   justify-content: center;
 }
 
+fieldset label{
+  margin:0.2rem 0.5rem;
+}
+
+@media(max-width:600px){
+  
+  fieldset{
+    display:flex;
+    flex-direction:column;
+  }
+}
+
 @media(max-width:426px){
   .products{
    grid-template-columns:repeat(auto-fill,190px);

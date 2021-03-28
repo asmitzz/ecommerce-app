@@ -73,7 +73,7 @@ const ProductListing = ({ route }) => {
           </label>
          
           <label>
-          &nbsp; <input
+           <input
             type="checkbox"
             checked={fastDelivery}
             onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
@@ -82,7 +82,7 @@ const ProductListing = ({ route }) => {
           </label>
 
           <label>
-            &nbsp; Price : <input
+             Price : <input
             type="range"
             min={min}
             max={max}
