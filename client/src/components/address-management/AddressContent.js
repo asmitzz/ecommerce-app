@@ -1,20 +1,23 @@
 import { useState } from "react";
+import { useAddress } from "../../contexts/AddressContext";
 import EditAddress from "./EditAddress";
 
 const AddressContent = (props) => {
 
   const { id ,name, type, number, pincode, city, state, address, locality } = props;
   const [edit, setEdit] = useState(false);
+  const { dispatchAddress,selectedAddress } = useAddress();
+ 
   
   const HandleAddressSelection = (e) => {
-       console.log(e.target.id);
+    dispatchAddress({type:"SELECTED_ADDRESS",payload:e.target.id})
   }
 
   return (
     <div className="addresses_container">
       {!edit ? (
         <>
-          <input id={id} name="address" type="radio" onChange={HandleAddressSelection} />
+          <input id={id} name="address" defaultChecked={ selectedAddress && selectedAddress.id === id} type="radio" onChange={HandleAddressSelection} />
           <div className="addresses">
             <span className="address_type">{type}</span>
             <div>
@@ -31,6 +34,7 @@ const AddressContent = (props) => {
               {address} , {locality} , {city} , {state} ,
               <strong> {pincode}</strong>
             </p>
+            { selectedAddress !== null && <button className="secondary-btn" onClick={ () => props.route("OrderSummary") }>Deliver to this address</button>}
           </div>
         </>
       ) : (

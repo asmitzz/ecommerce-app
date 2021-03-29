@@ -5,10 +5,10 @@ export const cartContext = createContext();
 
 export const CartContextProvider = ({children}) => {
 
-    const { cart,dispatch } = CartReducer();
+    const { cart,dispatch,totalCartValue,totalCartItem } = CartReducer();
     
     return(
-        <cartContext.Provider value={{cart,dispatchCart:dispatch}}>
+        <cartContext.Provider value={{cart,dispatchCart:dispatch,totalCartValue,totalCartItem}}>
              {children}
         </cartContext.Provider>
     );

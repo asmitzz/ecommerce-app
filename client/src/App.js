@@ -10,6 +10,7 @@ import { useWishlist } from "./contexts/WishContext";
 import DisplayAddresses from "./components/address-management/DisplayAddresses";
 import EditAddress from "./components/address-management/EditAddress";
 import AddNewAddress from "./components/address-management/AddNewAddress";
+import OrderSummary from "./components/OrderSummary";
 
 const App = () => {
   const [route, setRoute] = useState("ProductListing");
@@ -47,6 +48,7 @@ const App = () => {
       {route === "DisplayAddresses" && <DisplayAddresses route={setRoute}/>}
       {route === "EditAddress" && <EditAddress route={setRoute}/>}
       {route === "AddNewAddress" && <AddNewAddress route={setRoute}/>}
+      {route === "OrderSummary" && <OrderSummary route={setRoute}/> }
       
     </div>
   );

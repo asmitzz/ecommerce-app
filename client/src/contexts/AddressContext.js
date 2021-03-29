@@ -11,15 +11,17 @@ export const AddressContextProvider = ({children}) => {
           return {...state,address:[...state.address,action.payload]}
           case "EDIT_ADDRESS":
           return {...state,address:state.address.map( editaddress => editaddress.id === action.payload.id ? action.payload : editaddress)}
+          case "SELECTED_ADDRESS":
+          return {...state,selectedAddress:state.address.find( address => address.id === action.payload )};
           default:
           return state;
       }
   }
   
-  const [{address},dispatch] = useReducer(addressReducer,{address:[]});
+  const [{address,selectedAddress},dispatch] = useReducer(addressReducer,{address:[],selectedAddress:null});
   
   return(
-     <AddressContext.Provider value={{address,dispatchAddress:dispatch}}>
+     <AddressContext.Provider value={{address,selectedAddress,dispatchAddress:dispatch}}>
        {children}
      </AddressContext.Provider>
    )

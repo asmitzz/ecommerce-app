@@ -466,3 +466,34 @@ p {
 .is-valid{
   border: 1px solid var(--success-color);
 }
+
+.order_summary_container > h2{
+    text-align: center;
+}
+
+.order_summary_container li{
+  margin: 0.5rem 0;
+}
+
+.order_summary{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 60%;
+  border-bottom: 2px solid #181818;
+}
+
+@media(max-width:750px){
+  .order_summary{
+    width: 100%;
+  }
+}
+
+.order_summary_content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.final_checkout{
+   margin-left: 1.5rem;
+}

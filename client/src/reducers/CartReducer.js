@@ -16,9 +16,15 @@ const CartReducer = () => {
         }
     }
 
-    const [{cart}, dispatch] = useReducer(cartReducer,{cart:[]})
-    
-    return {cart,dispatch}
+    const [{cart}, dispatch] = useReducer(cartReducer,{cart:[]});
+
+    const getTotalCartValue = () => cart.reduce( (total,i) => parseInt(total) + parseInt(i.price*i.qty) , 0);
+    const totalCartValue = getTotalCartValue();
+
+    const getTotalCartItem = () =>  cart.reduce( (total,i) => parseInt(total) + parseInt(i.qty) , 0);
+    const totalCartItem = getTotalCartItem();
+
+    return {cart,totalCartValue,totalCartItem,dispatch}
 };
 
 export default CartReducer;

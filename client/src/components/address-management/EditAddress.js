@@ -40,8 +40,8 @@ const EditAddress = (props) => {
     if( newaddress.type === "" ){
       type="please fill this field"
     }
-    if( newaddress.number === "" ){
-      number="please fill this field"
+    if( !/^[6789]\d{9}$/.test(newaddress.number) ){
+      number="Invalid number"
     }
     if( newaddress.address === "" ){
       address="please fill this field"
@@ -83,7 +83,7 @@ const EditAddress = (props) => {
             value={name}
             onChange={handleChange}
           />
-          <span class="invalid-feedback">{errors.name}</span>
+          <span className="invalid-feedback">{errors.name}</span>
           </div>
         </div>
         <div className="form-group">

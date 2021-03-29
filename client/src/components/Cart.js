@@ -4,19 +4,11 @@ import { useWishlist } from '../contexts/WishContext';
 
 const Cart = ({route}) => {
   const {dispatchWishlist} = useWishlist();
-  const {cart,dispatchCart} = useCart();
-
-  const price = () => {
-    return cart.reduce( (total,i) => parseInt(total) + parseInt(i.price*i.qty) , 0)
-  }
-
-  const totalItem = () => {
-     return cart.reduce( (total,i) => parseInt(total) + parseInt(i.qty) , 0)
-  }
+  const {cart,dispatchCart,totalCartValue,totalCartItem} = useCart();
 
   return (
         <div className="cart-container">
-          <h1>My Cart({ totalItem() })</h1>
+          <h1>My Cart({ totalCartItem })</h1>
               {
                 cart.length > 0 ? cart.map( item => (
                     <div key={item.id} className="card-horizontal">
@@ -44,7 +36,7 @@ const Cart = ({route}) => {
               : <p style={{textAlign:'center'}}>Your cart is empty</p>}
             { cart.length > 0 && 
             <>
-             <h2>Total Price: ₹{price()}</h2>
+             <h2>Total Price: ₹{totalCartValue}</h2>
              <button className="primary-btn" onClick={() => route("DisplayAddresses")}>Proceed to checkout</button>
             </>}
         </div>

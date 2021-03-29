@@ -39,8 +39,8 @@ const AddNewAddress = ({ route }) => {
     if (newAddress.type === "") {
       type = "please fill this field";
     }
-    if (newAddress.number === "") {
-      number = "please fill this field";
+    if (!/^[6789]\d{9}$/.test(newAddress.number)) {
+      number = "Invalid mobile number";
     }
     if (newAddress.address === "") {
       address = "please fill this field";
