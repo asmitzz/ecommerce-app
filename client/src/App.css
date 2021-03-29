@@ -216,6 +216,17 @@ fieldset input {
    -4px -4px 4px rgba(0,0,0,0.12); 
 }
 
+.removeIcon{
+  cursor: pointer;
+}
+
+.addresses_container .removeIcon > button{
+   background: transparent;
+   border: none;
+   font-size: 1.3rem;
+   cursor: pointer;
+}
+
 .removeIcon:hover{
   animation:move 0.5s;
 }
@@ -372,12 +383,7 @@ fieldset input {
   align-items: center;
 }
 
-.addresses span {
-  margin-right: 1rem;
-}
-
-.addresses div,
-p {
+.addresses div,p {
   margin-left: 1rem;
 }
 
@@ -486,6 +492,10 @@ p {
   .order_summary{
     width: 100%;
   }
+}
+
+.address_container .removeIcon{
+   margin-right: 1rem;
 }
 
 .order_summary_content{

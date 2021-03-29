@@ -22,7 +22,12 @@ const AddressContent = (props) => {
             <span className="address_type">{type}</span>
             <div>
               <span className="name"> {name}</span>
-              <span className="number">{number}</span>
+              <span className="number"> &nbsp;{number} </span>
+              <div className="removeIcon">
+                <button title="remove" onClick={() => dispatchAddress({ type:"REMOVE_ADDRESS",payload:id })} >
+                  <i style={{ color:'rgb(223, 71, 89)' }} className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
               <button
                 onClick={() => setEdit(!edit)}
                 className="secondary-btn"
