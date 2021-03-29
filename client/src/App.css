@@ -70,6 +70,7 @@ h1,h3,h4{
   background:transparent;
 }
 
+
 .products{
   grid-template-columns: repeat(auto-fill, 200px);
   grid-gap:0 20px;
@@ -107,26 +108,24 @@ fieldset input {
   }
 }
 
-@media only screen and (max-width: 360px) and (min-width: 322px){
+@media only screen and (max-width: 400px) and (min-width: 360px){
   .products{
-   grid-template-columns:repeat(auto-fill,175px);
+   grid-template-columns:1fr;
+   justify-content: left;
+  }
+  .card{
+    width: 330px;
+    margin:0 1rem;
+  }
+}
+
+@media only screen and (max-width: 415px) and (min-width: 320px){
+  .products{
+   grid-template-columns:repeat(auto-fill,195px);
    grid-gap: 10px;
   }
 }
 
-@media only screen and (max-width: 376px) and (min-width: 361px){
-  .products{
-    grid-template-columns:repeat(auto-fill,182px);
-    grid-gap: 10px;
-   }
-}
-
-@media only screen and (max-width: 415px) and (min-width: 377px){
-  .products{
-   grid-template-columns:repeat(auto-fill,200px);
-   grid-gap: 10px;
-  }
-}
 
 .card{
   position: relative;
@@ -135,14 +134,19 @@ fieldset input {
   flex-direction:column;
    border-radius: 5px;
    cursor: pointer;
-}
-
-.card:hover{
-  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
    0 2px 2px rgba(0,0,0,0.12), 
    0 4px 4px rgba(0,0,0,0.12), 
    0 8px 8px rgba(0,0,0,0.12),
    0 16px 16px rgba(0,0,0,0.12);
+}
+
+.card:hover{
+  box-shadow:inset 0 1px 1px rgba(0,0,0,0.12), 
+  inset 0 2px 2px rgba(0,0,0,0.12), 
+  inset 0 4px 4px rgba(0,0,0,0.12), 
+  inset 0 8px 8px rgba(0,0,0,0.12),
+  inset 0 16px 16px rgba(0,0,0,0.12);
 }
 
 .card-content{
@@ -286,9 +290,22 @@ fieldset input {
 @media(max-width:475px){
   .card-horizontal{
      grid-template-columns: 1fr 1fr;
+     height:27vh;
+  }
+}
+
+@media(max-width:410px){
+  .card-horizontal{
+     grid-template-columns: 1fr 1fr;
+     height:30vh;
+  }
+}
+
+@media(max-width:410px){
+  .card-horizontal{
+     grid-template-columns: 1fr 1fr;
      height:35vh;
   }
-  
 }
 
 .card-horizontal .card-img{
@@ -507,3 +524,58 @@ fieldset input {
 .final_checkout{
    margin-left: 1.5rem;
 }
+
+.menu{
+  display: flex;
+  margin:0.5rem 0.2rem;
+  margin-left: 7%;
+}
+
+.dropdownBtn-container{
+  border: 1px solid #181818;
+  width: fit-content;
+  padding: 0 0.3rem;
+  margin-right: 0.2rem;
+}
+
+@media(max-width:380px){
+  .dropdownBtn-container{
+    flex:1
+  }
+}
+
+.dropdownBtn{
+   padding: 0.5rem 1rem;
+   cursor: pointer;
+   background: transparent;
+   border: none;
+}
+
+.dropdownBtn option{
+  background: aliceblue;
+}
+
+  .filter-container > button{
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: transparent;
+    width: 150px;
+    border: 1px solid black;
+  }
+  
+  .fiter-content{
+    display: flex;
+    margin: 0.3rem 0;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 7%;
+  }
+
+  @media(max-width:800px){
+  .fiter-content,.menu{
+      margin-left: 0;
+   }
+   .menu{
+     justify-content: center;
+   }
+  }

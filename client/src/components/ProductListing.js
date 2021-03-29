@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
@@ -7,7 +7,6 @@ const ProductListing = ({ route }) => {
   const {
     products,
     dispatchProduct,
-    sortBy,
     includeOutOfStock,
     fastDelivery,
   } = useProducts();
@@ -15,10 +14,19 @@ const ProductListing = ({ route }) => {
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
 
-  const [{min,max,value},setState] = useState( {
-    min:  products.length > 0 ? [...products].sort( (a,b) => a.price - b.price )[0].price : 0,
-    max: products.length > 0 ? [...products].sort( (a,b) => b.price - a.price )[0].price : 0,
-    value: products.length > 0 ? [...products].sort( (a,b) => b.price - a.price )[0].price : 0
+  const [{ min, max, value }, setState] = useState({
+    min:
+      products.length > 0
+        ? [...products].sort((a, b) => a.price - b.price)[0].price
+        : 0,
+    max:
+      products.length > 0
+        ? [...products].sort((a, b) => b.price - a.price)[0].price
+        : 0,
+    value:
+      products.length > 0
+        ? [...products].sort((a, b) => b.price - a.price)[0].price
+        : 0,
   });
 
   const addToWishlist = (item) => {
@@ -38,103 +46,113 @@ const ProductListing = ({ route }) => {
     dispatchCart({ type: "ADD_TO_CART", payload: item });
   };
 
+  const HandleDropdown = (e) => {
+    dispatchProduct({ type: "SORT", payload: e.target.value });
+  };
+
+  const [displayFilter, setDisplayFilter] = useState(false);
+
   return (
-    <div>
-        <fieldset>
-          <legend>Sort by :</legend>
-          <label htmlFor="sort">
+    <div className="products-container">
+      <div className="menu">
+      <div className="dropdownBtn-container">
+        <small><i class="fas fa-sort-amount-up-alt"></i> Sort by :</small>
+        <select className="dropdownBtn" onChange={HandleDropdown}>
+          <option value="DEFAULT">Relevance</option>
+          <option value="HIGH_TO_LOW">High to low</option>
+          <option value="LOW_TO_HIGH">Low to high</option>
+        </select>
+      </div>
+
+      <div className="filter-container">
+        <button onClick={() => setDisplayFilter(!displayFilter)}><i className="fa fa-filter"></i> Filter</button>
+      </div>
+     </div>
+
+     {displayFilter && (
+          <div className="fiter-content">
+            <label>
+              <input
+                type="checkbox"
+                checked={includeOutOfStock}
+                onChange={() => dispatchProduct({ type: "INCLUDE_OUT_STOCK" })}
+              />
+              Include Out Of Stock&nbsp;&nbsp;
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                checked={fastDelivery}
+                onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
+              />
+              Fast Delivery&nbsp;
+            </label>
+
+            <label>&nbsp;Price-range : 0 
             <input
-              type="radio"
-              checked={sortBy === "LOW_TO_HIGH"}
-              onChange={() =>
-                dispatchProduct({ type: "SORT", payload: "LOW_TO_HIGH" })
-              }
-              name="sort"
-            />
-            Low to High
-            <input
-              type="radio"
-              checked={sortBy === "HIGH_TO_LOW"}
-              onChange={() =>
-                dispatchProduct({ type: "SORT", payload: "HIGH_TO_LOW" })
-              }
-              name="sort"
-            />
-            High to Low
-          </label>
-        </fieldset>
-
-        <fieldset>
-          <legend>Filter :</legend>
-          <label>
-          <input
-            type="checkbox"
-            checked={includeOutOfStock}
-            onChange={() => dispatchProduct({ type: "INCLUDE_OUT_STOCK" })}
-          />
-          Include Out Of Stock
-          </label>
-         
-          <label>
-         <input
-            type="checkbox"
-            checked={fastDelivery}
-            onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
-          />
-          Fast Delivery
-          </label>
-
-          <label>
-           Price-range : 0 <input
-            type="range"
-            min={min}
-            max={max}
-            defaultValue={value}
-            onChange={(e) => {
-              dispatchProduct({ type:"SORT_BY_PRICE_RANGE",payload:e.target.value })
-              setState({min,max,value:e.target.value})
-            }}
-          />
-           {value}
-          </label>
-        </fieldset>
-
-      <div style={{display: products.length > 0 ? 'grid': "block"}} className="products">
-        { products.length > 0 ? products.map((item) => (
-          <div
-            key={item.id}
-            className={item.inStock ? "card" : "card out-of-stock"}
-          >
-            <i
-              onClick={() => addToWishlist(item)}
-              style={{
-                color: wishlist.find((i) => i.id === item.id) ? "red" : "white",
+              type="range"
+              min={min}
+              max={max}
+              defaultValue={value}
+              onChange={(e) => {
+                dispatchProduct({
+                  type: "SORT_BY_PRICE_RANGE",
+                  payload: e.target.value,
+                });
+                setState({ min, max, value: e.target.value });
               }}
-              className="fa fa-heart"
-              aria-hidden="true"
-            ></i>
-            <img alt="product" className="card-img" src={item.image} />
-            <div className="card-content">
-              <h3>{item.name}</h3>
-              <span>Price:{item.price}</span>
-              <span>{item.inStock ? "Instock" : "out of stock"}</span>
-              {item.fastDelivery && (
-                <span style={{ flex: 1 }}>Fast Delivery available</span>
-              )}
-            </div>
-            <button
-              onClick={() => cartHandler(item)}
-              className="primary-btn"
-              disabled={!item.inStock}
-            >
-              {!item.inStock
-                ? "Out of Stock"
-                : cart.find((i) => i.id === item.id)
-                ? "Go to cart"
-                : "Add to cart"}
-            </button>
+            />
+              {value}</label>
+            
           </div>
-        )) : <p style={{textAlign:'center'}}>No results found</p> }
+        )}
+
+      <div
+        style={{ display: products.length > 0 ? "grid" : "block" }}
+        className="products"
+      >
+        {products.length > 0 ? (
+          products.map((item) => (
+            <div
+              key={item.id}
+              className={item.inStock ? "card" : "card out-of-stock"}
+            >
+              <i
+                onClick={() => addToWishlist(item)}
+                style={{
+                  color: wishlist.find((i) => i.id === item.id)
+                    ? "red"
+                    : "white",
+                }}
+                className="fa fa-heart"
+                aria-hidden="true"
+              ></i>
+              <img alt="product" className="card-img" src={item.image} />
+              <div className="card-content">
+                <h3>{item.name}</h3>
+                <span>Price:{item.price}</span>
+                <span>{item.inStock ? "Instock" : "out of stock"}</span>
+                {item.fastDelivery && (
+                  <span style={{ flex: 1 }}>Fast Delivery available</span>
+                )}
+              </div>
+              <button
+                onClick={() => cartHandler(item)}
+                className="primary-btn"
+                disabled={!item.inStock}
+              >
+                {!item.inStock
+                  ? "Out of Stock"
+                  : cart.find((i) => i.id === item.id)
+                  ? "Go to cart"
+                  : "Add to cart"}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p style={{ textAlign: "center" }}>No results found</p>
+        )}
       </div>
       <footer className="footer">
         <div className="footer-header">Connect with me on Social media</div>

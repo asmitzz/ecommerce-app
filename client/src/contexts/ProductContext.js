@@ -22,7 +22,7 @@ export const ProductContextProvider = ({children}) => {
         .filter( p => priceRange !== null ? parseInt(p.price) <= parseInt(priceRange) : true )     
     }
 
-    const sortedProducts = getSortedProducts(products);
+    const sortedProducts = getSortedProducts([...products]);
     const FilteredProducts = getFilteredProducts(sortedProducts); 
 
     return(
