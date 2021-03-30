@@ -5,7 +5,7 @@ import { useWishlist } from '../contexts/WishContext';
 const WishList = () => {
 
   const {wishlist,dispatchWishlist} = useWishlist();
-  const { dispatchCart } = useCart();
+  const {cart, dispatchCart } = useCart();
   
     return (
       <div className="wishlist-container">
@@ -27,7 +27,11 @@ const WishList = () => {
                       <button onClick={() => {
                         dispatchCart({ type:"ADD_TO_CART" , payload:item });
                         dispatchWishlist({ type:"REMOVE_FROM_WISHLIST",payload:item.id });
-                        } } disabled={!item.inStock} className="primary-btn">{!item.inStock ? "Out of Stock" : "Move to cart"}</button>
+                        } } disabled={!item.inStock || cart.find((i) => i.id === item.id)} className="primary-btn">{!item.inStock
+                          ? "Out of Stock"
+                          : cart.find((i) => i.id === item.id)
+                          ? "Already in cart"
+                          : "Move to cart"}</button>
                     </div>
                   ))
               : <p style={{textAlign:'center'}}>nothing in wishlist</p>}

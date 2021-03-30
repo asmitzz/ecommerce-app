@@ -287,14 +287,7 @@ fieldset input {
   }
 }
 
-@media(max-width:475px){
-  .card-horizontal{
-     grid-template-columns: 1fr 1fr;
-     height:27vh;
-  }
-}
-
-@media(max-width:410px){
+@media(max-width:470px){
   .card-horizontal{
      grid-template-columns: 1fr 1fr;
      height:30vh;
@@ -322,6 +315,15 @@ fieldset input {
 .card-body .card-footer{
    display:flex;
    align-items: center;
+   position: relative;
+}
+
+.card-body .card-footer i{
+  font-size:1.5rem;
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0.13);
+  margin-right: 1rem;
+  border-radius: 5px;
 }
 
 .wishlist-container{
