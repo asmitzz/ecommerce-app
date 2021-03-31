@@ -22,12 +22,12 @@ const Cart = ({ route }) => {
           <div key={item.id} className="card-horizontal">
             <img alt="product" className="card-img" src={item.image} />
             <div className="card-body">
-              <h3 className="card-title">
+              <h4 className="card-title">
                 {item.name}(<span>{item.material}</span>)
-              </h3>
-              <span>Seller: {item.seller}</span>
+              </h4>
+              <small>Seller: {item.seller}</small>
               <div>
-                <p>₹{item.price}</p>
+                <small>₹{item.price}</small>&nbsp;
                 <button
                   disabled={item.qty <= 1}
                   onClick={() =>
@@ -46,7 +46,8 @@ const Cart = ({ route }) => {
                 </button>
               </div>
               <div className="card-footer">
-                <i 
+               <div className="wishlist-icon">
+               <i 
                   onClick={() => addToWishlist(item)}
                   style={{
                     color: wishlist.find((i) => i.id === item.id)
@@ -56,11 +57,16 @@ const Cart = ({ route }) => {
                   className="fa fa-heart fa-border"
                   aria-hidden="true"
                 ></i>
+               </div>
                 <button
                   onClick={() =>
                     dispatchCart({ type: "REMOVE_FROM_CART", payload: item.id })
                   }
                   className="secondary-btn"
+                  style={{
+                    padding:'0.2rem 0.5rem',
+                    borderRadius:'2px'
+                  }}
                 >
                   REMOVE
                 </button>

@@ -17,7 +17,7 @@ const AddressContent = (props) => {
     <div className="addresses_container">
       {!edit ? (
         <>
-          <input id={id} name="address" defaultChecked={ selectedAddress && selectedAddress.id === id} type="radio" onChange={HandleAddressSelection} />
+          <input id={id} name="address" checked={ selectedAddress && selectedAddress.id === id} type="radio" onChange={HandleAddressSelection} />
           <div className="addresses">
             <span className="address_type">{type}</span>
             <div>
@@ -39,7 +39,7 @@ const AddressContent = (props) => {
               {address} , {locality} , {city} , {state} ,
               <strong> {pincode}</strong>
             </p>
-            { selectedAddress !== null && <button className="secondary-btn" onClick={ () => props.route("OrderSummary") }>Deliver to this address</button>}
+            { selectedAddress !== null && selectedAddress.id === id  && <button className="secondary-btn" onClick={ () => props.route("OrderSummary") }>Deliver to this address</button>}
           </div>
         </>
       ) : (

@@ -14,20 +14,20 @@ const ProductListing = ({ route }) => {
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
 
-  const [{ min, max, value }, setState] = useState({
-    min:
-      products.length > 0
-        ? [...products].sort((a, b) => a.price - b.price)[0].price
-        : 0,
-    max:
-      products.length > 0
-        ? [...products].sort((a, b) => b.price - a.price)[0].price
-        : 0,
-    value:
-      products.length > 0
-        ? [...products].sort((a, b) => b.price - a.price)[0].price
-        : 0,
-  });
+  // const [{ min, max, value }, setState] = useState({
+  //   min:
+  //     products.length > 0
+  //       ? [...products].sort((a, b) => a.price - b.price)[0].price
+  //       : 0,
+  //   max:
+  //     products.length > 0
+  //       ? [...products].sort((a, b) => b.price - a.price)[0].price
+  //       : 0,
+  //   value:
+  //     products.length > 0
+  //       ? [...products].sort((a, b) => b.price - a.price)[0].price
+  //       : 0,
+  // });
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i.id === item.id)) {
@@ -71,7 +71,7 @@ const ProductListing = ({ route }) => {
 
      {displayFilter && (
           <div className="fiter-content">
-            <label>
+            <label className="filter-content-label">
               <input
                 type="checkbox"
                 checked={includeOutOfStock}
@@ -80,30 +80,30 @@ const ProductListing = ({ route }) => {
               Include Out Of Stock&nbsp;&nbsp;
             </label>
 
-            <label>
+            <label className="filter-content-label">
               <input
                 type="checkbox"
                 checked={fastDelivery}
                 onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
               />
-              Fast Delivery&nbsp;
+              &nbsp;<i className="fas fa-shipping-fast"></i> Fast Delivery&nbsp;
             </label>
 
-            <label>&nbsp;Price-range : 0 
+            <label className="filter-content-label">&nbsp;Price-range : 0 
             <input
               type="range"
-              min={min}
-              max={max}
-              defaultValue={value}
+              min="0"
+              max="1000"
+              defaultValue="1000"
               onChange={(e) => {
                 dispatchProduct({
                   type: "SORT_BY_PRICE_RANGE",
                   payload: e.target.value,
                 });
-                setState({ min, max, value: e.target.value });
+                // setState({ min, max, value: e.target.value });
               }}
             />
-              {value}</label>
+              1000</label>
             
           </div>
         )}
@@ -118,8 +118,8 @@ const ProductListing = ({ route }) => {
               key={item.id}
               className={item.inStock ? "card" : "card out-of-stock"}
             >
-              <i
-                onClick={() => addToWishlist(item)}
+              <div className="wishlist-icon">
+                <i onClick={() => addToWishlist(item)}
                 style={{
                   color: wishlist.find((i) => i.id === item.id)
                     ? "red"
@@ -127,14 +127,14 @@ const ProductListing = ({ route }) => {
                 }}
                 className="fa fa-heart"
                 aria-hidden="true"
-              ></i>
+                ></i>
+              </div>
               <img alt="product" className="card-img" src={item.image} />
               <div className="card-content">
-                <h3>{item.name}</h3>
-                <span>Price:{item.price}</span>
-                <span>{item.inStock ? "Instock" : "out of stock"}</span>
+                <h4>{item.name}</h4>
+                <small className="card-content-details">Price:{item.price}</small>
                 {item.fastDelivery && (
-                  <span style={{ flex: 1 }}>Fast Delivery available</span>
+                  <small className="card-content-details"><i className="fas fa-shipping-fast"></i> Fast Delivery available</small>
                 )}
               </div>
               <button

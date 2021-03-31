@@ -1,26 +1,11 @@
-import { createContext,useReducer, useContext } from "react";
+import { createContext, useContext } from "react";
+import AddressReducer from "../reducers/AddressReducer";
 
 export const AddressContext = createContext();
 
 export const AddressContextProvider = ({children}) => {
 
-  const addressReducer = (state,action) => {
-
-      switch(action.type) {
-          case "ADD_ADDRESS":
-          return {...state,address:[...state.address,action.payload]}
-          case "EDIT_ADDRESS":
-          return {...state,address:state.address.map( editaddress => editaddress.id === action.payload.id ? action.payload : editaddress)}
-          case "REMOVE_ADDRESS":
-          return {...state,address:state.address.filter( address => address.id !== action.payload )}
-          case "SELECTED_ADDRESS":
-          return {...state,selectedAddress:state.address.find( address => address.id === action.payload )};
-          default:
-          return state;
-      }
-  }
-  
-  const [{address,selectedAddress},dispatch] = useReducer(addressReducer,{address:[],selectedAddress:null});
+  const {address,selectedAddress,dispatch} = AddressReducer()
   
   return(
      <AddressContext.Provider value={{address,selectedAddress,dispatchAddress:dispatch}}>

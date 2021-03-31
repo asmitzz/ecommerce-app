@@ -11,6 +11,8 @@ const CartReducer = () => {
             return {...state,cart:state.cart.map( i => i.id === action.payload ? {...i,qty:i.qty + 1} : i )};
             case "REMOVE_QTY":
             return {...state,cart:state.cart.map( i => i.id === action.payload ? {...i,qty:i.qty - 1} : i )};
+            case "EMPTY_CART":
+            return {cart:[]}
             default:
             return state;
         }
