@@ -11,7 +11,7 @@ const OrderSummary = ({route}) => {
 
     return (
         <div className="order_summary_container">
-            <h2>Order Summary</h2>
+            <h2 className="order_summary_container_header">Order Summary</h2>
             <div>
                 <p>Delivered to:<small> {name}, {address} ,{city.toUpperCase()} , {state.toUpperCase()} , {locality} , {pincode} , India</small></p>
                 <ul>

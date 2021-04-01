@@ -76,7 +76,7 @@ h1,h3,h4{
   grid-gap:0 20px;
   padding:1rem 0;
   justify-content: center;
-  min-height: 39.5vh;
+  min-height: 46.4vh;
 }
 
 fieldset label{
@@ -260,6 +260,7 @@ fieldset input {
   padding:1rem;
   width:800px;
   margin: auto;
+  min-height:59.5vh;
 }
 
 @media(max-width:845px){
@@ -330,41 +331,16 @@ fieldset input {
 }
 
 .wishlist-container{
-  padding:1rem 0;
+  padding:1.14rem 0;
+  min-height: 46.4vh;
 }
 
-.footer{
-  padding:1rem 0;
-  background:#181818;
-  position: relative;
-  bottom:0;
-  width:100%;
-}
-
-.footer-header{
-  color:#dab600;
-  text-align:center;
-  font-size:1.5rem;
-}
-
-.footer ul {
-  display:flex;
-  justify-content: center;
-}
-
-.footer li {
-  list-style: none;
-  margin: 0 0.5rem;
-}
-
-.footer img{
-  height:2rem;
-}
 
 .address_container {
   width: 70%;
   padding: 1rem;
   margin:auto;
+  min-height: 59.5vh;
 }
 
 @media(max-width:800px){
@@ -495,7 +471,11 @@ fieldset input {
   border: 1px solid var(--success-color);
 }
 
-.order_summary_container > h2{
+.order_summary_container{
+  min-height: 61.5vh;
+}
+
+.order_summary_container .order_summary_container_header{
     text-align: center;
 }
 
@@ -530,7 +510,7 @@ fieldset input {
    margin-left: 1.5rem;
 }
 
-.menu{
+.sorting-container{
   display: flex;
   margin:0.5rem 0.2rem;
   margin-left: 7%;
@@ -560,31 +540,57 @@ fieldset input {
   background: aliceblue;
 }
 
-  .filter-container > button{
+.filter-btn-container .filter-button{
     padding: 0.5rem 1rem;
     cursor: pointer;
     background: transparent;
     width: 150px;
     border: 1px solid black;
-  }
+}
   
-  .fiter-content{
+.fiter-content{
     display: flex;
     margin: 0.3rem 0;
     flex-wrap: wrap;
     align-items: center;
     margin-left: 7%;
-  }
+}
 
-  .filter-content-label{
+.filter-content-label{
     font-size:0.8rem
-  }
+}
 
   @media(max-width:800px){
-  .fiter-content,.menu{
+  .fiter-content,.sorting-container{
       margin-left: 0;
    }
-   .menu{
+   .sorting-container{
      justify-content: center;
    }
+  }
+
+  .footer{
+    padding:1rem 0;
+    background:#181818;
+    width:100%;
+  }
+  
+  .footer-header{
+    color:#dab600;
+    text-align:center;
+    font-size:1.5rem;
+  }
+  
+  .footer ul {
+    display:flex;
+    justify-content: center;
+  }
+  
+  .footer li {
+    list-style: none;
+    margin: 0 0.5rem;
+  }
+  
+  .footer img{
+    height:2rem;
   }
