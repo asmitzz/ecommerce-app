@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
+import Footer from "./Footer";
 
 const ProductListing = ({ route }) => {
   const {
@@ -9,25 +10,12 @@ const ProductListing = ({ route }) => {
     dispatchProduct,
     includeOutOfStock,
     fastDelivery,
+    priceRange,
+    sortBy
   } = useProducts();
 
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
-
-  // const [{ min, max, value }, setState] = useState({
-  //   min:
-  //     products.length > 0
-  //       ? [...products].sort((a, b) => a.price - b.price)[0].price
-  //       : 0,
-  //   max:
-  //     products.length > 0
-  //       ? [...products].sort((a, b) => b.price - a.price)[0].price
-  //       : 0,
-  //   value:
-  //     products.length > 0
-  //       ? [...products].sort((a, b) => b.price - a.price)[0].price
-  //       : 0,
-  // });
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i.id === item.id)) {
@@ -56,8 +44,8 @@ const ProductListing = ({ route }) => {
     <div className="products-container">
       <div className="sorting-container">
       <div className="dropdownBtn-container">
-        <small><i class="fas fa-sort-amount-up-alt"></i> Sort by :</small>
-        <select className="dropdownBtn" onChange={HandleDropdown}>
+        <small><i className="fas fa-sort-amount-up-alt"></i> Sort by :</small>
+        <select className="dropdownBtn" value={sortBy === null ? 'DEFAULT' : sortBy} onChange={HandleDropdown}>
           <option value="DEFAULT">Relevance</option>
           <option value="HIGH_TO_LOW">High to low</option>
           <option value="LOW_TO_HIGH">Low to high</option>
@@ -94,7 +82,7 @@ const ProductListing = ({ route }) => {
               type="range"
               min="0"
               max="1000"
-              defaultValue="1000"
+              value={priceRange === null ? 1000 : priceRange}
               onChange={(e) => {
                 dispatchProduct({
                   type: "SORT_BY_PRICE_RANGE",
@@ -104,7 +92,7 @@ const ProductListing = ({ route }) => {
               }}
             />
               1000</label>
-            
+          <button onClick={() => dispatchProduct({type:"CLEAR_ALL_FILTER"})} style={{background:'none',border:'none',cursor:'pointer'}}>Clear all</button>
           </div>
         )}
 
@@ -154,6 +142,8 @@ const ProductListing = ({ route }) => {
           <p style={{ textAlign: "center" }}>No results found</p>
         )}
       </div>
+
+     <Footer/>
       
     </div>
   );

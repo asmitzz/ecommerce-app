@@ -10,7 +10,9 @@ const ProductReducer = () => {
       case "FAST_DELIVERY":
         return { ...state, fastDelivery: !state.fastDelivery };
       case "SORT_BY_PRICE_RANGE":
-        return { ...state, priceRange: action.payload}
+        return { ...state, priceRange: action.payload};
+      case "CLEAR_ALL_FILTER":
+        return { ...state, includeOutOfStock: true, fastDelivery: false, priceRange:null}  
       default:
         return state;
     }
@@ -22,7 +24,6 @@ const ProductReducer = () => {
     fastDelivery: false,
     priceRange:null
   });
-
   return { state, dispatch };
 };
 

@@ -11,7 +11,6 @@ body{
 }
 
 .container{
-  position: relative;
   min-height: 100vh;
 }
 
@@ -72,11 +71,19 @@ h1,h3,h4{
 
 
 .products{
+  
   grid-template-columns: repeat(auto-fill, 200px);
   grid-gap:0 20px;
   padding:1rem 0;
   justify-content: center;
-  min-height: 46.4vh;
+  flex: 1;
+}
+
+.products-container{
+  position: relative;
+  min-height:92vh;
+  display: flex;
+  flex-direction:column;
 }
 
 fieldset label{
@@ -260,7 +267,6 @@ fieldset input {
   padding:1rem;
   width:800px;
   margin: auto;
-  min-height:59.5vh;
 }
 
 @media(max-width:845px){
@@ -330,17 +336,10 @@ fieldset input {
   right: -1.1rem;
 }
 
-.wishlist-container{
-  padding:1.14rem 0;
-  min-height: 46.4vh;
-}
-
-
 .address_container {
   width: 70%;
   padding: 1rem;
   margin:auto;
-  min-height: 59.5vh;
 }
 
 @media(max-width:800px){
@@ -518,9 +517,9 @@ fieldset input {
 
 .dropdownBtn-container{
   border: 1px solid #181818;
+  border-right: none;
   width: fit-content;
   padding: 0 0.3rem;
-  margin-right: 0.2rem;
 }
 
 @media(max-width:380px){
@@ -573,6 +572,9 @@ fieldset input {
     padding:1rem 0;
     background:#181818;
     width:100%;
+    position: relative;
+    bottom:0;
+    left: 0;
   }
   
   .footer-header{

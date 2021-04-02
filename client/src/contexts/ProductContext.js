@@ -26,7 +26,7 @@ export const ProductContextProvider = ({children}) => {
     const FilteredProducts = getFilteredProducts(sortedProducts); 
 
     return(
-        <productContext.Provider value={{ includeOutOfStock,products:FilteredProducts,sortBy, dispatchProduct:dispatch,fastDelivery }}>
+        <productContext.Provider value={{priceRange, includeOutOfStock,products:FilteredProducts,sortBy, dispatchProduct:dispatch,fastDelivery }}>
             {children}
         </productContext.Provider>
     );
