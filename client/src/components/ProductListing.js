@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
 import Footer from "./Footer";
 
 const ProductListing = ({ route }) => {
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
   const {
     products,
     dispatchProduct,

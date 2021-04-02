@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useWishlist } from '../contexts/WishContext';
 
 const WishList = () => {
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
 
   const {wishlist,dispatchWishlist} = useWishlist();
   const {cart, dispatchCart } = useCart();

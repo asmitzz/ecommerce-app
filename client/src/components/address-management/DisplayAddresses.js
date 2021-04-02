@@ -1,7 +1,13 @@
 import AddressContent from "./AddressContent";
 import { useAddress } from "../../contexts/AddressContext";
+import { useEffect } from "react";
 
 const DisplayAddresses = ({ route }) => {
+
+  useEffect(() => {
+    window.scroll(0,0)
+}, [])
+
   const { address } = useAddress();
  
   return (

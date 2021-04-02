@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useAddress} from '../contexts/AddressContext';
 import {useCart} from '../contexts/CartContext';
 
 const OrderSummary = ({route}) => {
+
+    useEffect(() => {
+        window.scroll(0,0)
+    }, [])
 
     const {selectedAddress} = useAddress();
 
