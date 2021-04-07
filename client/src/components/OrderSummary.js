@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { withRouter } from 'react-router';
 import {useAddress} from '../contexts/AddressContext';
 import {useCart} from '../contexts/CartContext';
 
-const OrderSummary = ({route}) => {
+const OrderSummary = ({history}) => {
 
     useEffect(() => {
         window.scroll(0,0)
@@ -39,7 +40,7 @@ const OrderSummary = ({route}) => {
                   <h5 className="totalCartValue">Total Cart Value : ₹{totalCartValue}</h5>
                   <button className="primary-btn" onClick={() =>{ 
                       alert("Order successfull!!")
-                      route("ProductListing")
+                      history.push("/")
                       dispatchCart({ type: "EMPTY_CART"})
                       }}>Place order</button>
                 </div>
@@ -48,4 +49,4 @@ const OrderSummary = ({route}) => {
     )
 }
 
-export default OrderSummary;
+export default withRouter(OrderSummary);

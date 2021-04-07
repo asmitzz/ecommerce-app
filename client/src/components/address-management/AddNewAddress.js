@@ -2,8 +2,9 @@ import { useState } from "react";
 
 import { useAddress } from "../../contexts/AddressContext";
 import {nanoid} from "nanoid";
+import { withRouter } from "react-router";
 
-const AddNewAddress = ({ route }) => {
+const AddNewAddress = ({ history }) => {
   const { dispatchAddress } = useAddress();
 
   const [newAddress, setNewAddress] = useState({
@@ -203,14 +204,14 @@ const AddNewAddress = ({ route }) => {
                 type: "ADD_ADDRESS",
                 payload: {...newAddress,id:nanoid()},
               });
-              route("DisplayAddresses");
+              history.push("/address");
             }
           }}
           className="primary-btn"
         >
           Save Address
         </button>
-        <button onClick={() => route("DisplayAddresses")} className="secondary-btn">
+        <button onClick={() => history.push("/address")} className="secondary-btn">
           Cancel
         </button>
       </form>
@@ -218,4 +219,4 @@ const AddNewAddress = ({ route }) => {
   );
 };
 
-export default AddNewAddress;
+export default withRouter(AddNewAddress);

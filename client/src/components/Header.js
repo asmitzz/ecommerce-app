@@ -1,9 +1,8 @@
+import { withRouter } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishContext";
 
-
-
-const Header = ({route}) => {
+const Header = ({history}) => {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
     return (
@@ -12,16 +11,16 @@ const Header = ({route}) => {
           <li>
             <i className="fa fa-bars"></i>
           </li>
-          <li style={{ flex: 1 }} onClick={() => route("ProductListing")}>
+          <li style={{ flex: 1 }} onClick={() => history.push("/")}>
             <h1>ShoppingHub</h1>
           </li>
-          <li onClick={() => route("WishList")}>
+          <li onClick={() => history.push("/wishlist")}>
             <i className="fa fa-heart">
               <span className="badge">{wishlist.length}</span>
             </i>
             <span className="icon-name">Wishlist</span>
           </li>
-          <li onClick={() => route("Cart")}>
+          <li onClick={() => history.push("/cart")}>
             <i className="fa fa-shopping-cart">
               <span className="badge">{cart.length}</span>
             </i>
@@ -32,4 +31,4 @@ const Header = ({route}) => {
     )
 }
 
-export default Header;
+export default withRouter(Header);

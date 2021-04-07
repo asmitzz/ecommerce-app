@@ -1,8 +1,9 @@
 import AddressContent from "./AddressContent";
 import { useAddress } from "../../contexts/AddressContext";
 import { useEffect } from "react";
+import { withRouter } from "react-router";
 
-const DisplayAddresses = ({ route }) => {
+const DisplayAddresses = ({ history }) => {
 
   useEffect(() => {
     window.scroll(0,0)
@@ -15,11 +16,11 @@ const DisplayAddresses = ({ route }) => {
       <h3>Choose Delivery Address</h3>
       {
         address.map((displayAddress) => (
-          <AddressContent key={displayAddress.id} {...displayAddress} route={route} />
+          <AddressContent key={displayAddress.id} {...displayAddress}/>
         ))
       }
       <br />
-      <button className="primary-btn" onClick={() => route("AddNewAddress")}>
+      <button className="primary-btn" onClick={() => history.push("/newaddress")}>
         Add a new Address
       </button>
 
@@ -27,4 +28,4 @@ const DisplayAddresses = ({ route }) => {
   );
 };
 
-export default DisplayAddresses;
+export default withRouter(DisplayAddresses);

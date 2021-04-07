@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
 import Footer from "./Footer";
 
-const ProductListing = ({ route }) => {
+const ProductListing = ({ history }) => {
 
   useEffect(() => {
     window.scroll(0,0)
@@ -34,7 +35,7 @@ const ProductListing = ({ route }) => {
 
   const cartHandler = (item) => {
     if (cart.find((i) => i.id === item.id)) {
-      return route("Cart");
+      return history.push("/cart");
     }
     dispatchCart({ type: "ADD_TO_CART", payload: item });
   };
@@ -154,4 +155,4 @@ const ProductListing = ({ route }) => {
   );
 };
 
-export default ProductListing;
+export default withRouter(ProductListing);

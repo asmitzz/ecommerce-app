@@ -2,7 +2,7 @@ import React,{useEffect} from "react";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishContext";
 
-const Cart = ({ route }) => {
+const Cart = ({history}) => {
 
   useEffect(() => {
     window.scroll(0,0)
@@ -87,7 +87,7 @@ const Cart = ({ route }) => {
           <h2>Total Price: ₹{totalCartValue}</h2>
           <button
             className="primary-btn"
-            onClick={() => route("DisplayAddresses")}
+            onClick={() => history.push('/address')}
           >
             Proceed to checkout
           </button>
