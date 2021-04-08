@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAddress } from "../../contexts/AddressContext";
-import { useCart } from "../../contexts/CartContext";
+import { useAddress } from "../../../contexts/AddressContext";
+import { useCart } from "../../../contexts/CartContext";
 import EditAddress from "./EditAddress";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useCart } from '../contexts/CartContext';
-import { useWishlist } from '../contexts/WishContext';
+import { useCart } from '../../contexts/CartContext';
+import { useWishlist } from '../../contexts/WishContext';
 
 const WishList = () => {
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useAddress} from '../contexts/AddressContext';
-import {useCart} from '../contexts/CartContext';
+import {useAddress} from '../../contexts/AddressContext';
+import {useCart} from '../../contexts/CartContext';
 
 const OrderSummary = () => {
 

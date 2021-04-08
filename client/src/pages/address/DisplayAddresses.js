@@ -1,9 +1,9 @@
-import AddressContent from "./AddressContent";
+import AddressContent from "./components/AddressContent";
 import { useAddress } from "../../contexts/AddressContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const DisplayAddresses = ({ history }) => {
+const DisplayAddresses = () => {
 
   useEffect(() => {
     window.scroll(0,0)

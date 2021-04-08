@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { useCart } from "../contexts/CartContext";
-import { useProducts } from "../contexts/ProductContext";
-import { useWishlist } from "../contexts/WishContext";
-import Footer from "./Footer";
+import { useCart } from "../../contexts/CartContext";
+import { useProducts } from "../../contexts/ProductContext";
+import { useWishlist } from "../../contexts/WishContext";
+import Footer from "./components/Footer";
 
 import {useNavigate} from 'react-router-dom';
 
