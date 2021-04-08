@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+import {useNavigate} from 'react-router-dom';
+
 const Login = () => {
 
     const [state,setState] = useState({email:"",password:""});
     const [errors,setErrors] = useState({email:"",password:""});
 
     const {loginWithCerediantials} = useAuth();
+    const navigate = useNavigate();
     const path = useLocation().state;
 
     const handleChange = (e) => {
@@ -36,7 +39,9 @@ const Login = () => {
     const handleSubmit = (e) => {
        e.preventDefault();
        if(formValidate(state)){
-          loginWithCerediantials({...state,path:path === null ? "/" : path.from})
+          if(loginWithCerediantials(state) === 200){
+             navigate(path === null ? "/" : path.from)
+          }
        }
     }
   
