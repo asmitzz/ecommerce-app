@@ -12,18 +12,20 @@ import AddNewAddress from "./components/address-management/AddNewAddress";
 import OrderSummary from "./components/OrderSummary";
 
 import { Switch,Route } from 'react-router-dom';
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./auth/Login";
 
 const App = () => {
 
   return (
     <div className="container">
       <Header/>
-
        <Switch>
           <Route path="/" exact component={ProductListing}/>
+          <Route path="/login" exact component={Login}/>
           <Route path="/wishlist" exact component={WishList}/>
           <Route path="/cart" exact component={Cart}/>
-          <Route path="/address" exact component={DisplayAddresses}/>
+          <PrivateRoute path="/address" login={false} exact component={DisplayAddresses}/>
           <Route path="/editaddress" exact component={EditAddress}/>
           <Route path="/newaddress" exact component={AddNewAddress}/>
           <Route path="/ordersummary" exact component={OrderSummary}/>
