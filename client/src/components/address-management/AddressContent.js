@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { withRouter } from "react-router";
 import { useAddress } from "../../contexts/AddressContext";
 import { useCart } from "../../contexts/CartContext";
 import EditAddress from "./EditAddress";
+import { useNavigate } from "react-router-dom";
+
 
 const AddressContent = (props) => {
 
@@ -10,7 +11,7 @@ const AddressContent = (props) => {
   const [edit, setEdit] = useState(false);
   const { dispatchAddress,selectedAddress } = useAddress();
   const {cart} = useCart();
- 
+  const navigate = useNavigate();
   
   const HandleAddressSelection = (e) => {
     dispatchAddress({type:"SELECTED_ADDRESS",payload:e.target.id})
@@ -42,7 +43,7 @@ const AddressContent = (props) => {
               {address} , {locality} , {city} , {state} ,
               <strong> {pincode}</strong>
             </p>
-            { selectedAddress !== null && selectedAddress.id === id  && <button className="secondary-btn" onClick={ () => cart.length > 0 ? props.history.push("/ordersummary") : props.history.push('/cart') }>Deliver to this address</button>}
+            { selectedAddress !== null && selectedAddress.id === id  && <button className="secondary-btn" onClick={ () => cart.length > 0 ? navigate("/ordersummary") : navigate('/cart') }>Deliver to this address</button>}
           </div>
         </>
       ) : (
@@ -52,4 +53,4 @@ const AddressContent = (props) => {
   );
 };
 
-export default withRouter(AddressContent);
+export default AddressContent;

@@ -1,12 +1,15 @@
 import React,{useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishContext";
 
-const Cart = ({history}) => {
+const Cart = () => {
 
   useEffect(() => {
     window.scroll(0,0)
-  }, [])
+  }, []);
+
+  const navigate = useNavigate();
 
   const { wishlist, dispatchWishlist } = useWishlist();
   const { cart, dispatchCart, totalCartValue, totalCartItem } = useCart();
@@ -87,7 +90,7 @@ const Cart = ({history}) => {
           <h2>Total Price: ₹{totalCartValue}</h2>
           <button
             className="primary-btn"
-            onClick={() => history.push('/address')}
+            onClick={() => navigate('/address')}
           >
             Proceed to checkout
           </button>

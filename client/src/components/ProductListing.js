@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router";
+
 import { useCart } from "../contexts/CartContext";
 import { useProducts } from "../contexts/ProductContext";
 import { useWishlist } from "../contexts/WishContext";
 import Footer from "./Footer";
 
-const ProductListing = ({ history }) => {
+import {useNavigate} from 'react-router-dom';
+
+const ProductListing = () => {
 
   useEffect(() => {
     window.scroll(0,0)
@@ -19,6 +21,8 @@ const ProductListing = ({ history }) => {
     priceRange,
     sortBy
   } = useProducts();
+
+  const navigate = useNavigate();
 
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
@@ -35,7 +39,7 @@ const ProductListing = ({ history }) => {
 
   const cartHandler = (item) => {
     if (cart.find((i) => i.id === item.id)) {
-      return history.push("/cart");
+      return navigate("/cart");
     }
     dispatchCart({ type: "ADD_TO_CART", payload: item });
   };
@@ -155,4 +159,4 @@ const ProductListing = ({ history }) => {
   );
 };
 
-export default withRouter(ProductListing);
+export default ProductListing;

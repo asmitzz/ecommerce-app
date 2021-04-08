@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Route } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { Route,Navigate } from 'react-router-dom';
 import Login from '../auth/Login';
 
 const PrivateRoute = ({login,...props}) => {
+    
     return login ? (
         <Route {...props} />
     ) : (
-        <Redirect to="/login" component={Login}/>
+        <Navigate to="/login" replace component={Login}/>
     )
 }
 

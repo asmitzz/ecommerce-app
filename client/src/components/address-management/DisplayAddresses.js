@@ -1,7 +1,7 @@
 import AddressContent from "./AddressContent";
 import { useAddress } from "../../contexts/AddressContext";
 import { useEffect } from "react";
-import { withRouter } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const DisplayAddresses = ({ history }) => {
 
@@ -10,6 +10,7 @@ const DisplayAddresses = ({ history }) => {
 }, [])
 
   const { address } = useAddress();
+  const navigate = useNavigate();
  
   return (
     <div className="address_container">
@@ -20,7 +21,7 @@ const DisplayAddresses = ({ history }) => {
         ))
       }
       <br />
-      <button className="primary-btn" onClick={() => history.push("/newaddress")}>
+      <button className="primary-btn" onClick={() => navigate("/newaddress")}>
         Add a new Address
       </button>
 
@@ -28,4 +29,4 @@ const DisplayAddresses = ({ history }) => {
   );
 };
 
-export default withRouter(DisplayAddresses);
+export default DisplayAddresses;
