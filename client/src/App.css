@@ -637,6 +637,12 @@ p {
   margin: 1rem 0;
 }
 
+.login__container .signup__link{
+  text-decoration: none;
+  color: #dab600;
+  font-weight:700;
+}
+
 @media (max-width: 700px){
 .login__container{
  width: 90%;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import {useNavigate} from 'react-router-dom';
@@ -25,7 +25,7 @@ const Login = () => {
          email="Please enter a valid email address"
        }
 
-       if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(state.password)){
+       if(!/^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$/.test(state.password)){
         password="minimum length of password will be 8, at least 1 lowercase letter and 1 number"
        }
 
@@ -36,11 +36,24 @@ const Login = () => {
        }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
        e.preventDefault();
+
        if(formValidate(state)){
-          if(loginWithCerediantials(state) === 200){
-             navigate(path === null ? "/" : path.from)
+          try {
+            const {status,message} = await loginWithCerediantials(state);
+            
+             if( status === 200 ){
+              console.log(message);
+              navigate(path === null ? "/" : path.from)
+             }
+          } catch (error) {
+             if(error.status === 401){
+               setErrors(state => ({...state,password:error.message}))
+             }
+             else if(error.status === 404){
+               setErrors(state => ({...state,email:error.message}))
+             }
           }
        }
     }
@@ -68,6 +81,8 @@ const Login = () => {
 
             <input type="submit" className="secondary-btn" value="LOGIN"/>
         </form>
+        <br/>
+        <small>Don't have an account? <Link to="/signup" className="signup__link">SIGN UP</Link></small>
       </div>
 
     );
