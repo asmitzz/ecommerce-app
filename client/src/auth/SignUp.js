@@ -1,13 +1,14 @@
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import Spinner from '../utils/Spinner';
+import SuccessToast from '../utils/SuccessToast';
 
 const SignUp = () => {
     const [state,setState] = useState({email:"",password:""});
     const [errors,setErrors] = useState({email:"",password:""});
-
-    const navigate = useNavigate();
+    const [spinner,setSpinner] = useState(false);
+    const [toast,setToast] = useState("");
 
     const {signUpWithCredentials} = useAuth();
 
@@ -37,22 +38,32 @@ const SignUp = () => {
     const handleSubmit = async(e) => {
        e.preventDefault();
        if(formValidate(state)){
+         setSpinner(true)
           try {
             const {status,message} = await signUpWithCredentials(state);
             if(status === 200){
-              console.log(message);
-              navigate("/login")
+              setToast(message);
+
+              setTimeout( () => {
+                setToast("");
+              },2000) 
+
+              setState({email:"",password:""})
             }
+            setSpinner(false)
           } catch (error) {
              if(error.status === 409){
                setErrors( state => ({...state,email:"Email address already exists"}) )
              }
+            setSpinner(false)
           }
        }
     }
 
     return (
       <div className="login__container">
+        <Spinner show={spinner}/>
+        <SuccessToast show={toast} background="#181818" color="#dab600"/>
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">SIGN UP</h1>

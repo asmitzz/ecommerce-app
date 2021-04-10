@@ -33,9 +33,8 @@ const App = () => {
           { !isUserloggedIn && <Route path="/login" element={<Login/>}/>}
           { !isUserloggedIn && <Route path="/signup" element={<SignUp/>}/>}
 
-          <Route path="/wishlist" element={<WishList/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          
+          <PrivateRoute path="/wishlist" element={<WishList/>}/>
+          <PrivateRoute path="/cart" element={<Cart/>}/>
           <PrivateRoute path="/address" element={<DisplayAddresses/>}/>
           <PrivateRoute path="/editaddress" element={<EditAddress/>}/>
           <PrivateRoute path="/newaddress" element={<AddNewAddress/>}/>

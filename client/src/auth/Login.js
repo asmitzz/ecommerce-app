@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import {useNavigate} from 'react-router-dom';
+import Spinner from '../utils/Spinner';
 
 const Login = () => {
 
     const [state,setState] = useState({email:"",password:""});
     const [errors,setErrors] = useState({email:"",password:""});
+    const [spinner,setSpinner] = useState(false);
 
     const {loginWithCerediantials} = useAuth();
     const navigate = useNavigate();
@@ -40,13 +42,14 @@ const Login = () => {
        e.preventDefault();
 
        if(formValidate(state)){
+          setSpinner(true)
           try {
             const {status,message} = await loginWithCerediantials(state);
-            
              if( status === 200 ){
               console.log(message);
               navigate(path === null ? "/" : path.from)
              }
+             setSpinner(false)
           } catch (error) {
              if(error.status === 401){
                setErrors(state => ({...state,password:error.message}))
@@ -54,13 +57,15 @@ const Login = () => {
              else if(error.status === 404){
                setErrors(state => ({...state,email:error.message}))
              }
+             setSpinner(false)
           }
+          
        }
     }
   
     return (
       <div className="login__container">
-
+        <Spinner show={spinner}/>
         <form onSubmit={handleSubmit}>
             <h1 className="form__heading">LOGIN</h1>
             <div className="form__group">
