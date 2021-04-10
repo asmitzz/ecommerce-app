@@ -5,8 +5,8 @@ import Spinner from '../utils/Spinner';
 import SuccessToast from '../utils/SuccessToast';
 
 const SignUp = () => {
-    const [state,setState] = useState({email:"",password:""});
-    const [errors,setErrors] = useState({email:"",password:""});
+    const [state,setState] = useState({email:"",password:"",name:""});
+    const [errors,setErrors] = useState({email:"",password:"",name:""});
     const [spinner,setSpinner] = useState(false);
     const [toast,setToast] = useState("");
 
@@ -18,7 +18,11 @@ const SignUp = () => {
     }
 
     const formValidate = (state) => {
-       let email,password;
+       let name,email,password;
+
+       if(state.name === ""){
+         name = "Please fill this field"
+       }
 
        if(!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(state.email)){
          email="Please enter a valid email address"
@@ -28,9 +32,9 @@ const SignUp = () => {
         password="minimum length of password will be 8, at least 1 lowercase letter and 1 number"
        }
 
-       setErrors({email,password})
+       setErrors({name,email,password})
 
-       if(!email && !password){
+       if(!name && !email && !password){
          return true;
        }
     }
@@ -48,7 +52,7 @@ const SignUp = () => {
                 setToast("");
               },2000) 
 
-              setState({email:"",password:""})
+              setState({name:"",email:"",password:""})
             }
             setSpinner(false)
           } catch (error) {
@@ -67,6 +71,13 @@ const SignUp = () => {
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">SIGN UP</h1>
+          <div className="form__group">
+            <label className="form__label" htmlFor="name">Name : </label>
+            <div>
+              <input className="form__control" value={state.name} onChange={handleChange} type="text" name="name"/>
+              <span className="invalid-feedback">{errors.name}</span>
+            </div>
+          </div>
           <div className="form__group">
             <label className="form__label" htmlFor="email">Email : </label>
             <div>

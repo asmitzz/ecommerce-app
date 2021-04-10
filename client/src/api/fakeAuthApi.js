@@ -9,7 +9,7 @@ export const login = (email, password, users) => {
            const user = findUser(email);
            
            if( user && password === user.password ){
-               resolve({ success: true,status:200,message:"Successfully logged in"});
+               resolve({ success: true,status:200,user,message:"Successfully logged in"});
            }
            else if(!user){
              reject({ success: false,status:404,message:"Email address is not registered"});
