@@ -11,6 +11,8 @@ export const AuthContextProvider = ({children}) => {
             return {...state,user:{ login : true, data : action.payload}}
             case "SIGNUP":
             return {...state,users:[...state.users,action.payload]};
+            case "SIGNOUT":
+            return {...state,user:{login : false, data : null}}
             default:
             return state;
         }
@@ -38,9 +40,19 @@ export const AuthContextProvider = ({children}) => {
         }
         return response;
     }
+
+    function signout(){
+        return new Promise( (resolve, reject) => {
+            setTimeout( () => {
+                localStorage?.removeItem('authToken');
+                dispatch({type:"SIGNOUT"});
+                resolve({ success: true,status:200})
+            },2000);
+        })
+    }
   
     return (
-        <AuthContext.Provider value={{isUserloggedIn:user.login,userDetails:user.data,loginWithCerediantials,signUpWithCredentials}}>
+        <AuthContext.Provider value={{isUserloggedIn:user.login,userDetails:user.data,loginWithCerediantials,signUpWithCredentials,signout}}>
             {children}
         </AuthContext.Provider>
     )

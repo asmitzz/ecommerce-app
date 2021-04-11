@@ -19,6 +19,7 @@ import OrderSummary from "./pages/orderSummary/OrderSummary";
 import { useAuth } from "./contexts/AuthContext";
 
 import "./App.css";
+import MyAccount from "./pages/myaccount/MyAccount";
 
 const App = () => {
 
@@ -39,6 +40,7 @@ const App = () => {
           <PrivateRoute path="/editaddress" element={<EditAddress/>}/>
           <PrivateRoute path="/newaddress" element={<AddNewAddress/>}/>
           <PrivateRoute path="/ordersummary" element={<OrderSummary/>}/>
+          <PrivateRoute path="/myaccount" element={<MyAccount/>}/>
        </Routes>
 
     </div>

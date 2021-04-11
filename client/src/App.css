@@ -25,8 +25,7 @@ h4 {
 
 .nav {
   background: var(--secondary);
-  height: 7vh;
-  padding: 1rem;
+  height:13vh;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -37,12 +36,28 @@ h4 {
     0 16px 16px rgba(0, 0, 0, 0.12);
 }
 
+.nav .profile__avatar{
+   display: flex;
+   align-items: center;
+}
+
+.nav .profile__avatar img{
+   border-radius: 50%;
+   margin-right: 0.5rem;
+}
+
+@media (max-width: 800px){
+.nav .profile__avatar__container{
+  display: none;
+}
+}
+
 .nav ul {
   display: flex;
   align-items: center;
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding:0 0.5rem;
 }
 
 .nav li {
@@ -73,8 +88,21 @@ h4 {
   transition: all 0.5s ease-in-out;
 }
 
+.sidebar .sidebar__header{
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:13vh;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12),
+    0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12),
+    0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
+}
+
 .show__sidebar{
- transform: translate(0) 
+ transform: translate(0); 
 }
 
 .sidebar .closeBtn{
@@ -90,7 +118,6 @@ h4 {
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   border-bottom: 1px solid #dab600;
 }
 
 .sidebar img{
@@ -743,4 +770,38 @@ p {
   top: 0;
   left: 0;
   background:rgba(0,0,0,0.5);
+}
+
+.account__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 87vh;
+}
+
+.account__content{
+  display: flex;
+  flex-direction: column;
+}
+
+.account__container .account__avatar{
+  height: 100px;
+  width: 100px;
+  border-radius:50%;
+}
+
+.account__container .account__avatar img{
+  height: 100px;
+  width: 100px;
+  border-radius:50%;
+  border: 2px solid var(--secondary);
+}
+
+.account__container .form-group{
+  margin: 0.3rem 0;
+}
+
+.account__container .form-label{
+   font-weight: 700;
 }
