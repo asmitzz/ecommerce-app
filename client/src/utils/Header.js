@@ -5,31 +5,19 @@ import { useAuth } from "../contexts/AuthContext";
 import Sidebar from "./Sidebar";
 import Backdrop from "./Backdrop";
 import { useState } from "react";
-import Spinner from "../utils/Spinner";
 
 const Header = () => {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
   const navigate = useNavigate();
 
-  const { userDetails,signout,isUserloggedIn } = useAuth();
+  const { userDetails,isUserloggedIn } = useAuth();
 
   const [showSidebar,setShowSidebar] = useState(false); 
-  const [spinner,setSpinner] = useState(false); 
 
-  const handleSignout = async() => {
-     setSpinner(true)
-     try {
-       await signout();
-       setSpinner(false)
-     } catch (error) {
-       setSpinner(false)
-     }
-  }
 
     return (
         <nav className="nav">
-            <Spinner show={spinner}/>
             <Backdrop show={showSidebar} onClick={() => setShowSidebar(false)}/>
             <Sidebar className={showSidebar ? "show__sidebar" : ""} setShowSidebar={setShowSidebar}/>
         <ul>
@@ -57,12 +45,10 @@ const Header = () => {
             </i>
             <span className="icon-name">Cart</span>
           </li>
-          { isUserloggedIn && <li onClick={handleSignout}>
-             <div>signout <i className="fa fa-sign-out"></i> </div>
-          </li>}
 
-          { !isUserloggedIn && <li onClick={() => navigate('/login')}>
-             <div>Login/Signup</div>
+          { !isUserloggedIn && <li className="loginBtn" onClick={() => navigate('/login')}>
+            <i className="fa fa-user"></i>
+            <span className="icon-name">Login/Signup</span>
           </li>}
         </ul>
       </nav>

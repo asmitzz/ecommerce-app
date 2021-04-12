@@ -1,15 +1,34 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
+import Backdrop from './Backdrop';
+import Spinner from './Spinner';
 
 const Sidebar = ({className,setShowSidebar}) => {
-    const { userDetails } = useAuth();
+    const { userDetails,isUserloggedIn,signout } = useAuth();
 
-    const closeSidebar = () => setShowSidebar(false)
+    const closeSidebar = () => setShowSidebar(false);
+    const [spinner,setSpinner] = useState(false); 
+    const [showBackdrop,setShowBackdrop] = useState(false); 
+
+    const handleSignout = async() => {
+      closeSidebar()
+      setSpinner(true)
+      try {
+        await signout();
+        setSpinner(false)
+      } catch (error) {
+        setSpinner(false)
+      }
+   }
 
   return (
-       <div className={`sidebar ${className}`} >
+    <div>
+           <Spinner show={spinner}/>
+            <Backdrop show={showBackdrop} onClick={() => setShowBackdrop(false)}/>
+            <div className={`sidebar ${className}`} >
+            
          <i className="fas fa-window-close closeBtn" onClick={closeSidebar}></i>
 
          <section className="sidebar__header">
@@ -22,7 +41,18 @@ const Sidebar = ({className,setShowSidebar}) => {
            </Link>
           {  userDetails ? <p style={{margin:'0.5rem 0'}}>Hello, {userDetails.name}</p> : <p style={{margin:'0.5rem 0'}}>Login/Signup</p> }
          </section>
+
+         <section className="sidebar__links__section">
+           <Link className="sidebar__link" to="/" onClick={closeSidebar}>Home</Link>
+           { isUserloggedIn && <> 
+           <Link className="sidebar__link" to="/orders" onClick={closeSidebar}>My Orders</Link>
+           <div className="sidebar__link" onClick={handleSignout}>
+             signout <i className="fa fa-sign-out"></i> 
+            </div> </>}
+         </section>
       </div>
+    </div>
+       
   )
 }
 
