@@ -7,7 +7,7 @@ import Backdrop from "./Backdrop";
 import { useState } from "react";
 
 const Header = () => {
-  const { cart } = useCart();
+  const { totalCartItem } = useCart();
   const { wishlist } = useWishlist();
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const Header = () => {
           </li>
           <li onClick={() => navigate("/cart")}>
             <i className="fa fa-shopping-cart">
-              <span className="badge">{cart.length}</span>
+              <span className="badge">{totalCartItem}</span>
             </i>
             <span className="icon-name">Cart</span>
           </li>

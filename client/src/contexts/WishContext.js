@@ -5,10 +5,10 @@ export const wishlistContext = createContext();
 
 export const WishlistContextProvider = ({children}) => {
 
-   const {wishlist,dispatch} = WishlistReducer()
+   const {wishlist,dispatch,addToWishlist} = WishlistReducer()
     
     return(
-        <wishlistContext.Provider value={{wishlist,dispatchWishlist:dispatch}}>
+        <wishlistContext.Provider value={{wishlist,dispatchWishlist:dispatch,addToWishlist}}>
              {children}
         </wishlistContext.Provider>
     );

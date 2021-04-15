@@ -1,11 +1,16 @@
-import React, { createContext,useContext } from 'react';
+import React, { createContext,useContext,useEffect,useState } from 'react';
 import ProductReducer from '../reducers/ProductReducer';
-import { products } from "../productsDb";
+import axios from 'axios';
 
 export const productContext = createContext();
 
 export const ProductContextProvider = ({children}) => {
-    
+    useEffect( () => {
+        axios.get('http://localhost:5000/api/products').then( res => setProducts(res.data.products) )
+    },[] )
+
+    const [products,setProducts] = useState([]);
+
     const { state,dispatch } = ProductReducer();
 
     const { sortBy,includeOutOfStock,fastDelivery,priceRange} = state;
@@ -13,11 +18,11 @@ export const ProductContextProvider = ({children}) => {
     const getSortedProducts = (products) => {
         if( sortBy === "LOW_TO_HIGH" ) return products.sort( (a,b) => a.price - b.price);
         if( sortBy === "HIGH_TO_LOW" ) return products.sort( (a,b) => b.price - a.price);
-        return products.sort( value => value.inStock ? -1 : 1 );
+        return products.sort( value => value.stock ? -1 : 1 );
     }
 
     const getFilteredProducts = (sortedProducts) => {
-        return sortedProducts.filter( p => includeOutOfStock ? true : p.inStock)
+        return sortedProducts.filter( p => includeOutOfStock ? true : p.stock)
         .filter( p => fastDelivery ? p.fastDelivery : true )
         .filter( p => priceRange !== null ? parseInt(p.price) <= parseInt(priceRange) : true )     
     }

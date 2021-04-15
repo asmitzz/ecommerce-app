@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { useCart } from "../../contexts/CartContext";
 import { useProducts } from "../../contexts/ProductContext";
-import { useWishlist } from "../../contexts/WishContext";
 import Footer from "./components/Footer";
 
-import {useNavigate} from 'react-router-dom';
+import DisplayProducts from "./components/DisplayProducts";
+import Filter from "./components/Filter";
 
 const ProductListing = () => {
 
@@ -14,35 +13,9 @@ const ProductListing = () => {
   }, [])
 
   const {
-    products,
     dispatchProduct,
-    includeOutOfStock,
-    fastDelivery,
-    priceRange,
     sortBy
   } = useProducts();
-
-  const navigate = useNavigate();
-
-  const { cart, dispatchCart } = useCart();
-  const { wishlist, dispatchWishlist } = useWishlist();
-
-  const addToWishlist = (item) => {
-    if (wishlist.find((i) => i.id === item.id)) {
-      return dispatchWishlist({
-        type: "REMOVE_FROM_WISHLIST",
-        payload: item.id,
-      });
-    }
-    dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: item });
-  };
-
-  const cartHandler = (item) => {
-    if (cart.find((i) => i.id === item.id)) {
-      return navigate("/cart");
-    }
-    dispatchCart({ type: "ADD_TO_CART", payload: item });
-  };
 
   const HandleDropdown = (e) => {
     dispatchProduct({ type: "SORT", payload: e.target.value });
@@ -53,7 +26,7 @@ const ProductListing = () => {
   return (
     <div className="products-container">
       <div className="sorting-container">
-      <div className="dropdownBtn-container">
+       <div className="dropdownBtn-container">
         <small><i className="fas fa-sort-amount-up-alt"></i> Sort by :</small>
         <select className="dropdownBtn" value={sortBy === null ? 'DEFAULT' : sortBy} onChange={HandleDropdown}>
           <option value="DEFAULT">Relevance</option>
@@ -67,93 +40,9 @@ const ProductListing = () => {
       </div>
      </div>
 
-     {displayFilter && (
-          <div className="fiter-content">
-            <label className="filter-content-label">
-              <input
-                type="checkbox"
-                checked={includeOutOfStock}
-                onChange={() => dispatchProduct({ type: "INCLUDE_OUT_STOCK" })}
-              />
-              Include Out Of Stock&nbsp;&nbsp;
-            </label>
-
-            <label className="filter-content-label">
-              <input
-                type="checkbox"
-                checked={fastDelivery}
-                onChange={() => dispatchProduct({ type: "FAST_DELIVERY" })}
-              />
-              &nbsp;<i className="fas fa-shipping-fast"></i> Fast Delivery&nbsp;
-            </label>
-
-            <label className="filter-content-label">&nbsp;Price-range : 0 
-            <input
-              type="range"
-              min="0"
-              max="1000"
-              value={priceRange === null ? 1000 : priceRange}
-              onChange={(e) => {
-                dispatchProduct({
-                  type: "SORT_BY_PRICE_RANGE",
-                  payload: e.target.value,
-                });
-                // setState({ min, max, value: e.target.value });
-              }}
-            />
-              1000</label>
-          <button onClick={() => dispatchProduct({type:"CLEAR_ALL_FILTER"})} style={{background:'none',border:'none',cursor:'pointer'}}>Clear all</button>
-          </div>
-        )}
-
-      <div
-        style={{ display: products.length > 0 ? "grid" : "block" }}
-        className="products"
-      >
-        {products.length > 0 ? (
-          products.map((item) => (
-            <div
-              key={item.id}
-              className={item.inStock ? "card" : "card out-of-stock"}
-            >
-              <div className="wishlist-icon">
-                <i onClick={() => addToWishlist(item)}
-                style={{
-                  color: wishlist.find((i) => i.id === item.id)
-                    ? "red"
-                    : "white",
-                }}
-                className="fa fa-heart"
-                aria-hidden="true"
-                ></i>
-              </div>
-              <img alt="product" className="card-img" src={item.image} />
-              <div className="card-content">
-                <h4>{item.name}</h4>
-                <small className="card-content-details">Price:{item.price}</small>
-                {item.fastDelivery && (
-                  <small className="card-content-details"><i className="fas fa-shipping-fast"></i> Fast Delivery available</small>
-                )}
-              </div>
-              <button
-                onClick={() => cartHandler(item)}
-                className="primary-btn"
-                disabled={!item.inStock}
-              >
-                {!item.inStock
-                  ? "Out of Stock"
-                  : cart.find((i) => i.id === item.id)
-                  ? "Go to cart"
-                  : "Add to cart"}
-              </button>
-            </div>
-          ))
-        ) : (
-          <p style={{ textAlign: "center" }}>No results found</p>
-        )}
-      </div>
-
-     <Footer/>
+        { displayFilter && <Filter/>}
+        <DisplayProducts/>
+        <Footer/>
       
     </div>
   );

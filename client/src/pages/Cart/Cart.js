@@ -13,21 +13,23 @@ const Cart = () => {
 
   const { wishlist, dispatchWishlist } = useWishlist();
   const { cart, dispatchCart, totalCartValue, totalCartItem } = useCart();
+
   const addToWishlist = (item) => {
-    if (wishlist.find((i) => i.id === item.id)) {
+    if (wishlist.find((i) => i._id === item._id)) {
       return dispatchWishlist({
         type: "REMOVE_FROM_WISHLIST",
-        payload: item.id,
+        payload: item._id,
       });
     }
     dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: item });
   };
+
   return (
     <div className="cart-container">
       <h1>My Cart({totalCartItem})</h1>
       {cart.length > 0 ? (
         cart.map((item) => (
-          <div key={item.id} className="card-horizontal">
+          <div key={item._id} className="card-horizontal">
             <img alt="product" className="card-img" src={item.image} />
             <div className="card-body">
               <h4 className="card-title">
@@ -39,15 +41,15 @@ const Cart = () => {
                 <button
                   disabled={item.qty <= 1}
                   onClick={() =>
-                    dispatchCart({ type: "REMOVE_QTY", payload: item.id })
+                    dispatchCart({ type: "REMOVE_QTY", payload: item._id })
                   }
                 >
-                  -{" "}
+                  -
                 </button>
                 &nbsp;{item.qty}&nbsp;
                 <button
                   onClick={() =>
-                    dispatchCart({ type: "ADD_QTY", payload: item.id })
+                    dispatchCart({ type: "ADD_QTY", payload: item._id })
                   }
                 >
                   +
@@ -58,7 +60,7 @@ const Cart = () => {
                <i 
                   onClick={() => addToWishlist(item)}
                   style={{
-                    color: wishlist.find((i) => i.id === item.id)
+                    color: wishlist.find((i) => i._id === item._id)
                       ? "red"
                       : "white",
                   }}
@@ -68,7 +70,7 @@ const Cart = () => {
                </div>
                 <button
                   onClick={() =>
-                    dispatchCart({ type: "REMOVE_FROM_CART", payload: item.id })
+                    dispatchCart({ type: "REMOVE_FROM_CART", payload: item._id })
                   }
                   className="secondary-btn"
                   style={{
