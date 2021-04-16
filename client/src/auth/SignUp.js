@@ -1,16 +1,18 @@
 import {useState} from 'react';
+
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+
 import Spinner from '../utils/Spinner';
 import SuccessToast from '../utils/SuccessToast';
+
+import axios from 'axios';
 
 const SignUp = () => {
     const [state,setState] = useState({email:"",password:"",name:""});
     const [errors,setErrors] = useState({email:"",password:"",name:""});
     const [spinner,setSpinner] = useState(false);
     const [toast,setToast] = useState("");
-
-    const {signUpWithCredentials} = useAuth();
+    const [showPassword,setShowPassword] = useState(false);
 
     const handleChange = (e) => {
        const {value,name} = e.target;
@@ -44,9 +46,10 @@ const SignUp = () => {
        if(formValidate(state)){
          setSpinner(true)
           try {
-            const {status,message} = await signUpWithCredentials(state);
+            const {data,status} = await axios.post("http://localhost:5000/api/users/signup",state);
+
             if(status === 200){
-              setToast(message);
+              setToast(data.message);
 
               setTimeout( () => {
                 setToast("");
@@ -54,11 +57,15 @@ const SignUp = () => {
 
               setState({name:"",email:"",password:""})
             }
+
             setSpinner(false)
           } catch (error) {
-             if(error.status === 409){
-               setErrors( state => ({...state,email:"Email address already exists"}) )
+             const { status,data } = error.response;
+
+             if(status === 409){
+               setErrors( state => ({...state,email:data.message}) )
              }
+
             setSpinner(false)
           }
        }
@@ -88,8 +95,11 @@ const SignUp = () => {
 
           <div className="form__group">
             <label className="form__label" htmlFor="password">Password : </label>
-            <div>
-              <input className="form__control" value={state.password} onChange={handleChange} type="password" name="password"/>
+            <div className="form__input__container">
+              <div onClick={() => setShowPassword(state => !state)}>
+                { showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i> }
+              </div>
+              <input className="form__control" value={state.password} onChange={handleChange} type={!showPassword ? "password" : "text"} name="password"/>
               <span className="invalid-feedback">{errors.password}</span>
             </div>
           </div>

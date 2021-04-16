@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 
 import {useNavigate} from 'react-router-dom';
 import Spinner from '../utils/Spinner';
+import {useAuth} from '../contexts/AuthContext';
+
+import axios from 'axios';
 
 const Login = () => {
 
     const [state,setState] = useState({email:"",password:""});
     const [errors,setErrors] = useState({email:"",password:""});
     const [spinner,setSpinner] = useState(false);
+    const [showPassword,setShowPassword] = useState(false);
 
-    const {loginWithCerediantials} = useAuth();
     const navigate = useNavigate();
     const path = useLocation().state;
+
+    const { dispatch } = useAuth();
 
     const handleChange = (e) => {
        const {value,name} = e.target;
@@ -44,18 +48,23 @@ const Login = () => {
        if(formValidate(state)){
           setSpinner(true)
           try {
-            const {status,message} = await loginWithCerediantials(state);
+            const {status,data } = await axios.post("http://localhost:5000/api/users/login",state);
+            
              if( status === 200 ){
-              console.log(message);
-              navigate(path === null ? "/" : path.from)
+               localStorage.setItem('authToken',JSON.stringify({login:true,data}));
+               dispatch({ type:"LOGIN",payload:data })
+               navigate(path === null ? "/" : path.from)
              }
              setSpinner(false)
+
           } catch (error) {
-             if(error.status === 401){
-               setErrors(state => ({...state,password:error.message}))
+             const { status, data } = error.response;
+
+             if(status === 401){
+               setErrors(state => ({...state,password:data.message}))
              }
-             else if(error.status === 404){
-               setErrors(state => ({...state,email:error.message}))
+             else if(status === 404){
+               setErrors(state => ({...state,email:data.message}))
              }
              setSpinner(false)
           }
@@ -78,10 +87,13 @@ const Login = () => {
 
             <div className="form__group">
               <label className="form__label" htmlFor="password">Password : </label>
-              <div>
-                <input className="form__control" value={state.password} onChange={handleChange} type="password" name="password"/>
-                <span className="invalid-feedback">{errors.password}</span>
+              <div className="form__input__container">
+              <div onClick={() => setShowPassword(state => !state)}>
+                { showPassword ? <i className="fa fa-eye"></i> : <i className="fa fa-eye-slash"></i> }
               </div>
+              <input className="form__control" value={state.password} onChange={handleChange} type={!showPassword ? "password" : "text"} name="password"/>
+              <span className="invalid-feedback">{errors.password}</span>
+            </div>
             </div>
 
             <input type="submit" className="secondary-btn" value="LOGIN"/>

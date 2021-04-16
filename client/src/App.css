@@ -745,6 +745,17 @@ p {
   font-weight:700;
 }
 
+.login__container .form__input__container{
+  position: relative;
+}
+
+.login__container .fa{
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  cursor: pointer;
+}
+
 @media (max-width: 700px){
 .login__container{
  width: 90%;

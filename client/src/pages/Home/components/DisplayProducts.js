@@ -10,7 +10,7 @@ const DisplayProducts = () => {
          {
            products.length > 0 ? (
             products.map((item) => (
-               <ProductContent item={item}/>
+               <ProductContent key={item._id} item={item}/>
             ))
           ) : (
             <p style={{ textAlign: "center" }}>No results found</p>
