@@ -46,7 +46,7 @@ const SignUp = () => {
        if(formValidate(state)){
          setSpinner(true)
           try {
-            const {data,status} = await axios.post("http://localhost:5000/api/users/signup",state);
+            const {data,status} = await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/signup",state);
 
             if(status === 200){
               setToast(data.message);
@@ -60,13 +60,14 @@ const SignUp = () => {
 
             setSpinner(false)
           } catch (error) {
+            setSpinner(false)
+
              const { status,data } = error.response;
 
              if(status === 409){
                setErrors( state => ({...state,email:data.message}) )
              }
 
-            setSpinner(false)
           }
        }
     }

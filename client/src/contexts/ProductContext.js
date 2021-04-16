@@ -6,7 +6,7 @@ export const productContext = createContext();
 
 export const ProductContextProvider = ({children}) => {
     useEffect( () => {
-        axios.get('http://localhost:5000/api/products').then( res => setProducts(res.data.products) )
+        axios.get("https://shopping-hub-2021.herokuapp.com/api/products").then( res => setProducts(res.data.products) )
     },[] )
 
     const [products,setProducts] = useState([]);

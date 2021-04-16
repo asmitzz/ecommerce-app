@@ -48,7 +48,7 @@ const Login = () => {
        if(formValidate(state)){
           setSpinner(true)
           try {
-            const {status,data } = await axios.post("http://localhost:5000/api/users/login",state);
+            const {status,data } = await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/login",state);
             
              if( status === 200 ){
                localStorage.setItem('authToken',JSON.stringify({login:true,data}));
@@ -58,6 +58,7 @@ const Login = () => {
              setSpinner(false)
 
           } catch (error) {
+            setSpinner(false)
              const { status, data } = error.response;
 
              if(status === 401){
@@ -66,7 +67,6 @@ const Login = () => {
              else if(status === 404){
                setErrors(state => ({...state,email:data.message}))
              }
-             setSpinner(false)
           }
           
        }

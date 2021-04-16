@@ -12,7 +12,7 @@ dotenv.config()
 
 const { connectToDB } = require('./mongoose')
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 connectToDB(process.env.URI);
 
