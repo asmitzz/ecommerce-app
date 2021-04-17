@@ -12,11 +12,9 @@ const signup = async(req, res) => {
       });
 
    } catch (error) {
-      if(error){
-         return res.status(409).json({
+          res.status(409).json({
             message: "Email address is already registered"
          })
-      }
    }
 }
 
