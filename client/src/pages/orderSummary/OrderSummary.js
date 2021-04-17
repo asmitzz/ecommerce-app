@@ -6,8 +6,8 @@ import {useCart} from '../../contexts/CartContext';
 const OrderSummary = () => {
 
     useEffect(() => {
-        window.scroll(0,0)
-    }, [])
+        window.scroll({ behavior:'smooth',top:0 });
+      })
 
     const {selectedAddress} = useAddress();
     const navigate = useNavigate();

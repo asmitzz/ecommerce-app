@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 const DisplayAddresses = () => {
 
   useEffect(() => {
-    window.scroll(0,0)
-}, [])
+    window.scroll({ behavior:'smooth',top:0 });
+  })
 
   const { address } = useAddress();
   const navigate = useNavigate();

@@ -98,8 +98,10 @@ const Login = () => {
 
             <input type="submit" className="secondary-btn" value="LOGIN"/>
         </form>
-        <br/>
-        <small>Don't have an account? <Link to="/signup" className="signup__link">SIGN UP</Link></small>
+        
+        <p className="forget__password"><Link to="/resetpassword" className="forget__password__link"><u>Forget password?</u></Link></p>
+
+        <small>Don't have an account? <Link to="/signup" className="signup__link"><u>SIGN UP</u></Link></small>
       </div>
 
     );

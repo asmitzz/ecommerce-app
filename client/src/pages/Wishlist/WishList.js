@@ -5,8 +5,8 @@ import { useWishlist } from '../../contexts/WishContext';
 const WishList = () => {
 
   useEffect(() => {
-    window.scroll(0,0)
-  }, [])
+    window.scroll({ behavior:'smooth',top:0 });
+  })
 
   const {wishlist,dispatchWishlist} = useWishlist();
   const {cart, dispatchCart } = useCart();

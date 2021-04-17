@@ -1,8 +1,10 @@
 import { useReducer } from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useAuth} from '../contexts/AuthContext';
 
 const CartReducer = () => {
     const navigate = useNavigate();
+    const { isUserloggedIn } = useAuth();
 
     const cartReducer = (state,action) => {
         switch (action.type) {
@@ -30,6 +32,9 @@ const CartReducer = () => {
     const totalCartItem = getTotalCartItem();
 
     const addToCart = (item) => {
+        if (!isUserloggedIn) {
+          return navigate("/login");
+        }
         if (cart.find((i) => i._id === item._id)) {
           return navigate("/cart");
         }

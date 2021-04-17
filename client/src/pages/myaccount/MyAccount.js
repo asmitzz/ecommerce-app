@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import {useAuth} from '../../contexts/AuthContext';
 
 const MyAccount = () => {
     const { userDetails } = useAuth();
     const { name,email } = userDetails;
+
+    useEffect(() => {
+      window.scroll({ behavior:'smooth',top:0 });
+    })
     return (
         <div className="account__container">
             <div className="account__avatar">

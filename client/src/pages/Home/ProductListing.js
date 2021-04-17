@@ -9,8 +9,8 @@ import Filter from "./components/Filter";
 const ProductListing = () => {
 
   useEffect(() => {
-    window.scroll(0,0)
-  }, [])
+    window.scroll({ behavior:'smooth',top:0 });
+  })
 
   const {
     dispatchProduct,

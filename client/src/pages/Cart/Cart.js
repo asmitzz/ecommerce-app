@@ -6,8 +6,8 @@ import { useWishlist } from "../../contexts/WishContext";
 const Cart = () => {
 
   useEffect(() => {
-    window.scroll(0,0)
-  }, []);
+    window.scroll({ behavior:'smooth',top:0 });
+  })
 
   const navigate = useNavigate();
 
