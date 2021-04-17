@@ -87,11 +87,6 @@ h4 {
   align-items: center;
 }
 
-@media(max-width:460px){
-  .nav .loginBtn{
-    display:none;
-  }
-}
 
 .sidebar{
   width:200px;

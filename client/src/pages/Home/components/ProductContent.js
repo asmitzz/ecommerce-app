@@ -19,7 +19,7 @@ const ProductContent = ({item}) => {
               <h4>{item.name}</h4>
               <small className="card-content-details">Price:{item.price}</small>
               {item.fastDelivery && (
-                <small className="card-content-details"><i className="fas fa-shipping-fast"></i> Fast Delivery available</small>
+                <small className="card-content-details"><i className="fas fa-shipping-fast"></i> Fast Delivery</small>
               )}
             </div>
 
