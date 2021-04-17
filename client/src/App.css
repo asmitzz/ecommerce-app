@@ -762,7 +762,6 @@ p {
 }
 
 .login__container .forget__password{
-  
    margin:1rem 0;
 }
 
@@ -772,6 +771,16 @@ p {
   font-size: 0.9rem;
 }
 
+
+.login__container .backLink{
+   margin-top: 1rem;
+   text-align: center;
+}
+
+.backLink a{
+  text-decoration: none;
+   color: var(--secondary);
+}
 
 @media (max-width: 700px){
 .login__container{
