@@ -26,6 +26,10 @@ app.get('/',(req,res) => {
 app.use("/api",productRoutes);
 app.use("/api",userRoutes);
 
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "route not found on server, please check"})
+})
+
 app.use((err,req,res,next) => {
    console.error(err.stack)
    res.status(500).json({ success: false, message:"route not found on server" ,error:err.message})
