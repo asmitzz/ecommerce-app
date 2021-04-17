@@ -26,4 +26,9 @@ app.get('/',(req,res) => {
 app.use("/api",productRoutes);
 app.use("/api",userRoutes);
 
+app.use((err,req,res,next) => {
+   console.error(err.stack)
+   res.status(500).json({ success: false, message:"route not found on server" ,error:err.message})
+})
+
 app.listen(port,() => console.log("server listening on port : ",port))
