@@ -20,7 +20,7 @@ import { useAuth } from "./contexts/AuthContext";
 
 import "./App.css";
 import MyAccount from "./pages/myaccount/MyAccount";
-import ForgetPassword from "./auth/ForgetPassword";
+// import ForgetPassword from "./auth/ForgetPassword";
 
 const App = () => {
 
@@ -34,7 +34,7 @@ const App = () => {
 
           { !isUserloggedIn && <Route path="/login" element={<Login/>}/>}
           { !isUserloggedIn && <Route path="/signup" element={<SignUp/>}/>}
-          { !isUserloggedIn && <Route path="/resetpassword" element={<ForgetPassword/>}/>}
+          {/* { !isUserloggedIn && <Route path="/resetpassword" element={<ForgetPassword/>}/>} */}
 
           <PrivateRoute path="/wishlist" element={<WishList/>}/>
           <PrivateRoute path="/cart" element={<Cart/>}/>

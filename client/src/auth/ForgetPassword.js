@@ -70,8 +70,8 @@ const ForgetPassword = () => {
 
     return (
       <div className="login__container">
-        <Spinner show={spinner}/>
-        <SuccessToast show={toast} background="#181818" color="#dab600"/>
+        {/* <Spinner show={spinner}/> */}
+        {/* <SuccessToast show={toast} background="#181818" color="#dab600"/> */}
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">RESET PASSWORD</h1>
