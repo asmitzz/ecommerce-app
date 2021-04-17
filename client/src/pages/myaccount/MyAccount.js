@@ -7,7 +7,7 @@ const MyAccount = () => {
 
     useEffect(() => {
       window.scroll({ behavior:'smooth',top:0 });
-    })
+    },[])
     return (
         <div className="account__container">
             <div className="account__avatar">

@@ -7,12 +7,12 @@ const Cart = () => {
 
   useEffect(() => {
     window.scroll({ behavior:'smooth',top:0 });
-  })
+  },[])
 
   const navigate = useNavigate();
 
   const { wishlist, dispatchWishlist } = useWishlist();
-  const { cart, dispatchCart, totalCartValue, totalCartItem } = useCart();
+  const { cartItems, dispatchCart, totalCartValue, totalCartItem } = useCart();
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i._id === item._id)) {
@@ -27,8 +27,8 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <h1>My Cart({totalCartItem})</h1>
-      {cart.length > 0 ? (
-        cart.map((item) => (
+      {cartItems.length > 0 ? (
+        cartItems.map((item) => (
           <div key={item._id} className="card-horizontal">
             <img alt="product" className="card-img" src={item.image} />
             <div className="card-body">
@@ -46,7 +46,7 @@ const Cart = () => {
                 >
                   -
                 </button>
-                &nbsp;{item.qty}&nbsp;
+                &nbsp;{item.quantity}&nbsp;
                 <button
                   onClick={() =>
                     dispatchCart({ type: "ADD_QTY", payload: item._id })
@@ -87,7 +87,7 @@ const Cart = () => {
       ) : (
         <p style={{ textAlign: "center" }}>Your cart is empty</p>
       )}
-      {cart.length > 0 && (
+      {cartItems.length > 0 && (
         <>
           <h2>Total Price: ₹{totalCartValue}</h2>
           <button

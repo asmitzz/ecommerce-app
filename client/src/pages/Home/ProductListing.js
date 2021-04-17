@@ -10,7 +10,7 @@ const ProductListing = () => {
 
   useEffect(() => {
     window.scroll({ behavior:'smooth',top:0 });
-  })
+  },[])
 
   const {
     dispatchProduct,

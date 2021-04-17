@@ -7,7 +7,7 @@ const OrderSummary = () => {
 
     useEffect(() => {
         window.scroll({ behavior:'smooth',top:0 });
-      })
+      },[])
 
     const {selectedAddress} = useAddress();
     const navigate = useNavigate();
