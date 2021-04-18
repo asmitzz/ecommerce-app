@@ -24,7 +24,7 @@ const ProductContent = ({item}) => {
             </div>
 
             <button onClick={() => addToCart(item)}  className="primary-btn" disabled={!item.stock} >
-              { item.stock ? cart.find((i) => i._id === item._id) ? "Go to cart" : "Add to cart" : "Out of cart"}
+              { item.stock ? (cart.find((i) => i.productID === item._id) ? "Go to cart" : "Add to cart") : "Out of cart"}
             </button>
             
           </div>

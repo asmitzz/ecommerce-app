@@ -1,11 +1,11 @@
-const users = require('../models/user.model');
+const Users = require('../models/user.model');
 const md5 = require('md5');
 
 const signup = async(req, res) => {
    const {name,email,password} = req.body;
 
    try {
-      await users({name,email,password:md5(password)}).save();
+      await Users({name,email,password:md5(password)}).save();
       
       res.status(200).json({
          message: "Email address is registered successfully"
@@ -20,8 +20,8 @@ const signup = async(req, res) => {
 
 const login = async(req,res) => {
    try {
-      const email = await users.findOne({email:req.body.email});
-      const password = await users.findOne({password:md5(req.body.password)});
+      const email = await Users.findOne({email:req.body.email});
+      const password = await Users.findOne({password:md5(req.body.password)});
 
       if(email){
          if(password){

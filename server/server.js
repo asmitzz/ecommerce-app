@@ -11,11 +11,11 @@ const cartRoutes = require('./routes/carts.routes');
 
 dotenv.config()
 
-const { connectToDB } = require('./mongoose')
+const { initializeDB } = require('./mongoose')
 
 const port = process.env.PORT || 5000;
 
-connectToDB(process.env.URI);
+initializeDB(process.env.URI);
 
 app.use(bodyParser.json());
 app.use(cors());

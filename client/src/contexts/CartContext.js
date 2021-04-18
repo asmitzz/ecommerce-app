@@ -6,7 +6,15 @@ export const cartContext = createContext();
 
 export const CartContextProvider = ({children}) => {
 
-    const { cart,dispatch,addToCart } = CartReducer();
+    const { 
+        cart,
+        removeFromCart,
+        addToCart,
+        increaseQuantityOfProduct,
+        decreaseQuantityOfProduct,
+        emptyCart 
+    } = CartReducer();
+    
     const { products } = useProducts();
 
     const cartItems = cart.map( item => ( {...products.find( i => i._id === item.productID ),...item} ))
@@ -16,8 +24,19 @@ export const CartContextProvider = ({children}) => {
 
     const getTotalCartItem = () =>  cartItems.reduce( (total,i) => parseInt(total) + parseInt(i.quantity) , 0);
     const totalCartItem = getTotalCartItem();
+    
     return(
-        <cartContext.Provider value={{cart,cartItems,dispatchCart:dispatch,totalCartValue,totalCartItem,addToCart}}>
+        <cartContext.Provider value={{
+            cart,
+            cartItems,
+            removeFromCart,
+            increaseQuantityOfProduct,
+            decreaseQuantityOfProduct,
+            totalCartValue,
+            totalCartItem,
+            addToCart,
+            emptyCart
+        }}>
              {children}
         </cartContext.Provider>
     );

@@ -13,7 +13,7 @@ const OrderSummary = () => {
     const navigate = useNavigate();
 
     const {name,address,state,city,locality,pincode} = selectedAddress;
-    const {cart,totalCartValue,dispatchCart} = useCart();
+    const {cart,totalCartValue,emptyCart} = useCart();
 
     return (
         <div className="order_summary_container">
@@ -42,7 +42,7 @@ const OrderSummary = () => {
                   <button className="primary-btn" onClick={() =>{ 
                       alert("Order successfull!!")
                       navigate("/")
-                      dispatchCart({ type: "EMPTY_CART"})
+                      emptyCart()
                       }}>Place order</button>
                 </div>
             </div>

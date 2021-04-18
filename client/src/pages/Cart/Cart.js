@@ -12,7 +12,15 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const { wishlist, dispatchWishlist } = useWishlist();
-  const { cartItems, dispatchCart, totalCartValue, totalCartItem } = useCart();
+  
+  const { 
+    cartItems,
+    decreaseQuantityOfProduct,
+    increaseQuantityOfProduct,
+    removeFromCart,
+    totalCartValue,
+    totalCartItem 
+  } = useCart();
 
   const addToWishlist = (item) => {
     if (wishlist.find((i) => i._id === item._id)) {
@@ -39,18 +47,14 @@ const Cart = () => {
               <div>
                 <small>₹{item.price}</small>&nbsp;
                 <button
-                  disabled={item.qty <= 1}
-                  onClick={() =>
-                    dispatchCart({ type: "REMOVE_QTY", payload: item._id })
-                  }
+                  disabled={item.quantity <= 1}
+                  onClick={() => decreaseQuantityOfProduct(item.productID)}
                 >
                   -
                 </button>
                 &nbsp;{item.quantity}&nbsp;
                 <button
-                  onClick={() =>
-                    dispatchCart({ type: "ADD_QTY", payload: item._id })
-                  }
+                  onClick={() =>increaseQuantityOfProduct(item.productID)}
                 >
                   +
                 </button>
@@ -69,9 +73,7 @@ const Cart = () => {
                 ></i>
                </div>
                 <button
-                  onClick={() =>
-                    dispatchCart({ type: "REMOVE_FROM_CART", payload: item._id })
-                  }
+                  onClick={() => removeFromCart(item.productID)}
                   className="secondary-btn"
                   style={{
                     padding:'0.2rem 0.5rem',

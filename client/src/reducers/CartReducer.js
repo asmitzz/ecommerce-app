@@ -9,18 +9,16 @@ const CartReducer = () => {
     const navigate = useNavigate();
     const { isUserloggedIn,userDetails } = useAuth();
 
-    const {uid} = userDetails;
-
     useEffect( () => {
       ( async function(){
         try {
-          const res = await axios.get("http://localhost:5000/api/carts/"+uid);
+          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+userDetails?.uid);
           dispatch({ type: "INITIAL_STATE",payload:res.data.cart})
         } catch (error) {
           return []
         }
       } )()
-    },[uid] )
+    },[userDetails?.uid] )
 
     const cartReducer = (state,action) => {
         switch (action.type) {
@@ -29,11 +27,11 @@ const CartReducer = () => {
             case "ADD_TO_CART":
             return [...state,action.payload]
             case "REMOVE_FROM_CART":
-            return state.filter( i => i._id !== action.payload)
-            case "ADD_QTY":
-            return state.map( i => i._id === action.payload ? {...i,qty:i.qty + 1} : i )
-            case "REMOVE_QTY":
-            return state.map( i => i._id === action.payload ? {...i,qty:i.qty - 1} : i )
+            return state.filter( i => i.productID !== action.payload)
+            case "INCREASE_QTY":
+            return state.map( i => i.productID === action.payload ? {...i,quantity:i.quantity + 1} : i )
+            case "DECREASE_QTY":
+            return state.map( i => i.productID === action.payload ? {...i,quantity:i.quantity - 1} : i )
             case "EMPTY_CART":
             return []
             default:
@@ -46,19 +44,55 @@ const CartReducer = () => {
         if (!isUserloggedIn) {
           return navigate("/login");
         }
-        if (state.find((i) => i._id === item._id)) {
+        if (state.find((i) => i.productID === item._id)) {
           return navigate("/cart");
         }
         try {
-          await axios.post("http://localhost:5000/api/carts/"+uid,{productID:item._id,quantity:1});
-          dispatch({ type: "ADD_TO_CART", payload: {...item,quantity:1} });
+          await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+userDetails?.uid,{productID:item._id,quantity:1});
+          dispatch({ type: "ADD_TO_CART", payload: {productID:item._id,quantity:1} });
         } catch (error) {
            alert("something went wrong with server")
         }
         
     };
 
-    return {cart:state,dispatch,addToCart}
+    const removeFromCart = async(productID) => {
+        try {
+           await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}`)
+           dispatch({ type:"REMOVE_FROM_CART",payload:productID })
+        } catch (error) {
+          alert("something went wrong with server")
+        }
+    }
+
+    const increaseQuantityOfProduct = async(productID) => {
+      try {
+        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}/increasequantity`)
+        dispatch({ type:"INCREASE_QTY",payload:productID })
+     } catch (error) {
+       alert("something went wrong with server")
+     }
+    }
+
+    const decreaseQuantityOfProduct = async(productID) => {
+      try {
+        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}/decreasequantity`);
+        dispatch({ type:"DECREASE_QTY",payload:productID })
+     } catch (error) {
+       alert("something went wrong with server")
+     }
+    }
+
+    const emptyCart = async() => {
+      try {
+        await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}`);
+        dispatch({ type:"EMPTY_CART" })
+     } catch (error) {
+       alert("something went wrong with server")
+     }
+    }
+
+    return {cart:state,emptyCart,addToCart,increaseQuantityOfProduct,decreaseQuantityOfProduct,removeFromCart}
 };
 
 export default CartReducer;
