@@ -12,7 +12,7 @@ const CartReducer = () => {
     useEffect( () => {
       ( async function(){
         try {
-          const res = await axios.get("http://localhost:5000/api/carts/"+uid);
+          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
           dispatch({ type: "INITIAL_STATE",payload:res.data.cart})
         } catch (error) {
           return []
@@ -40,52 +40,64 @@ const CartReducer = () => {
     }
     const [state, dispatch] = useReducer(cartReducer,[]);
 
-    const addToCart = async(item) => {
+    const addToCart = async(item,loader) => {
         if (!isUserloggedIn) {
           return navigate("/login");
         }
         if (state.find((i) => i.product._id === item._id)) {
           return navigate("/cart");
         }
+        loader(true);
         try {
-          await axios.post("http://localhost:5000/api/carts/"+uid,{productID:item._id,quantity:1});
+          await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid,{productID:item._id,quantity:1});
           dispatch({ type: "ADD_TO_CART", payload: {product:item,quantity:1} });
+          loader(false);
         } catch (error) {
-           alert("something went wrong with server")
+           alert("something went wrong with server");
+           loader(false);
         }
-        
+       
     };
 
-    const removeFromCart = async(productID) => {
+    const removeFromCart = async(productID,loader) => {
+          loader(true)
         try {
-           await axios.delete(`http://localhost:5000/api/carts/${uid}/${productID}`)
+           await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}`)
            dispatch({ type:"REMOVE_FROM_CART",payload:productID })
+           loader(false)
         } catch (error) {
+          loader(false)
           alert("something went wrong with server")
         }
     }
 
-    const increaseQuantityOfProduct = async(productID) => {
+    const increaseQuantityOfProduct = async(productID,loader) => {
+      loader(true)
       try {
-        await axios.post(`http://localhost:5000/api/carts/${uid}/${productID}/increasequantity`)
+        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/increasequantity`)
         dispatch({ type:"INCREASE_QTY",payload:productID })
+        loader(false)
      } catch (error) {
+      loader(false)
        alert("something went wrong with server")
      }
     }
 
-    const decreaseQuantityOfProduct = async(productID) => {
+    const decreaseQuantityOfProduct = async(productID,loader) => {
+      loader(true)
       try {
-        await axios.post(`http://localhost:5000/api/carts/${uid}/${productID}/decreasequantity`);
+        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/decreasequantity`);
         dispatch({ type:"DECREASE_QTY",payload:productID })
+        loader(false)
      } catch (error) {
+      loader(false)
        alert("something went wrong with server")
      }
     }
 
     const emptyCart = async() => {
       try {
-        await axios.delete(`http://localhost:5000/api/carts/${uid}`);
+        await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}`);
         dispatch({ type:"EMPTY_CART" })
      } catch (error) {
        alert("something went wrong with server")

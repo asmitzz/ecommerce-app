@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useCart } from "../../../contexts/CartContext";
 import { useWishlist } from "../../../contexts/WishContext";
+import BtnSpinner from '../../../utils/BtnSpinner';
 
 const ProductContent = ({item}) => {
 
     const { cartItems,addToCart } = useCart();
     const { wishlist ,addToWishlist} = useWishlist();
+    const [loader,setLoader] = useState(false);
 
     return (
         <div key={item._id} className={item.stock ? "card" : "card out-of-stock"}>
@@ -23,8 +26,9 @@ const ProductContent = ({item}) => {
               )}
             </div>
 
-            <button onClick={() => addToCart(item)}  className="primary-btn" disabled={!item?.stock} >
-              { item.stock ? (cartItems.find((i) => i?._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart"}
+            <button onClick={() => addToCart(item,setLoader)}  className="primary-btn" disabled={(!item?.stock || loader)} >
+              { !loader && (item.stock ? (cartItems.find((i) => i?._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart")}
+              { loader && <BtnSpinner show={true}/>}
             </button>
             
           </div>

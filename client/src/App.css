@@ -790,7 +790,7 @@ p {
   justify-content: center;
   align-items: center; 
   z-index: 1;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -818,6 +818,8 @@ p {
 .btn__spinner{
   height:15px;
   width: 15px;
+  display: block;
+  margin:auto;
   border-radius: 50%;
   border:2px solid #dab600;
   border-left-color:white;

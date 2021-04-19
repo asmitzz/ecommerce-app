@@ -1,7 +1,8 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { useWishlist } from "../../contexts/WishContext";
+import Spinner from "../../utils/Spinner";
 
 const Cart = () => {
 
@@ -12,6 +13,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const { wishlist, dispatchWishlist } = useWishlist();
+  const [spinner,setSpinner] = useState(false);
   
   const { 
     cartItems,
@@ -34,6 +36,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
+      <Spinner show={spinner}/>
       <h1>My Cart({totalCartItem})</h1>
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
@@ -48,13 +51,13 @@ const Cart = () => {
                 <small>₹{item.price}</small>&nbsp;
                 <button
                   disabled={item.quantity <= 1}
-                  onClick={() => decreaseQuantityOfProduct(item._id)}
+                  onClick={() => decreaseQuantityOfProduct(item._id,setSpinner)}
                 >
                   -
                 </button>
                 &nbsp;{item.quantity}&nbsp;
                 <button
-                  onClick={() =>increaseQuantityOfProduct(item._id)}
+                  onClick={() =>increaseQuantityOfProduct(item._id,setSpinner)}
                 >
                   +
                 </button>
@@ -73,7 +76,7 @@ const Cart = () => {
                 ></i>
                </div>
                 <button
-                  onClick={() => removeFromCart(item._id)}
+                  onClick={() => removeFromCart(item._id,setSpinner)}
                   className="secondary-btn"
                   style={{
                     padding:'0.2rem 0.5rem',
