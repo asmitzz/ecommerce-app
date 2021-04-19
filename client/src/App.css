@@ -815,6 +815,24 @@ p {
  }
 }
 
+.btn__spinner{
+  height:15px;
+  width: 15px;
+  border-radius: 50%;
+  border:2px solid #dab600;
+  border-left-color:white;
+  animation: btnspinner 1s ease infinite; 
+}
+
+@keyframes btnspinner{
+  from{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
 .success__toast{
   background: teal;
   height: 20px;
