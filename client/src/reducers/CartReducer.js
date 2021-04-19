@@ -7,18 +7,18 @@ import axios from 'axios';
 const CartReducer = () => {
 
     const navigate = useNavigate();
-    const { isUserloggedIn,userDetails } = useAuth();
+    const { isUserloggedIn,uid } = useAuth();
 
     useEffect( () => {
       ( async function(){
         try {
-          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+userDetails?.uid);
+          const res = await axios.get("http://localhost:5000/api/carts/"+uid);
           dispatch({ type: "INITIAL_STATE",payload:res.data.cart})
         } catch (error) {
           return []
         }
       } )()
-    },[userDetails?.uid] )
+    },[uid] )
 
     const cartReducer = (state,action) => {
         switch (action.type) {
@@ -27,11 +27,11 @@ const CartReducer = () => {
             case "ADD_TO_CART":
             return [...state,action.payload]
             case "REMOVE_FROM_CART":
-            return state.filter( i => i.productID !== action.payload)
+            return state.filter( i => i.product._id !== action.payload)
             case "INCREASE_QTY":
-            return state.map( i => i.productID === action.payload ? {...i,quantity:i.quantity + 1} : i )
+            return state.map( i => i.product._id === action.payload ? {...i,quantity:i.quantity + 1} : i )
             case "DECREASE_QTY":
-            return state.map( i => i.productID === action.payload ? {...i,quantity:i.quantity - 1} : i )
+            return state.map( i => i.product._id === action.payload ? {...i,quantity:i.quantity - 1} : i )
             case "EMPTY_CART":
             return []
             default:
@@ -39,17 +39,17 @@ const CartReducer = () => {
         }
     }
     const [state, dispatch] = useReducer(cartReducer,[]);
-   
+
     const addToCart = async(item) => {
         if (!isUserloggedIn) {
           return navigate("/login");
         }
-        if (state.find((i) => i.productID === item._id)) {
+        if (state.find((i) => i.product._id === item._id)) {
           return navigate("/cart");
         }
         try {
-          await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+userDetails?.uid,{productID:item._id,quantity:1});
-          dispatch({ type: "ADD_TO_CART", payload: {productID:item._id,quantity:1} });
+          await axios.post("http://localhost:5000/api/carts/"+uid,{productID:item._id,quantity:1});
+          dispatch({ type: "ADD_TO_CART", payload: {product:item,quantity:1} });
         } catch (error) {
            alert("something went wrong with server")
         }
@@ -58,7 +58,7 @@ const CartReducer = () => {
 
     const removeFromCart = async(productID) => {
         try {
-           await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}`)
+           await axios.delete(`http://localhost:5000/api/carts/${uid}/${productID}`)
            dispatch({ type:"REMOVE_FROM_CART",payload:productID })
         } catch (error) {
           alert("something went wrong with server")
@@ -67,7 +67,7 @@ const CartReducer = () => {
 
     const increaseQuantityOfProduct = async(productID) => {
       try {
-        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}/increasequantity`)
+        await axios.post(`http://localhost:5000/api/carts/${uid}/${productID}/increasequantity`)
         dispatch({ type:"INCREASE_QTY",payload:productID })
      } catch (error) {
        alert("something went wrong with server")
@@ -76,7 +76,7 @@ const CartReducer = () => {
 
     const decreaseQuantityOfProduct = async(productID) => {
       try {
-        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}/${productID}/decreasequantity`);
+        await axios.post(`http://localhost:5000/api/carts/${uid}/${productID}/decreasequantity`);
         dispatch({ type:"DECREASE_QTY",payload:productID })
      } catch (error) {
        alert("something went wrong with server")
@@ -85,7 +85,7 @@ const CartReducer = () => {
 
     const emptyCart = async() => {
       try {
-        await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${userDetails?.uid}`);
+        await axios.delete(`http://localhost:5000/api/carts/${uid}`);
         dispatch({ type:"EMPTY_CART" })
      } catch (error) {
        alert("something went wrong with server")

@@ -1,15 +1,10 @@
 const Carts = require('../models/cart.model');
+const Products = require('../models/product.model');
+const Users = require('../models/user.model');
 
 const checkCart = async(req,res,next,uid) => {
     try {
         const cart = await Carts.findOne({uid});
-
-        if(cart){
-           req.cart = cart;
-           next();
-           return
-        }
-
         req.cart = cart;
         next();
     } catch (error) {
@@ -21,8 +16,9 @@ const checkProduct = (req,res,next,productID) => {
     const {cart} = req;
 
     try {
-       const product = cart.products.find( p => p.productID === productID);
-       if( !product){
+       const product = cart.products.find( i => i.product == productID );
+    
+       if(!product){
            return res.status(404).json({message:"product not found"}) 
        }
        req.product = product;
@@ -34,9 +30,11 @@ const checkProduct = (req,res,next,productID) => {
 
 const getUserCart = async(req, res) => {
     const {cart} = req;
+   
     try {
         if(cart){
-          return res.status(200).json({cart:cart.products})
+          const {products} = await cart.execPopulate({ path:"products",populate:"product" });
+          return res.status(200).json({cart:products})
         }
         res.status(200).json({cart:[]})
     } catch (error) {
@@ -48,17 +46,21 @@ const getUserCart = async(req, res) => {
 const addProductInCart = async(req,res) => {
  
     let {cart} = req;
-    const item = req.body;
+    const {productID,quantity} = req.body;
     const { uid } = req.params;
 
-    if( cart ){
-        cart.products.push(item)
-        cart = await cart.save()
+    const product = await Products.findById(productID);
+    if(cart){
+        cart.products.push({product:product.id,quantity});
+        await cart.save();
         return res.status(200).json({message:"Product added in cart"})
     }
 
-    await Carts({ uid,products:[item] }).save()
-    res.status(200).json({message:"Product added in cart"})
+    const createCart = await Carts.create({ uid,products:[{product:product.id,quantity}] });
+    let userReference = await Users.findById(uid);
+    userReference.cart = createCart.id;
+    userReference = await userReference.save()
+    res.status(200).json({ message:"Product added in cart"})
 }
 
 const removeProductFromCart = async(req,res) => {

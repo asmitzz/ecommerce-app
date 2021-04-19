@@ -48,13 +48,13 @@ const Cart = () => {
                 <small>₹{item.price}</small>&nbsp;
                 <button
                   disabled={item.quantity <= 1}
-                  onClick={() => decreaseQuantityOfProduct(item.productID)}
+                  onClick={() => decreaseQuantityOfProduct(item._id)}
                 >
                   -
                 </button>
                 &nbsp;{item.quantity}&nbsp;
                 <button
-                  onClick={() =>increaseQuantityOfProduct(item.productID)}
+                  onClick={() =>increaseQuantityOfProduct(item._id)}
                 >
                   +
                 </button>
@@ -73,7 +73,7 @@ const Cart = () => {
                 ></i>
                </div>
                 <button
-                  onClick={() => removeFromCart(item.productID)}
+                  onClick={() => removeFromCart(item._id)}
                   className="secondary-btn"
                   style={{
                     padding:'0.2rem 0.5rem',

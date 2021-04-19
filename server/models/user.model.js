@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         trim:true,
         required:true,
         minlength:8,
+    },
+    cart:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Cart"
     }
 },{timestamps:true});
 

@@ -1,6 +1,5 @@
 import React,{ createContext,useContext } from 'react';
 import CartReducer from '../reducers/CartReducer';
-import { useProducts } from "../contexts/ProductContext";
 
 export const cartContext = createContext();
 
@@ -14,15 +13,13 @@ export const CartContextProvider = ({children}) => {
         decreaseQuantityOfProduct,
         emptyCart 
     } = CartReducer();
-    
-    const { products } = useProducts();
 
-    const cartItems = cart.map( item => ( {...products.find( i => i._id === item.productID ),...item} ))
+    const cartItems = cart.map( item => ({quantity:item.quantity,...item.product}) ) || [];
 
-    const getTotalCartValue = () => cartItems.reduce( (total,i) => parseInt(total) + parseInt(i.price*i.quantity) , 0);
+    const getTotalCartValue = () => cartItems.reduce( (total,i) => parseInt(total) + parseInt(i?.price * i?.quantity) , 0);
     const totalCartValue = getTotalCartValue();
 
-    const getTotalCartItem = () =>  cartItems.reduce( (total,i) => parseInt(total) + parseInt(i.quantity) , 0);
+    const getTotalCartItem = () =>  cartItems.reduce( (total,i) => parseInt(total) + parseInt(i?.quantity) , 0);
     const totalCartItem = getTotalCartItem();
     
     return(
