@@ -16,9 +16,9 @@ const checkProduct = async(req,res,next,productID) => {
     const {wishlist} = req;
   
     try {
-       const product = wishlist.products.findIndex( i => i == productID );
+       const product = wishlist.products.find( i => i == productID );
 
-       if(!product && product !== 0){
+       if(!product){
            return res.status(404).json({message:"product not found"}) 
        }
        req.product = product;
@@ -66,7 +66,7 @@ const addProductInWishlist = async(req,res) => {
 const removeProductFromWishlist = async(req,res) => {
     let { wishlist,product } = req;
 
-    wishlist.products.splice(product)
+    wishlist.products.remove(product)
 
     await wishlist.save();
     res.status(200).json({message:"Product removed from wishlist"})
