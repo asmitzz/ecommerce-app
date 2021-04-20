@@ -12,8 +12,8 @@ const CartReducer = () => {
     useEffect( () => {
       ( async function(){
         try {
-          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
-          dispatch({ type: "INITIAL_STATE",payload:res.data.cart})
+          const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
+          dispatch({ type:"INITIAL_STATE",payload:data.cart})
         } catch (error) {
           return []
         }
@@ -50,7 +50,7 @@ const CartReducer = () => {
         loader(true);
         try {
           await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid,{productID:item._id,quantity:1});
-          dispatch({ type: "ADD_TO_CART", payload: {product:item,quantity:1} });
+          dispatch({ type:"ADD_TO_CART", payload: {product:item,quantity:1} });
           loader(false);
         } catch (error) {
            alert("something went wrong with server");

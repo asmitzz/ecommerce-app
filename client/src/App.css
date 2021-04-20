@@ -253,14 +253,6 @@ fieldset input {
     0 16px 16px rgba(0, 0, 0, 0.12);
 }
 
-.card:hover {
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.12),
-    inset 0 2px 2px rgba(0, 0, 0, 0.12),
-    inset 0 4px 4px rgba(0, 0, 0, 0.12),
-    inset 0 8px 8px rgba(0, 0, 0, 0.12),
-    inset 0 16px 16px rgba(0, 0, 0, 0.12);
-}
-
 .card-content {
   flex: 1;
   display: flex;
@@ -283,14 +275,22 @@ fieldset input {
 }
 
 .card .wishlist-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.2rem;
+  right: 0;
+}
+
+.card .wishlist-button{
+  background: transparent;
+  border: none;
   font-size: 1.5rem;
   cursor: pointer;
 }
 
-.card .wishlist-icon:hover {
+.card .wishlist-button:hover {
   font-size: 1.8rem;
 }
 

@@ -8,7 +8,7 @@ const checkCart = async(req,res,next,uid) => {
         req.cart = cart;
         next();
     } catch (error) {
-         res.status(404).json({ message:"Something went wrong with server" })
+         res.status(404).json({ message:"cart not found" })
      }
 }
 
@@ -17,7 +17,7 @@ const checkProduct = (req,res,next,productID) => {
 
     try {
        const product = cart.products.find( i => i.product == productID );
-   
+
        if(!product){
            return res.status(404).json({message:"product not found"}) 
        }

@@ -12,7 +12,7 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  const { wishlist, dispatchWishlist } = useWishlist();
+  const { wishlist, handleWishlist } = useWishlist();
   const [spinner,setSpinner] = useState(false);
   
   const { 
@@ -23,16 +23,6 @@ const Cart = () => {
     totalCartValue,
     totalCartItem 
   } = useCart();
-
-  const addToWishlist = (item) => {
-    if (wishlist.find((i) => i._id === item._id)) {
-      return dispatchWishlist({
-        type: "REMOVE_FROM_WISHLIST",
-        payload: item._id,
-      });
-    }
-    dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: item });
-  };
 
   return (
     <div className="cart-container">
@@ -65,7 +55,7 @@ const Cart = () => {
               <div className="card-footer">
                <div className="wishlist-icon">
                <i 
-                  onClick={() => addToWishlist(item)}
+                  onClick={() => handleWishlist(item,setSpinner)}
                   style={{
                     color: wishlist.find((i) => i._id === item._id)
                       ? "red"

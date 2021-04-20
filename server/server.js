@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const productRoutes = require('./routes/products.routes');
 const userRoutes = require('./routes/users.routes');
 const cartRoutes = require('./routes/carts.routes');
+const wishlistRoutes = require('./routes/wishlists.routes');
 
 dotenv.config()
 
@@ -27,6 +28,7 @@ app.get('/',(req,res) => {
 app.use("/api",productRoutes);
 app.use("/api",userRoutes);
 app.use("/api",cartRoutes);
+app.use("/api",wishlistRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "route not found on server, please check"})
