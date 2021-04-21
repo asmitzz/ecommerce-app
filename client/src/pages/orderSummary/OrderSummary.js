@@ -19,11 +19,11 @@ const OrderSummary = () => {
         <div className="order_summary_container">
             <h2 className="order_summary_container_header">Order Summary</h2>
             <div>
-                <p>Delivered to:<small> {name}, {address} ,{city.toUpperCase()} , {state.toUpperCase()} , {locality} , {pincode} , India</small></p>
+                <p>Delivered to:<small> {name}, {address} ,{city?.toUpperCase()} , {state?.toUpperCase()} , {locality} , {pincode} , India</small></p>
                 <ul>
                    {
                        cart.map( i => (
-                           <li key={i.id}>
+                           <li key={i._id}>
                               <h5>{i.name}</h5>
                               <div className="order_summary">
                                 <img alt="" width="150" height="100" src={i.image}/>

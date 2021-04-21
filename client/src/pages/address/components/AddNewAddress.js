@@ -2,11 +2,15 @@ import { useState } from "react";
 
 import { useAddress } from "../../../contexts/AddressContext";
 import { useNavigate } from "react-router-dom";
-import {nanoid} from "nanoid"
+import {nanoid} from "nanoid";
+import Spinner from "../../../utils/Spinner";
+
 
 const AddNewAddress = () => {
   const { addAddress } = useAddress();
   const navigate = useNavigate();
+
+  const [spinner,setSpinner] = useState(false);
 
   const [newAddress, setNewAddress] = useState({
     name: "",
@@ -83,6 +87,7 @@ const AddNewAddress = () => {
 
   return (
     <div className="newAddress">
+      <Spinner show={spinner}/>
       <h2>Add a new address</h2>
       <form>
         <div className="form-group">
@@ -201,8 +206,7 @@ const AddNewAddress = () => {
           onClick={(e) => {
             e.preventDefault();
             if (formValidate(newAddress)) {
-              addAddress({addressID:nanoid(),...newAddress});
-              navigate("/address");
+              addAddress({addressID:nanoid(),...newAddress},setSpinner);
             }
           }}
           className="primary-btn"

@@ -49,7 +49,11 @@ const addressSchema = new mongoose.Schema({
                 trim:true
             }
         }
-    ]
+    ],
+    selectedAddress:{
+        type:Object,
+        default:{}
+    }
 })
 
 module.exports = mongoose.model("Address",addressSchema);

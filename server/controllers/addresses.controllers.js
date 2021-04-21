@@ -11,7 +11,7 @@ const getUserAddresses = (req,res) =>{
     const {userAddress} = req;
       
      if(userAddress){
-        return res.status(200).json({ addresses:userAddress.addresses })
+        return res.status(200).json({ addresses:userAddress.addresses,selectedAddress:userAddress.selectedAddress })
      }
 
      res.status(404).json({ message:"User addresses not found" })
@@ -71,4 +71,21 @@ const updateAddress = async(req,res) => {
 
 }
 
-module.exports = { getUserAddresses,checkAddresses,addAddress,removeAddress,updateAddress }
+const setAddress = async(req,res) => {
+    const {addressID} = req.params;
+    const {userAddress} = req;
+     
+    const address = userAddress.addresses.find( address => address.addressID == addressID);
+    userAddress.selectedAddress = address;
+
+     await userAddress.save((err,result) => {
+        if(result){
+            return res.status(200).json({message:"selected Address updated successfully"})
+         }
+         if(err){
+             return res.status(500).json({message:"Something went wrong with server"})
+         }
+     })
+}
+
+module.exports = { getUserAddresses,checkAddresses,addAddress,removeAddress,updateAddress,setAddress }

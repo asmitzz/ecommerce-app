@@ -1,28 +1,30 @@
 import {useEffect, useReducer} from "react";
 import {useAuth} from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
 const AddressReducer = () => {
 
     const { uid } = useAuth();
+    const navigate = useNavigate();
 
     useEffect( () => {
         ( async function(){
           try {
-            const {data} = await axios.get("http://localhost:5000/api/addresses/"+uid);
-            dispatch({ type:"INITIAL_STATE",payload:data.addresses})
+            const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);
+            dispatch({ type:"INITIAL_STATE",payload:{address:data.addresses,selectedAddress:data.selectedAddress}})
           } catch (error) {
             return dispatch({ type:"INITIAL_STATE",payload:[]})
           }
         } )()
       },[uid] )
 
-    const addressReducer = (state,action) => {
+      const addressReducer = (state,action) => {
 
         switch(action.type) {
             case "INITIAL_STATE":
-            return {address:action.payload,selectedAddress:""}
+            return action.payload
             case "ADD_ADDRESS":
             return {...state,address:[...state.address,action.payload]}
             case "EDIT_ADDRESS":
@@ -37,37 +39,55 @@ const AddressReducer = () => {
     }
 
     const [{address,selectedAddress},dispatch] = useReducer(addressReducer,{address:[],selectedAddress:""});
+ 
 
-
-    const addAddress = async(address) => {
+    const addAddress = async(address,loader) => {
+        loader(true)
         try {
-            await axios.post(`http://localhost:5000/api/addresses/${uid}`,address);
-            dispatch({ type:"ADD_ADDRESS",payload:address})
+            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}`,address);
+            dispatch({ type:"ADD_ADDRESS",payload:address});
+            loader(false);
+            navigate("/address");
         } catch (error) {
+            loader(false)
             alert("something went wrong with server");
         }
     }
 
-    const removeAddress = async(addressID) => {
+    const removeAddress = async(addressID,loader) => {
+        loader(true)
         try {
-            await axios.delete(`http://localhost:5000/api/addresses/${uid}/${addressID}`);
+            await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${addressID}`);
             dispatch({ type:"REMOVE_ADDRESS",payload:addressID})
+            loader(false)
         } catch (error) {
+            loader(false)
             alert("something went wrong with server");
         }
     }
 
-    const editAddress = async(address) => {
-        console.log(address);
+    const editAddress = async(address,loader) => {
         try {
-            await axios.post(`http://localhost:5000/api/addresses/${uid}/${address.addressID}`,address);
+            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${address.addressID}`,address);
             dispatch({ type:"EDIT_ADDRESS",payload:address})
         } catch (error) {
             alert("something went wrong with server");
         }
     }
+
+    const setSelectedAddress = async(addressID,loader) => {
+        loader(true)
+        try {
+            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${addressID}/setaddress`);
+            dispatch({ type:"SELECTED_ADDRESS",payload:addressID})
+            loader(false)
+        } catch (error) {
+            loader(false)
+            alert("something went wrong with server");
+        }
+    }
     
-    return {address,selectedAddress,addAddress,removeAddress,editAddress}
+    return {address,dispatch,selectedAddress,setSelectedAddress,addAddress,removeAddress,editAddress}
 };
 
 export default AddressReducer;

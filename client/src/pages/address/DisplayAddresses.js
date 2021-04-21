@@ -17,7 +17,7 @@ const DisplayAddresses = () => {
       <h3>Choose Delivery Address</h3>
       {
         address.map((displayAddress) => (
-          <AddressContent key={displayAddress._id} {...displayAddress}/>
+          <AddressContent key={displayAddress.addressID} {...displayAddress}/>
         ))
       }
       <br />
