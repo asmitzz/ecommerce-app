@@ -14,7 +14,7 @@ const WishlistReducer = () => {
           const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
           dispatch({ type:"INITIAL_STATE",payload:data.wishlist})
         } catch (error) {
-          return []
+          return dispatch({ type:"INITIAL_STATE",payload:[]})
         }
       } )()
     },[uid] )

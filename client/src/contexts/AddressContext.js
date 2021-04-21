@@ -5,10 +5,10 @@ export const AddressContext = createContext();
 
 export const AddressContextProvider = ({children}) => {
 
-  const {address,selectedAddress,dispatch} = AddressReducer()
+  const {address,selectedAddress,addAddress,removeAddress,editAddress,dispatch} = AddressReducer()
   
   return(
-     <AddressContext.Provider value={{address,selectedAddress,dispatchAddress:dispatch}}>
+     <AddressContext.Provider value={{address,addAddress,removeAddress,editAddress,selectedAddress,dispatchAddress:dispatch}}>
        {children}
      </AddressContext.Provider>
    )

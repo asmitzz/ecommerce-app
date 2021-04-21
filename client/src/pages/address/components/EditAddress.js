@@ -3,10 +3,11 @@ import { useAddress } from "../../../contexts/AddressContext";
 
 const EditAddress = (props) => {
 
-  const { dispatchAddress } = useAddress();
+  const { editAddress } = useAddress();
   
   const [addresses, setAddresses] = useState({
-    id:props.id,
+    _id: props._id,
+    addressID: props.addressID,
     name: props.name,
     type: props.type,
     number: props.number,
@@ -182,7 +183,7 @@ const EditAddress = (props) => {
           <button
             onClick={() => {
               if( formValidate(addresses) ){
-                dispatchAddress({type:"EDIT_ADDRESS",payload:addresses})
+                editAddress(addresses)
                 props.edit(false)
               }
             }}

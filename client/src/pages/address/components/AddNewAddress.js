@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import { useAddress } from "../../../contexts/AddressContext";
-import {nanoid} from "nanoid";
 import { useNavigate } from "react-router-dom";
+import {nanoid} from "nanoid"
 
 const AddNewAddress = () => {
-  const { dispatchAddress } = useAddress();
+  const { addAddress } = useAddress();
   const navigate = useNavigate();
 
   const [newAddress, setNewAddress] = useState({
@@ -201,10 +201,7 @@ const AddNewAddress = () => {
           onClick={(e) => {
             e.preventDefault();
             if (formValidate(newAddress)) {
-              dispatchAddress({
-                type: "ADD_ADDRESS",
-                payload: {...newAddress,id:nanoid()},
-              });
+              addAddress({addressID:nanoid(),...newAddress});
               navigate("/address");
             }
           }}

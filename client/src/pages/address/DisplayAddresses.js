@@ -11,13 +11,13 @@ const DisplayAddresses = () => {
 
   const { address } = useAddress();
   const navigate = useNavigate();
- 
+
   return (
     <div className="address_container">
       <h3>Choose Delivery Address</h3>
       {
         address.map((displayAddress) => (
-          <AddressContent key={displayAddress.id} {...displayAddress}/>
+          <AddressContent key={displayAddress._id} {...displayAddress}/>
         ))
       }
       <br />

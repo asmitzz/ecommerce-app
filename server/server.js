@@ -1,18 +1,20 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const dotenv = require('dotenv');
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-const productRoutes = require('./routes/products.routes');
-const userRoutes = require('./routes/users.routes');
-const cartRoutes = require('./routes/carts.routes');
-const wishlistRoutes = require('./routes/wishlists.routes');
+const { initializeDB } = require("./mongoose")
 
-dotenv.config()
+const productRoutes = require("./routes/products.routes");
+const userRoutes = require("./routes/users.routes");
+const cartRoutes = require("./routes/carts.routes");
+const wishlistRoutes = require("./routes/wishlists.routes");
+const addressesRoutes = require("./routes/addresses.routes");
 
-const { initializeDB } = require('./mongoose')
+dotenv.config();
+
 
 const port = process.env.PORT || 5000;
 
@@ -29,6 +31,7 @@ app.use("/api",productRoutes);
 app.use("/api",userRoutes);
 app.use("/api",cartRoutes);
 app.use("/api",wishlistRoutes);
+app.use("/api",addressesRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "route not found on server, please check"})
