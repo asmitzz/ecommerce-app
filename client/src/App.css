@@ -25,7 +25,7 @@ h4 {
 
 .nav {
   background: var(--secondary);
-  height:13vh;
+  padding:1rem 0;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -47,18 +47,28 @@ h4 {
    margin-right: 0.5rem;
 }
 
+.site__name{
+  font-size:1.4rem;
+  font-weight: 700;
+}
+
 @media (max-width: 800px){
 .nav .profile__avatar__container{
   display: none;
 }
+.site__name{
+  font-size:1.2rem;
+}
 }
 
 .nav ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0;
-  padding:0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0
 }
 
 .nav li {
@@ -72,6 +82,7 @@ h4 {
 
 .nav .nav-link:last-child{
   margin-right:1rem;
+  font-weight: 600;
 }
 
 .nav .nav-link{
@@ -87,6 +98,11 @@ h4 {
   align-items: center;
 }
 
+.badge{
+  position: absolute;
+    top: -0.6rem;
+    font-size: 0.8rem;
+}
 
 .sidebar{
   width:200px;
@@ -161,12 +177,12 @@ h4 {
 
 .badge {
   position: absolute;
-  top: -0.7rem;
+  top: -0.6rem;
 }
 
 .icon-name {
   font-size: 0.6rem;
-  margin-top: 0.4rem;
+  margin-top: 0.2rem;
 }
 
 .routeBtn {
@@ -849,7 +865,7 @@ p {
 }
 
 .backdrop{
-  position: absolute;
+  position: fixed;
   z-index: 1;
   height:100vh;
   width: 100%;
@@ -890,4 +906,26 @@ p {
 
 .account__container .form-label{
    font-weight: 700;
+}
+
+.order__successfull{
+   position: fixed;
+   z-index: 2;
+   top: 30%;
+   left: 40%;
+   padding: 2rem;
+   background: var(--secondary);
+}
+
+.fa-check-circle{
+  animation: tick 1s infinite ease-in-out;
+}
+
+@keyframes tick{
+  from {
+    transform:scale(0.5)
+  }
+  to{
+    transform:scale(2)
+  }
 }

@@ -4,7 +4,7 @@ import { useWishlist } from "../contexts/WishContext";
 import { useAuth } from "../contexts/AuthContext";
 import Sidebar from "./Sidebar";
 import Backdrop from "./Backdrop";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const { totalCartItem } = useCart();
@@ -15,7 +15,6 @@ const Header = () => {
 
   const [showSidebar,setShowSidebar] = useState(false); 
 
-
     return (
         <nav className="nav">
             <Backdrop show={showSidebar} onClick={() => setShowSidebar(false)}/>
@@ -25,8 +24,8 @@ const Header = () => {
             <i style={{fontSize:'1.2rem'}} className="fa fa-bars" onClick={() => setShowSidebar(true)}></i>
           </li>
 
-          <li style={{ flex: 1 }}>
-            <h1><NavLink to="/" className="nav-link">ShoppingHub</NavLink></h1>
+          <li style={{ flexGrow: 1 }}>
+             <NavLink to="/" className="nav-link site__name">ShoppingHub</NavLink>
           </li>
           
           { userDetails && isUserloggedIn && 
