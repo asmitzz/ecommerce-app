@@ -12,8 +12,8 @@ const AddressReducer = () => {
     useEffect( () => {
         ( async function(){
           try {
-            const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);
-            dispatch({ type:"INITIAL_STATE",payload:{address:data.addresses,selectedAddress:data.selectedAddress}})
+            const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);
+            dispatch({ type:"INITIAL_STATE",payload:{address:res?.data?.addresses,selectedAddress:res?.data?.selectedAddress}})
           } catch (error) {
             return dispatch({ type:"INITIAL_STATE",payload:[]})
           }

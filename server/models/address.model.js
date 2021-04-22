@@ -54,6 +54,6 @@ const addressSchema = new mongoose.Schema({
         type:Object,
         default:{}
     }
-})
+},{ timestamps: true})
 
 module.exports = mongoose.model("Address",addressSchema);

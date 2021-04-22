@@ -52,6 +52,7 @@ const Login = () => {
             
              if( status === 200 ){
                localStorage.setItem('authToken',JSON.stringify({login:true,data}));
+    
                dispatch({ type:"LOGIN",payload:data })
                navigate(path === null ? "/" : path.from)
              }

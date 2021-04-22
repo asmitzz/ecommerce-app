@@ -20,6 +20,7 @@ import { useAuth } from "./contexts/AuthContext";
 
 import "./App.css";
 import MyAccount from "./pages/myaccount/MyAccount";
+import YourOrders from "./pages/yourorders/YourOrders";
 // import ForgetPassword from "./auth/ForgetPassword";
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <PrivateRoute path="/newaddress" element={<AddNewAddress/>}/>
           <PrivateRoute path="/ordersummary" element={<OrderSummary/>}/>
           <PrivateRoute path="/myaccount" element={<MyAccount/>}/>
+          <PrivateRoute path="/orders" element={<YourOrders/>}/>
        </Routes>
 
     </div>

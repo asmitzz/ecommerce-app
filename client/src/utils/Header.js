@@ -1,10 +1,11 @@
+import { useState } from "react";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishContext";
 import { useAuth } from "../contexts/AuthContext";
 import Sidebar from "./Sidebar";
 import Backdrop from "./Backdrop";
-import { useEffect, useState } from "react";
 
 const Header = () => {
   const { totalCartItem } = useCart();

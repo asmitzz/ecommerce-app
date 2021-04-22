@@ -28,7 +28,7 @@ const login = async(req,res) => {
             return res.status(200).json({ 
                name:email.name,
                email:email.email,
-               uid: email._id 
+               uid: email._id,
             })
          }
          else{

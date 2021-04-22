@@ -11,8 +11,8 @@ const WishlistReducer = () => {
     useEffect( () => {
       ( async function(){
         try {
-          const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
-          dispatch({ type:"INITIAL_STATE",payload:data.wishlist})
+          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
+          dispatch({ type:"INITIAL_STATE",payload:res?.data?.wishlist})
         } catch (error) {
           return dispatch({ type:"INITIAL_STATE",payload:[]})
         }
