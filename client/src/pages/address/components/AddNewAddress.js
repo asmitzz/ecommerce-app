@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useAddress } from "../../../contexts/AddressContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {nanoid} from "nanoid";
 import Spinner from "../../../utils/Spinner";
 
@@ -11,6 +11,7 @@ const AddNewAddress = () => {
   const navigate = useNavigate();
 
   const [spinner,setSpinner] = useState(false);
+  const path = useLocation()?.state?.from;
 
   const [newAddress, setNewAddress] = useState({
     name: "",
@@ -206,14 +207,14 @@ const AddNewAddress = () => {
           onClick={(e) => {
             e.preventDefault();
             if (formValidate(newAddress)) {
-              addAddress({addressID:nanoid(),...newAddress},setSpinner);
+              addAddress({addressID:nanoid(),...newAddress},setSpinner,path);
             }
           }}
           className="primary-btn"
         >
           Save Address
         </button>
-        <button onClick={() => navigate("/address")} className="secondary-btn">
+        <button onClick={() => navigate("/address",{state:{from:path}})} className="secondary-btn">
           Cancel
         </button>
       </form>

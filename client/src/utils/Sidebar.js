@@ -45,8 +45,8 @@ const Sidebar = ({className,setShowSidebar}) => {
          <section className="sidebar__links__section">
            <Link className="sidebar__link" to="/" onClick={closeSidebar}><i className="fa fa-home"></i>&nbsp;&nbsp;Home</Link>
            { isUserloggedIn && <> 
-           <Link className="sidebar__link" to="/orders" onClick={closeSidebar}><i class="fas fa-box-full"></i>&nbsp;&nbsp;Your Orders</Link>
-           <Link className="sidebar__link" to="/address" onClick={closeSidebar}><i class="fas fa-address-card"></i>&nbsp;&nbsp;Your Address</Link>
+           <Link className="sidebar__link" to="/orders" onClick={closeSidebar}><i className="fas fa-box-full"></i>&nbsp;&nbsp;Your Orders</Link>
+           <Link className="sidebar__link" to="/address" onClick={closeSidebar}><i className="fas fa-address-card"></i>&nbsp;&nbsp;Your Address</Link>
            <div className="sidebar__link" onClick={handleSignout}>
            <i className="fa fa-sign-out"></i>&nbsp;&nbsp;signout  
             </div> </>}

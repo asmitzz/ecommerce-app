@@ -183,7 +183,7 @@ const EditAddress = (props) => {
           <button
             onClick={() => {
               if( formValidate(addresses) ){
-                editAddress(addresses)
+                editAddress(addresses,props.loader)
                 props.edit(false)
               }
             }}

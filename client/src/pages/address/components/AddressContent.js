@@ -49,11 +49,13 @@ const AddressContent = (props) => {
               {address} , {locality} , {city} , {state} ,
               <strong> {pincode}</strong>
             </p>
-            { path === "cart" && selectedAddress !== "" && selectedAddress?.addressID === addressID  && <button className="secondary-btn" onClick={ () => cart.length > 0 ? navigate("/ordersummary",{state:{from:"address"}}) : navigate("/cart") }>Deliver to this address</button>}
+            { path === "cart" && addressID === selectedAddress.addressID  && 
+            <button className="secondary-btn" 
+            onClick={ () => cart.length > 0 ? navigate("/ordersummary",{state:{from:"address"}}) : navigate("/cart") }>Deliver to this address</button>}
           </div>
         </>
       ) : (
-        <EditAddress {...props} edit={setEdit} />
+        <EditAddress {...props} edit={setEdit} loader={setSpinner}/>
       )}
     </div>
   );
