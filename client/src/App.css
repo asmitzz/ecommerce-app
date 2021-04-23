@@ -937,16 +937,16 @@ p {
    background: var(--secondary);
 }
 
-.fa-check-circle{
+.fa-badge-check{
   animation: tick 1s infinite ease-in-out;
 }
 
 @keyframes tick{
   from {
-    transform:scale(0.5)
+    transform:scale(0.5); 
   }
   to{
-    transform:scale(2)
+    transform:scale(2);
   }
 }
 
