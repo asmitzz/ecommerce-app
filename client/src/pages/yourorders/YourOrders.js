@@ -12,7 +12,7 @@ const MyOrders = () => {
         ( async function(){
           try {
             const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/orders/"+uid);
-            setOrders(res.data.orders)
+            setOrders(res.data?.orders)
           } catch (error) {
             setOrders(null)
           }
