@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {useAddress} from "../../contexts/AddressContext";
 import {useCart} from "../../contexts/CartContext";
 import Backdrop from "../../utils/Backdrop";
@@ -11,19 +11,23 @@ import {useAuth} from "../../contexts/AuthContext";
 
 const OrderSummary = () => {
 
-    useEffect(() => {
-        window.scroll({ behavior:'smooth',top:0 });
-      },[])
-
     const {selectedAddress} = useAddress();
     const navigate = useNavigate();
-    const { uid } = useAuth()
+    const { uid } = useAuth();
+    const path = useLocation()?.state?.from;
 
     const {name,address,state,city,locality,pincode} = selectedAddress;
     const {cartItems,totalCartValue,emptyCart} = useCart();
 
     const [order,setOrder] = useState("");
     const [spinner,setSpinner] = useState("");
+
+    useEffect(() => {
+      window.scroll({ behavior:'smooth',top:0 });
+      if(path !== "address"){
+        navigate("/")
+      }
+    },[])
 
     const handleOrder = async() => {
         setSpinner(true)

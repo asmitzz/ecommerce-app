@@ -87,7 +87,7 @@ const Cart = () => {
           <h2>Total Price: ₹{totalCartValue}</h2>
           <button
             className="primary-btn"
-            onClick={() => navigate('/address')}
+            onClick={() => navigate("/address",{state:{from:"cart"}})}
           >
             Proceed to checkout
           </button>

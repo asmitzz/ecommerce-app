@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAddress } from "../../../contexts/AddressContext";
 import { useCart } from "../../../contexts/CartContext";
 import EditAddress from "./EditAddress";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../../utils/Spinner";
 
 
@@ -13,6 +13,8 @@ const AddressContent = (props) => {
   const { setSelectedAddress,removeAddress,selectedAddress } = useAddress();
   const {cart} = useCart();
   const navigate = useNavigate();
+
+  const path = useLocation()?.state?.from;
 
   const [spinner,setSpinner] = useState(false);
  
@@ -47,7 +49,7 @@ const AddressContent = (props) => {
               {address} , {locality} , {city} , {state} ,
               <strong> {pincode}</strong>
             </p>
-            { selectedAddress !== "" && selectedAddress?.addressID === addressID  && <button className="secondary-btn" onClick={ () => cart.length > 0 ? navigate("/ordersummary") : navigate('/cart') }>Deliver to this address</button>}
+            { path === "cart" && selectedAddress !== "" && selectedAddress?.addressID === addressID  && <button className="secondary-btn" onClick={ () => cart.length > 0 ? navigate("/ordersummary",{state:{from:"address"}}) : navigate("/cart") }>Deliver to this address</button>}
           </div>
         </>
       ) : (
