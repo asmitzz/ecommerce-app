@@ -18,10 +18,13 @@ import OrderSummary from "./pages/orderSummary/OrderSummary";
 
 import { useAuth } from "./contexts/AuthContext";
 
-import "./App.css";
 import MyAccount from "./pages/myaccount/MyAccount";
 import YourOrders from "./pages/yourorders/YourOrders";
 // import ForgetPassword from "./auth/ForgetPassword";
+
+import RouteNotFound from "./utils/RouteNotFound";
+
+import "./App.css";
 
 const App = () => {
 
@@ -45,6 +48,8 @@ const App = () => {
           <PrivateRoute path="/ordersummary" element={<OrderSummary/>}/>
           <PrivateRoute path="/myaccount" element={<MyAccount/>}/>
           <PrivateRoute path="/orders" element={<YourOrders/>}/>
+          
+          <Route path="*" element={<RouteNotFound/>}/>
        </Routes>
 
     </div>

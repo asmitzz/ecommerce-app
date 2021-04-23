@@ -1,8 +1,8 @@
 import React from 'react';
 
-const BtnSpinner = ({show}) => {
+const BtnSpinner = ({show,className}) => {
   return show ? (
-        <div className="btn__spinner"></div>
+        <div className={`btn__spinner ${className}`}></div>
   ): ("")
 }
 

@@ -27,7 +27,7 @@ const OrderSummary = () => {
       if(path !== "address"){
         navigate("/")
       }
-    },[])
+    },[path,navigate])
 
     const handleOrder = async() => {
         setSpinner(true)

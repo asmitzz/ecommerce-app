@@ -199,11 +199,31 @@ h4 {
   flex: 1;
 }
 
+.slide__products{
+  animation:1s card_slide 1 ease-in-out;
+}
+
+@keyframes card_slide {
+  from {
+    width: 0px;
+  }
+  to {
+    width:100%
+  }
+}
+
 .products-container {
   position: relative;
   min-height: 92vh;
   display: flex;
   flex-direction: column;
+}
+
+.loading__products{
+   border:3px solid #dab600 !important;
+   border-left-color:white !important;
+   height:20px !important;
+   width:20px !important;
 }
 
 fieldset label {
@@ -274,7 +294,6 @@ fieldset input {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-  justify-content: space-a;
 }
 
 .card-content-details {
@@ -988,4 +1007,26 @@ p {
 .orderDetails{
   width:90%;
 }
+}
+
+.route__not__found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:70vh;
+  font-size: 1rem;
+  text-align: center;
+  color:var(--primary);
+  flex-direction: column;
+}
+
+.route__not__found .go__to__home__btn{
+   cursor: pointer;
+   margin-top: 0.5rem;
+   background:var(--secondary);
+   color: var(--primary);
+   border: none;
+   padding:0.5rem 1rem;
+   border-radius: 5px;
 }

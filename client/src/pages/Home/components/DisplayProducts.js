@@ -1,14 +1,15 @@
 import { useProducts } from "../../../contexts/ProductContext";
+import BtnSpinner from "../../../utils/BtnSpinner";
 import ProductContent from './ProductContent';
 
 const DisplayProducts = () => {
 
-    const { products } = useProducts()
+    const { totalProducts,products } = useProducts();
 
-    return (
-      <div style={{ display: products.length > 0 ? "grid" : "block" }} className="products">
+    return totalProducts ? (
+      <div style={{ display: products.length > 0 ? "grid" : "block" }} className="products slide__products">
          {
-           products.length > 0 ? (
+            products.length > 0 ? (
             products.map((item) => (
                <ProductContent key={item._id} item={item}/>
             ))
@@ -17,7 +18,11 @@ const DisplayProducts = () => {
           )
          }
       </div>
-    )
+    ) : (
+    <div style={{ display: products.length > 0 ? "grid" : "block" }} className="products">
+       <BtnSpinner show={true} className="loading__products"/>
+    </div>
+     )
 };
 
 export default DisplayProducts;
