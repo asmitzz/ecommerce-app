@@ -25,7 +25,7 @@ const OrderSummary = () => {
     useEffect(() => {
       window.scroll({ behavior:'smooth',top:0 });
       if(path !== "address"){
-        navigate("/")
+        navigate("*")
       }
     },[path,navigate])
 
