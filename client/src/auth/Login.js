@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import {useNavigate} from 'react-router-dom';
@@ -8,6 +8,10 @@ import {useAuth} from '../contexts/AuthContext';
 import axios from 'axios';
 
 const Login = () => {
+
+  useEffect(() => {
+    window.scroll({ behavior:'smooth',top:0 });
+  },[])
 
     const [state,setState] = useState({email:"",password:""});
     const [errors,setErrors] = useState({email:"",password:""});

@@ -1,13 +1,18 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import { Link } from 'react-router-dom';
 
 import Spinner from '../utils/Spinner';
 import SuccessToast from '../utils/SuccessToast';
+import Backdrop from '../utils/Backdrop';
 
 import axios from 'axios';
 
 const SignUp = () => {
+   useEffect(() => {
+     window.scroll({ behavior:'smooth',top:0 });
+   },[])
+
     const [state,setState] = useState({email:"",password:"",name:""});
     const [errors,setErrors] = useState({email:"",password:"",name:""});
     const [spinner,setSpinner] = useState(false);
@@ -75,7 +80,8 @@ const SignUp = () => {
     return (
       <div className="login__container">
         <Spinner show={spinner}/>
-        <SuccessToast show={toast} background="#181818" color="#dab600"/>
+        <SuccessToast show={toast} className="order__successfull" background="#181818" color="#dab600"/>
+        <Backdrop show={toast}/>
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">SIGN UP</h1>
