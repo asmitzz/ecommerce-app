@@ -5,7 +5,7 @@ import BtnSpinner from '../../../utils/BtnSpinner';
 
 const ProductContent = ({item}) => {
 
-    const { cartItems,addToCart } = useCart();
+    const { cart,addToCart } = useCart();
     const { wishlist ,handleWishlist} = useWishlist();
     const [loaderForCart,setLoaderForCart] = useState(false);
     const [loaderForWishlist,setLoaderForWishlist] = useState(false);
@@ -33,7 +33,7 @@ const ProductContent = ({item}) => {
             </div>
 
             <button onClick={() => addToCart(item,setLoaderForCart)}  className="primary-btn" disabled={(!item?.stock || loaderForCart)} >
-              { !loaderForCart && (item.stock ? (cartItems.find((i) => i?._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart")}
+              { !loaderForCart && (item.stock ? (cart.find((i) => i?.product._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart")}
               <BtnSpinner show={loaderForCart}/>
             </button>
             

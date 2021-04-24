@@ -14,18 +14,16 @@ export const CartContextProvider = ({children}) => {
         emptyCart 
     } = CartReducer();
 
-    const cartItems = cart.map( item => ({quantity:item.quantity,...item.product}) ) || [];
 
-    const getTotalCartValue = () => cartItems.reduce( (total,i) => parseInt(total) + parseInt(i?.price * i?.quantity) , 0);
+    const getTotalCartValue = () => cart.reduce( (total,i) => parseInt(total) + parseInt(i?.product?.price * i?.quantity) , 0);
     const totalCartValue = getTotalCartValue();
 
-    const getTotalCartItem = () =>  cartItems.reduce( (total,i) => parseInt(total) + parseInt(i?.quantity) , 0);
+    const getTotalCartItem = () =>  cart.reduce( (total,i) => parseInt(total) + parseInt(i?.quantity) , 0);
     const totalCartItem = getTotalCartItem();
     
     return(
         <cartContext.Provider value={{
             cart,
-            cartItems,
             removeFromCart,
             increaseQuantityOfProduct,
             decreaseQuantityOfProduct,

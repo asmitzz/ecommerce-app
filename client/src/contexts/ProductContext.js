@@ -5,6 +5,7 @@ import axios from 'axios';
 export const productContext = createContext();
 
 export const ProductContextProvider = ({children}) => {
+    
     useEffect( () => {
         ( async function(){
            const {data} = await axios.get("https://shopping-hub-2021.herokuapp.com/api/products");

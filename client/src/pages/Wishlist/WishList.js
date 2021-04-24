@@ -10,10 +10,10 @@ const WishList = () => {
   },[])
 
   const {wishlist,handleWishlist} = useWishlist();
-  const {cartItems, addToCart } = useCart();
+  const {cart, addToCart } = useCart();
   const [spinner,setSpinner] = useState(false);
-  
-    return (
+
+  return (
       <div className="wishlist-container">
       <Spinner show={spinner}/>
         <h1 style={{textAlign: 'center'}}>Wishlist ({wishlist.length})</h1>
@@ -33,9 +33,9 @@ const WishList = () => {
                       <button onClick={() => {
                          addToCart(item,setSpinner);
                          handleWishlist(item,setSpinner)
-                        } } disabled={!item.stock || cartItems.find((i) => i._id === item._id)} className="primary-btn">{!item.stock
+                        } } disabled={!item.stock || cart.find((i) => i.product._id === item._id)} className="primary-btn">{!item.stock
                           ? "Out of Stock"
-                          : cartItems.find((i) => i._id === item._id)
+                          : cart.find((i) => i.product._id === item._id)
                           ? "Already in cart"
                           : "Move to cart"}</button>
                     </div>

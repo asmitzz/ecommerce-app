@@ -9,8 +9,16 @@ import Filter from "./components/Filter";
 const ProductListing = () => {
 
   useEffect(() => {
-    window.scroll({ behavior:'smooth',top:0 });
-  },[])
+    let isSubscribed = true;
+
+    if(isSubscribed){
+      window.scroll({ behavior:'smooth',top:0 });
+    }
+
+    return () => {
+      isSubscribed = false;
+    }
+  }, [])
 
   const {
     dispatchProduct,

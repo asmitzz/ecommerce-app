@@ -16,7 +16,7 @@ const Cart = () => {
   const [spinner,setSpinner] = useState(false);
   
   const { 
-    cartItems,
+    cart,
     decreaseQuantityOfProduct,
     increaseQuantityOfProduct,
     removeFromCart,
@@ -28,26 +28,25 @@ const Cart = () => {
     <div className="cart-container">
       <Spinner show={spinner}/>
       <h1>My Cart({totalCartItem})</h1>
-      {cartItems.length > 0 ? (
-        cartItems.map((item) => (
-          <div key={item._id} className="card-horizontal">
-            <img alt="product" className="card-img" src={item.image} />
+      {cart.length > 0 ? (
+        cart.map((item) => (
+          <div key={item.product._id} className="card-horizontal">
+            <img alt="product" className="card-img" src={item.product.image} />
             <div className="card-body">
               <h4 className="card-title">
-                {item.name}(<span>{item.material}</span>)
+                {item.product.name}
               </h4>
-              <small>Seller: {item.seller}</small>
               <div>
-                <small>₹{item.price}</small>&nbsp;
+                <small>Price : ₹{item.product.price}</small>&nbsp;<br/><br/>
                 <button
                   disabled={item.quantity <= 1}
-                  onClick={() => decreaseQuantityOfProduct(item._id,setSpinner)}
+                  onClick={() => decreaseQuantityOfProduct(item.product._id,setSpinner)}
                 >
                   -
                 </button>
                 &nbsp;{item.quantity}&nbsp;
                 <button
-                  onClick={() =>increaseQuantityOfProduct(item._id,setSpinner)}
+                  onClick={() =>increaseQuantityOfProduct(item.product._id,setSpinner)}
                 >
                   +
                 </button>
@@ -55,9 +54,9 @@ const Cart = () => {
               <div className="card-footer">
                <div className="wishlist-icon">
                <i 
-                  onClick={() => handleWishlist(item,setSpinner)}
+                  onClick={() => handleWishlist(item.product,setSpinner)}
                   style={{
-                    color: wishlist.find((i) => i._id === item._id)
+                    color: wishlist.find((i) => i._id === item.product._id)
                       ? "red"
                       : "white",
                   }}
@@ -66,7 +65,7 @@ const Cart = () => {
                 ></i>
                </div>
                 <button
-                  onClick={() => removeFromCart(item._id,setSpinner)}
+                  onClick={() => removeFromCart(item.product._id,setSpinner)}
                   className="secondary-btn"
                   style={{
                     padding:'0.2rem 0.5rem',
@@ -82,7 +81,7 @@ const Cart = () => {
       ) : (
         <p style={{ textAlign: "center" }}>Your cart is empty</p>
       )}
-      {cartItems.length > 0 && (
+      {cart.length > 0 && (
         <>
           <h2>Total Price: ₹{totalCartValue}</h2>
           <button

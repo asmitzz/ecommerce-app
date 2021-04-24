@@ -17,7 +17,7 @@ const OrderSummary = () => {
     const path = useLocation()?.state?.from;
 
     const {name,address,state,city,locality,pincode} = selectedAddress;
-    const {cartItems,totalCartValue,emptyCart} = useCart();
+    const {cart,totalCartValue,emptyCart} = useCart();
 
     const [order,setOrder] = useState("");
     const [spinner,setSpinner] = useState("");
@@ -33,11 +33,11 @@ const OrderSummary = () => {
         setSpinner(true)
         const orderDetails = {
            uid,
-           products:cartItems.map( product => ({
-                product:product._id,
-                name:product.name,
-                quantity:product.quantity,
-                price:product.price
+           products:cart.map( i => ({
+                product:i.product._id,
+                name:i.product.name,
+                quantity:i.quantity,
+                price:i.product.price
               }))
            ,
            address:selectedAddress
@@ -67,15 +67,15 @@ const OrderSummary = () => {
                 <p><strong>Delivered to:</strong>&nbsp;<small> {name}, {address} ,{city?.toUpperCase()} , {state?.toUpperCase()} , {locality} , {pincode} , India</small></p>
                 <ul>
                    {
-                       cartItems.map( i => (
-                           <li key={i._id}>
-                              <h5>{i.name}</h5>
+                       cart.map( i => (
+                           <li key={i.product._id}>
+                              <h5>{i.product.name}</h5>
                               <div className="order_summary">
-                                <img alt="" width="150" height="100" src={i.image}/>
+                                <img alt="" width="150" height="100" src={i.product.image}/>
                                 <div className="order_summary_content">
-                                  <small>Price : ₹{i.price}</small>
+                                  <small>Price : ₹{i.product.price}</small>
                                   <small>Quantity : {i.quantity}</small>
-                                  <small><strong>Total price : ₹{i.quantity*i.price}</strong></small>
+                                  <small><strong>Total price : ₹{i.quantity*i.product.price}</strong></small>
                                 </div>
                               </div>
                            </li>

@@ -10,6 +10,7 @@ const AddressReducer = () => {
     const navigate = useNavigate();
 
     useEffect( () => {
+
         ( async function(){
           try {
             const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);

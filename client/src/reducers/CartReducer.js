@@ -13,7 +13,7 @@ const CartReducer = () => {
       ( async function(){
         try {
           const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
-          dispatch({ type:"INITIAL_STATE",payload:res?.data?.cart})
+          dispatch({ type:"INITIAL_STATE",payload:res.data?.cart})
         } catch (error) {
           return dispatch({ type:"INITIAL_STATE",payload:[]})
         }
