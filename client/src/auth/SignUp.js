@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import Spinner from '../utils/Spinner';
-import SuccessToast from '../utils/SuccessToast';
+import Toast from '../utils/Toast';
 import Backdrop from '../utils/Backdrop';
 
 import axios from 'axios';
@@ -80,7 +80,7 @@ const SignUp = () => {
     return (
       <div className="login__container">
         <Spinner show={spinner}/>
-        <SuccessToast show={toast} className="order__successfull" background="#181818" color="#dab600"/>
+        <Toast show={toast} className="toast__content" background="#181818" color="#dab600"/>
         <Backdrop show={toast}/>
 
       <form onSubmit={handleSubmit}>

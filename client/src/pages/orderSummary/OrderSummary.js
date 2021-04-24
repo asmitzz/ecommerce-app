@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {useAddress} from "../../contexts/AddressContext";
 import {useCart} from "../../contexts/CartContext";
 import Backdrop from "../../utils/Backdrop";
-import SuccessToast from "../../utils/SuccessToast";
+import Toast from "../../utils/Toast";
 import Spinner from "../../utils/Spinner";
 
 import axios from "axios";
@@ -21,6 +21,7 @@ const OrderSummary = () => {
 
     const [order,setOrder] = useState("");
     const [spinner,setSpinner] = useState("");
+    const [toast,setToast] = useState("");
 
     useEffect(() => {
       window.scroll({ behavior:'smooth',top:0 });
@@ -43,7 +44,7 @@ const OrderSummary = () => {
            address:selectedAddress
         }
         try {
-             await axios.post("https://shopping-hub-2021.herokuapp.com/api/order",orderDetails);
+             await axios.post("https://shopping-hub-2021.herokuapp.co/api/order",orderDetails);
              setSpinner(false);
              setOrder("Order Placed successfully");
              setTimeout( () => {
@@ -52,15 +53,20 @@ const OrderSummary = () => {
              },3000)
         } catch (error) {
           setSpinner(false);
-          alert("something went wrong with server")
+          setToast("Something went wrong with server");
+          setTimeout( () => {
+            setToast("")
+         },3000)
         }
         
     }
 
     return (
         <div className="order_summary_container">
-          <SuccessToast show={order} className="order__successfull" background="#181818" color="#dab600"/>
-          <Backdrop show={order}/>
+          <Toast show={order} className="toast__content" background="#181818" color="#dab600"/>
+          <Toast show={toast} error={true} className="toast__content" background="red" color="white"/>
+          
+          <Backdrop show={order || toast} onClick={() => setToast("")}/>
           <Spinner show={spinner}/>
             <h2 className="order_summary_container_header">Order Summary</h2>
             <div>

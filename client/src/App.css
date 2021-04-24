@@ -870,17 +870,13 @@ p {
   }
 }
 
-.success__toast{
+.toast{
   background: teal;
   height: 20px;
   width: fit-content; 
   padding:0.5rem 0.5rem;
   color: var(--tertiary);
   margin: 0.5rem 0;
-  /* position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 1; */
 }
 
 .backdrop{
@@ -927,7 +923,7 @@ p {
    font-weight: 700;
 }
 
-.order__successfull{
+.toast__content{
   position: fixed;
   left: 50%;
   top:30%;
@@ -937,7 +933,7 @@ p {
    background: var(--secondary);
 }
 
-.fa-badge-check{
+.fa-badge-check,.fa-window-close{
   animation: tick 1s infinite ease-in-out;
 }
 

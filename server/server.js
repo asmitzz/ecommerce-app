@@ -35,10 +35,6 @@ app.use("/api",wishlistRoutes);
 app.use("/api",addressesRoutes);
 app.use("/api",ordersRoutes);
 
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "route not found on server, please check"})
-})
-
 app.use((err,req,res,next) => {
    console.error(err.stack)
    res.status(500).json({ success: false, message:"route not found on server" ,error:err.message})
