@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import Spinner from '../utils/Spinner';
 import Toast from '../utils/Toast';
-import Backdrop from '../utils/Backdrop';
 
 import axios from 'axios';
 
@@ -16,7 +15,7 @@ const SignUp = () => {
     const [state,setState] = useState({email:"",password:"",name:""});
     const [errors,setErrors] = useState({email:"",password:"",name:""});
     const [spinner,setSpinner] = useState(false);
-    const [toast,setToast] = useState("");
+    const [toast,setToast] = useState(false);
     const [showPassword,setShowPassword] = useState(false);
 
     const handleChange = (e) => {
@@ -80,8 +79,7 @@ const SignUp = () => {
     return (
       <div className="login__container">
         <Spinner show={spinner}/>
-        <Toast show={toast} className="toast__content" background="#181818" color="#dab600"/>
-        <Backdrop show={toast}/>
+        <Toast show={toast} message={toast} className="toast__content" background="#181818" color="#dab600"/>
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">SIGN UP</h1>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {useAddress} from "../../contexts/AddressContext";
 import {useCart} from "../../contexts/CartContext";
-import Backdrop from "../../utils/Backdrop";
 import Toast from "../../utils/Toast";
 import Spinner from "../../utils/Spinner";
 
@@ -19,9 +18,9 @@ const OrderSummary = () => {
     const {name,address,state,city,locality,pincode} = selectedAddress;
     const {cart,totalCartValue,emptyCart} = useCart();
 
-    const [order,setOrder] = useState("");
+    const [success,setSuccess] = useState(false);
     const [spinner,setSpinner] = useState("");
-    const [toast,setToast] = useState("");
+    const [error,setError] = useState(false);
 
     useEffect(() => {
       window.scroll({ behavior:'smooth',top:0 });
@@ -44,18 +43,18 @@ const OrderSummary = () => {
            address:selectedAddress
         }
         try {
-             await axios.post("https://shopping-hub-2021.herokuapp.co/api/order",orderDetails);
+             await axios.post("https://shopping-hub-2021.herokuapp.com/api/order",orderDetails);
              setSpinner(false);
-             setOrder("Order Placed successfully");
+             setSuccess(true);
              setTimeout( () => {
                 navigate("/")
-                emptyCart()
+                emptyCart(setError)
              },3000)
         } catch (error) {
           setSpinner(false);
-          setToast("Something went wrong with server");
+          setError(true);
           setTimeout( () => {
-            setToast("")
+            setError("")
          },3000)
         }
         
@@ -63,10 +62,9 @@ const OrderSummary = () => {
 
     return (
         <div className="order_summary_container">
-          <Toast show={order} className="toast__content" background="#181818" color="#dab600"/>
-          <Toast show={toast} error={true} className="toast__content" background="red" color="white"/>
+          <Toast show={success} onClick={() => setSuccess(false)} message="Order Placed successfully" background="#181818" color="#dab600"/>
+          <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
           
-          <Backdrop show={order || toast} onClick={() => setToast("")}/>
           <Spinner show={spinner}/>
             <h2 className="order_summary_container_header">Order Summary</h2>
             <div>

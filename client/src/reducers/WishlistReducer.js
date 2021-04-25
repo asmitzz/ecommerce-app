@@ -34,7 +34,7 @@ const WishlistReducer = () => {
 
     const [state, dispatch] = useReducer(wishlistReducer,[]);
 
-    const handleWishlist = async(item,loader) => {
+    const handleWishlist = async(item,loader,toast) => {
       if (!isUserloggedIn) {
         return navigate("/login");
       }
@@ -50,7 +50,11 @@ const WishlistReducer = () => {
            dispatch({ type: "ADD_TO_WISHLIST", payload: item });
            loader(false)
         } catch (error) {
-          alert("something went wrong with server")
+          loader(false)
+          toast(true)
+          setTimeout( () => {
+            toast(false)
+          },2000) 
         }
     };
 

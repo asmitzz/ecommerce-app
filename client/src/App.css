@@ -933,7 +933,7 @@ p {
    background: var(--secondary);
 }
 
-.fa-badge-check,.fa-window-close{
+.toast .fa-badge-check,.toast .fa-window-close{
   animation: tick 1s infinite ease-in-out;
 }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../../contexts/CartContext";
 import { useWishlist } from "../../../contexts/WishContext";
 import BtnSpinner from '../../../utils/BtnSpinner';
+import Toast from '../../../utils/Toast';
 
 const ProductContent = ({item}) => {
 
@@ -9,13 +10,15 @@ const ProductContent = ({item}) => {
     const { wishlist ,handleWishlist} = useWishlist();
     const [loaderForCart,setLoaderForCart] = useState(false);
     const [loaderForWishlist,setLoaderForWishlist] = useState(false);
+    const [error,setError] = useState(false);
 
     return (
         <div key={item._id} className={item.stock ? "card" : "card out-of-stock"}>
+          <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
 
             <div className="wishlist-icon">
               {  !loaderForWishlist && 
-                 <button className="wishlist-button" onClick={() => handleWishlist(item,setLoaderForWishlist)} >
+                 <button className="wishlist-button" onClick={() => handleWishlist(item,setLoaderForWishlist,setError)} >
                    <i style={{ color: wishlist.find((i) => i?._id === item?._id) ? "#dab600" : "#181818"}} className="fa fa-heart" aria-hidden="true"></i>
                  </button>
               }
@@ -32,7 +35,7 @@ const ProductContent = ({item}) => {
               )}
             </div>
 
-            <button onClick={() => addToCart(item,setLoaderForCart)}  className="primary-btn" disabled={(!item?.stock || loaderForCart)} >
+            <button onClick={() => addToCart(item,setLoaderForCart,setError)}  className="primary-btn" disabled={(!item?.stock || loaderForCart)} >
               { !loaderForCart && (item.stock ? (cart.find((i) => i?.product._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart")}
               <BtnSpinner show={loaderForCart}/>
             </button>

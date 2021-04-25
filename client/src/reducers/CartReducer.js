@@ -40,7 +40,7 @@ const CartReducer = () => {
     }
     const [state, dispatch] = useReducer(cartReducer,[]);
 
-    const addToCart = async(item,loader) => {
+    const addToCart = async(item,loader,toast) => {
         if (!isUserloggedIn) {
           return navigate("/login");
         }
@@ -53,13 +53,16 @@ const CartReducer = () => {
           dispatch({ type:"ADD_TO_CART", payload: {product:item,quantity:1} });
           loader(false);
         } catch (error) {
-           alert("something went wrong with server");
-           loader(false);
+          loader(false);
+          toast(true)
+          setTimeout( () => {
+            toast(false)
+          },2000) 
         }
        
     };
 
-    const removeFromCart = async(productID,loader) => {
+    const removeFromCart = async(productID,loader,toast) => {
           loader(true)
         try {
            await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}`)
@@ -67,11 +70,14 @@ const CartReducer = () => {
            loader(false)
         } catch (error) {
           loader(false)
-          alert("something went wrong with server")
+          toast(true)
+          setTimeout( () => {
+            toast(false)
+          },2000) 
         }
     }
 
-    const increaseQuantityOfProduct = async(productID,loader) => {
+    const increaseQuantityOfProduct = async(productID,loader,toast) => {
       loader(true)
       try {
         await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/increasequantity`)
@@ -79,28 +85,37 @@ const CartReducer = () => {
         loader(false)
      } catch (error) {
       loader(false)
-       alert("something went wrong with server")
+      toast(true)
+      setTimeout( () => {
+        toast(false)
+      },2000) 
      }
     }
 
-    const decreaseQuantityOfProduct = async(productID,loader) => {
-      loader(true)
+    const decreaseQuantityOfProduct = async(productID,loader,toast) => {
+      loader(true);
       try {
         await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/decreasequantity`);
         dispatch({ type:"DECREASE_QTY",payload:productID })
         loader(false)
      } catch (error) {
       loader(false)
-       alert("something went wrong with server")
+      toast(true)
+      setTimeout( () => {
+        toast(false)
+      },2000) 
      }
     }
 
-    const emptyCart = async() => {
+    const emptyCart = async(toast) => {
       try {
         await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}`);
         dispatch({ type:"EMPTY_CART" })
      } catch (error) {
-       alert("something went wrong with server")
+        toast(true)
+        setTimeout( () => {
+          toast(false)
+        },2000) 
      }
     }
 
