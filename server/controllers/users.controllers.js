@@ -5,8 +5,13 @@ const signup = async(req, res) => {
    const {name,email,password} = req.body;
 
    try {
+      const checkemail = await Users.findOne({email});
+      if(checkemail){
+         return res.status(409).json({
+            message: "Email address is already registered"
+         })
+      }
       await Users({name,email,password:md5(password)}).save();
-      
       res.status(200).json({
          message: "Email address is registered successfully"
       });
