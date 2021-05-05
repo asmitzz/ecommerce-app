@@ -10,30 +10,23 @@ const CartReducer = () => {
     const { isUserloggedIn,uid } = useAuth();
 
     useEffect( () => {
+      if(!isUserloggedIn){
+        return;
+      }
       ( async function(){
         try {
           const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
-          dispatch({ type:"INITIAL_STATE",payload:res.data?.cart})
+          dispatch({ type:"UPDATE_CART",payload:res.data?.cart})
         } catch (error) {
-          return dispatch({ type:"INITIAL_STATE",payload:[]})
+          return dispatch({ type:"UPDATE_CART",payload:[]})
         }
       } )()
-    },[uid] )
+    },[uid,isUserloggedIn] )
 
     const cartReducer = (state,action) => {
         switch (action.type) {
-            case "INITIAL_STATE":
+            case "UPDATE_CART":
             return action.payload
-            case "ADD_TO_CART":
-            return [...state,action.payload]
-            case "REMOVE_FROM_CART":
-            return state.filter( i => i.product._id !== action.payload)
-            case "INCREASE_QTY":
-            return state.map( i => i.product._id === action.payload ? {...i,quantity:i.quantity + 1} : i )
-            case "DECREASE_QTY":
-            return state.map( i => i.product._id === action.payload ? {...i,quantity:i.quantity - 1} : i )
-            case "EMPTY_CART":
-            return []
             default:
             return state;
         }
@@ -49,9 +42,11 @@ const CartReducer = () => {
         }
         loader(true);
         try {
-          await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid,{productID:item._id,quantity:1});
-          dispatch({ type:"ADD_TO_CART", payload: {product:item,quantity:1} });
-          loader(false);
+          const {data,status} = await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid,{productID:item._id,quantity:1});
+          if(status === 200){
+            dispatch({ type:"UPDATE_CART",payload:data.cart.products})
+            loader(false);
+          }
         } catch (error) {
           loader(false);
           toast(true)
@@ -65,9 +60,11 @@ const CartReducer = () => {
     const removeFromCart = async(productID,loader,toast) => {
           loader(true)
         try {
-           await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}`)
-           dispatch({ type:"REMOVE_FROM_CART",payload:productID })
-           loader(false)
+           const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}`)
+           if(status === 200){
+            dispatch({ type:"UPDATE_CART",payload:data.cart.products})
+            loader(false);
+          }
         } catch (error) {
           loader(false)
           toast(true)
@@ -80,9 +77,11 @@ const CartReducer = () => {
     const increaseQuantityOfProduct = async(productID,loader,toast) => {
       loader(true)
       try {
-        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/increasequantity`)
-        dispatch({ type:"INCREASE_QTY",payload:productID })
-        loader(false)
+        const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/increasequantity`)
+        if(status === 200){
+          dispatch({ type:"UPDATE_CART",payload:data.cart.products})
+          loader(false);
+        }
      } catch (error) {
       loader(false)
       toast(true)
@@ -95,9 +94,11 @@ const CartReducer = () => {
     const decreaseQuantityOfProduct = async(productID,loader,toast) => {
       loader(true);
       try {
-        await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/decreasequantity`);
-        dispatch({ type:"DECREASE_QTY",payload:productID })
-        loader(false)
+        const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/decreasequantity`);
+        if(status === 200){
+          dispatch({ type:"UPDATE_CART",payload:data.cart.products})
+          loader(false);
+        }
      } catch (error) {
       loader(false)
       toast(true)
@@ -109,8 +110,10 @@ const CartReducer = () => {
 
     const emptyCart = async(toast) => {
       try {
-        await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}`);
-        dispatch({ type:"EMPTY_CART" })
+        const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}`);
+        if(status === 200){
+          dispatch({ type:"UPDATE_CART",payload:data.cart.products})
+        }
      } catch (error) {
         toast(true)
         setTimeout( () => {

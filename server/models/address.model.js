@@ -7,10 +7,6 @@ const addressSchema = new mongoose.Schema({
     },
     addresses:[
         {
-            addressID:{
-               type:String,
-               required:true
-            },
             name:{
                 type:String,
                 required:true,

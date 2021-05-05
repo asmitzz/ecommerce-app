@@ -6,11 +6,13 @@ import axios from 'axios';
 
 const AddressReducer = () => {
 
-    const { uid } = useAuth();
+    const { uid,isUserloggedIn } = useAuth();
     const navigate = useNavigate();
 
     useEffect( () => {
-
+        if(!isUserloggedIn){
+           return;
+        }
         ( async function(){
           try {
             const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);
@@ -19,48 +21,46 @@ const AddressReducer = () => {
             return dispatch({ type:"INITIAL_STATE",payload:{address:[],selectedAddress:""}})
           }
         } )()
-      },[uid] )
+      },[uid,isUserloggedIn] )
 
       const addressReducer = (state,action) => {
 
         switch(action.type) {
             case "INITIAL_STATE":
             return action.payload
-            case "ADD_ADDRESS":
-            return {...state,address:[...state.address,action.payload]}
-            case "EDIT_ADDRESS":
-            return {...state,selectedAddress:"",address:state.address.map( editaddress => editaddress.addressID === action.payload.addressID ? action.payload : editaddress)}
-            case "REMOVE_ADDRESS":
-            return {...state,address:state.address.filter( address => address.addressID !== action.payload )}
+            case "UPDATE_ADDRESSES":
+            return {...state,address:action.payload}
             case "SELECTED_ADDRESS":
-            return {...state,selectedAddress:state.address.find( address => address.addressID === action.payload )};
+            return {...state,selectedAddress:action.payload}
             default:
             return state;
         }
     }
 
     const [{address,selectedAddress},dispatch] = useReducer(addressReducer,{address:[],selectedAddress:""});
- 
 
     const addAddress = async(address,loader,path) => {
         loader(true)
         try {
-            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}`,address);
-            dispatch({ type:"ADD_ADDRESS",payload:address});
-            loader(false);
-            navigate("/address",{state:{from:path}});
+            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}`,address);
+            if(status === 200){
+                dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
+                loader(false);
+                navigate("/address",{state:{from:path}});
+            }
         } catch (error) {
             loader(false)
-            alert("something went wrong with server");
         }
     }
 
-    const removeAddress = async(addressID,loader) => {
+    const removeAddress = async(_id,loader) => {
         loader(true)
         try {
-            await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${addressID}`);
-            dispatch({ type:"REMOVE_ADDRESS",payload:addressID})
-            loader(false)
+           const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${_id}`);
+           if(status === 200){
+                dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
+                loader(false)
+            }
         } catch (error) {
             loader(false)
             alert("something went wrong with server");
@@ -70,21 +70,26 @@ const AddressReducer = () => {
     const editAddress = async(address,loader) => {
         loader(true)
         try {
-            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${address.addressID}`,address);
-            dispatch({ type:"EDIT_ADDRESS",payload:address})
-            loader(false)
+            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${address._id}`,address);
+            if(status === 200){
+                dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
+                loader(false)
+            }
         } catch (error) {
             loader(false)
             alert("something went wrong with server");
         }
     }
 
-    const setSelectedAddress = async(addressID,loader) => {
+    const setSelectedAddress = async(_id,loader) => {
         loader(true)
         try {
-            await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${addressID}/setaddress`);
-            dispatch({ type:"SELECTED_ADDRESS",payload:addressID})
-            loader(false)
+            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${_id}/setaddress`);
+            console.log(data.selectedAddress);
+            if(status === 200){
+                dispatch({ type:"SELECTED_ADDRESS",payload:data.selectedAddress});
+                loader(false)
+            }
         } catch (error) {
             loader(false)
             alert("something went wrong with server");

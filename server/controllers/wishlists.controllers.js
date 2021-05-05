@@ -52,15 +52,31 @@ const addProductInWishlist = async(req,res) => {
     const product = await Products.findById(productID);
     if(wishlist){
         wishlist.products.push(product.id);
-        await wishlist.save();
-        return res.status(200).json({message:"Product added in wishlist"})
+        await wishlist.save(async(err,result) => {
+            if(err){
+                return res.status(500).json({success:false, message:"Something went wrong with server"})
+             }
+             if(result){
+                const wishlist = await result.execPopulate({ path:"products",populate:"product" });
+                return res.status(200).json({success:true,wishlist,message:"Product added in wishlist"})
+             }
+        });
+        return;
     }
 
     const createWishlist = await Wishlists.create({ uid,products:[product.id] });
     let userReference = await Users.findById(uid);
     userReference.wishlist = createWishlist.id;
-    userReference = await userReference.save()
-    res.status(200).json({ message:"Product added in wishlist"})
+    userReference = await userReference.save(async(err,user)=>{
+        if(err){
+            return res.status(500).json({success:false, message:"Something went wrong with server"})
+         }
+         if(user){
+            const wishlist = await createWishlist.execPopulate({ path:"products",populate:"product" });
+            return res.status(200).json({success:true,wishlist,message:"Product added in wishlist"})
+         }
+    })
+
 }
 
 const removeProductFromWishlist = async(req,res) => {
@@ -68,8 +84,15 @@ const removeProductFromWishlist = async(req,res) => {
 
     wishlist.products.remove(product)
 
-    await wishlist.save();
-    res.status(200).json({message:"Product removed from wishlist"})
+    await wishlist.save(async(err,result) => {
+        if(err){
+            return res.status(500).json({success:false, message:"Something went wrong with server"})
+         }
+         if(result){
+            const wishlist = await result.execPopulate({ path:"products",populate:"product" });
+            return res.status(200).json({success:true,wishlist,message:"Product removed from wishlist"})
+         }
+    });
 }
 
 

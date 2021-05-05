@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { useAddress } from "../../../contexts/AddressContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import {nanoid} from "nanoid";
 import Spinner from "../../../utils/Spinner";
 
 
@@ -207,7 +206,7 @@ const AddNewAddress = () => {
           onClick={(e) => {
             e.preventDefault();
             if (formValidate(newAddress)) {
-              addAddress({addressID:nanoid(),...newAddress},setSpinner,path);
+              addAddress(newAddress,setSpinner,path);
             }
           }}
           className="primary-btn"

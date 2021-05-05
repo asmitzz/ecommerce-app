@@ -12,21 +12,17 @@ const WishlistReducer = () => {
       ( async function(){
         try {
           const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
-          dispatch({ type:"INITIAL_STATE",payload:res?.data?.wishlist})
+          dispatch({ type:"UPDATE_WISHLIST",payload:res?.data?.wishlist})
         } catch (error) {
-          return dispatch({ type:"INITIAL_STATE",payload:[]})
+          return dispatch({ type:"UPDATE_WISHLIST",payload:[]})
         }
       } )()
     },[uid] )
 
     const wishlistReducer = (state,action) => {
         switch (action.type) {
-            case "INITIAL_STATE":
+            case "UPDATE_WISHLIST":
             return action.payload
-            case "ADD_TO_WISHLIST":
-            return [...state,action.payload];
-            case "REMOVE_FROM_WISHLIST":
-            return state.filter( i => i._id !== action.payload)
             default:
             return state;
         }
@@ -42,13 +38,17 @@ const WishlistReducer = () => {
         
         try {
           if (state.find((i) => i._id === item._id)) {
-            await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}/${item._id}`)
-            loader(false)
-            return dispatch({type: "REMOVE_FROM_WISHLIST",payload: item._id,});
+            const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}/${item._id}`)
+            if(status === 200){
+              loader(false)
+              return dispatch({type: "UPDATE_WISHLIST",payload: data.wishlist.products});
+            }
           }
-           await axios.post(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}`,{productID:item._id})
-           dispatch({ type: "ADD_TO_WISHLIST", payload: item });
-           loader(false)
+           const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}`,{productID:item._id})
+           if(status === 200){
+            loader(false)
+            return dispatch({type: "UPDATE_WISHLIST",payload: data.wishlist.products});
+          }
         } catch (error) {
           loader(false)
           toast(true)
