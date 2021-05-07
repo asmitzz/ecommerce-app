@@ -26,7 +26,7 @@ export const AuthContextProvider = ({children}) => {
        
         (async function(){
            try {
-            await axios.post("http://localhost:5000/api/users/protected",{},{ headers:{
+            await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/protected",{},{ headers:{
                 "Authorization": `Bearer ${token}`
             }});
           
@@ -42,7 +42,7 @@ export const AuthContextProvider = ({children}) => {
             sidebar()
         }
         try {
-            const {status} = await axios.post("http://localhost:5000/api/users/signout")
+            const {status} = await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/signout")
             if(status === 200){
                 localStorage?.removeItem('authToken');
                 dispatch({type:"SIGNOUT"});
