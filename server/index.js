@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
@@ -22,6 +23,7 @@ const port = process.env.PORT || 5000;
 initializeDB(process.env.URI);
 
 app.use(bodyParser.json());
+app.use(cookieParser())
 app.use(cors());
 
 app.get('/',(req,res) => {

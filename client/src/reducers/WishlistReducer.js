@@ -9,6 +9,9 @@ const WishlistReducer = () => {
     const { isUserloggedIn,uid } = useAuth();
 
     useEffect( () => {
+      if(!isUserloggedIn){
+        return;
+      }
       ( async function(){
         try {
           const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
@@ -17,7 +20,7 @@ const WishlistReducer = () => {
           return dispatch({ type:"UPDATE_WISHLIST",payload:[]})
         }
       } )()
-    },[uid] )
+    },[uid,isUserloggedIn] )
 
     const wishlistReducer = (state,action) => {
         switch (action.type) {

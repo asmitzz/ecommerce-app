@@ -1,34 +1,60 @@
-import React,{ createContext,useContext, useReducer } from 'react';
+import React,{ createContext,useContext, useEffect, useReducer } from 'react';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
 
+
     const userReducer = (state, action) => {
         switch (action.type) {
             case "LOGIN":
-            return {login:true,data:action.payload}
+            return {...action.payload}
             case "SIGNOUT":
-            return {login : false, data : null}
+            return {token:"",login:false ,name:"",uid:"",email:""}
             default:
             return state;
         }
     }
     
-    const [state,dispatch] = useReducer(userReducer,JSON.parse(localStorage?.getItem('authToken')) || { login:false , data:null })
- 
-    function signout(){
-        return new Promise( (resolve, reject) => {
-            setTimeout( () => {
+    const [{token,login,name,uid,email},dispatch] = useReducer(userReducer,JSON.parse(localStorage?.getItem('authToken'))||{ token:"",login:false ,name:"",uid:"",email:"" })
+
+    useEffect(() => {
+        if(!login){
+            return;
+        }
+       
+        (async function(){
+           try {
+            await axios.post("http://localhost:5000/api/users/protected",{},{ headers:{
+                "Authorization": `Bearer ${token}`
+            }});
+          
+           } catch (error) {
+               dispatch({ type:"SIGNOUT"})
+           }
+        }())
+     },[login,token])
+
+    async function signout(spinner,sidebar){
+        spinner(true)
+        if(sidebar){
+            sidebar()
+        }
+        try {
+            const {status} = await axios.post("http://localhost:5000/api/users/signout")
+            if(status === 200){
                 localStorage?.removeItem('authToken');
                 dispatch({type:"SIGNOUT"});
-                resolve({ success: true,status:200})
-            },2000);
-        })
+                spinner(false)
+            }
+        } catch (error) {
+            spinner(false)
+        }
     }
-  
+
     return (
-        <AuthContext.Provider value={{isUserloggedIn:state.login,uid:state?.data?.uid,userDetails:state.data,dispatch,signout}}>
+        <AuthContext.Provider value={{isUserloggedIn:login,token,uid,name,email,dispatch,signout}}>
             {children}
         </AuthContext.Provider>
     )

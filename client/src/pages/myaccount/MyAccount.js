@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import {useAuth} from '../../contexts/AuthContext';
 
 const MyAccount = () => {
-    const { userDetails } = useAuth();
-    const { name,email } = userDetails;
+    const { name,email } = useAuth();
 
     useEffect(() => {
       window.scroll({ behavior:'smooth',top:0 });

@@ -52,10 +52,10 @@ const Login = () => {
        if(formValidate(state)){
           setSpinner(true)
           try {
-            const {status,data } = await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/login",state);
+            const {status,data } = await axios.post("http://localhost:5000/api/users/login",state);
             
              if( status === 200 ){
-               localStorage.setItem('authToken',JSON.stringify({login:true,data}));
+               localStorage.setItem('authToken',JSON.stringify({...data}));
     
                dispatch({ type:"LOGIN",payload:data })
                navigate(path === null ? "/" : path.from)
