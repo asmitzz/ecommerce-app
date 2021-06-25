@@ -25,17 +25,10 @@ const createOrder = async(req,res) => {
 const getOrderDetails = async(req,res) => {
     const {uid} = req.params;
 
-    const data = await Orders.find({uid});
+    const orders = await Orders.find({uid}).lean().populate("products.product");
 
-    if(data.length > 0) {
-        // populate the products 
-        for( let i = 0; i < data.length; i++ ) {
-            await data[i].execPopulate({ path:"products",populate:"product" });
-        }
-        
-        // send orders of user
-        const orders = data.map( order => ({ orderID:order._id,products:order.products,address: order.address,Time: order.createdAt}) )
-        return res.status(200).json({orders})
+    if(orders.length > 0) {
+        return res.status(200).json({ orders })
     }
 
     res.status(404).json({orders:[],message:"No orders found"})
