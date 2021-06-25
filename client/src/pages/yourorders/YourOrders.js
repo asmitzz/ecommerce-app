@@ -30,7 +30,7 @@ const MyOrders = () => {
             <BtnSpinner show={spinner}/>
             
              { orders ? orders.map( order => (
-                 <OrderCard key={order.orderID} order={order}/>
+                 <OrderCard key={order._id} order={order}/>
              )).reverse() : <p>No orders found</p>}
              
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCart } from "../../../contexts/CartContext";
 import { useWishlist } from "../../../contexts/WishContext";
+import { Link } from 'react-router-dom';
 import BtnSpinner from '../../../utils/BtnSpinner';
 import Toast from '../../../utils/Toast';
 
@@ -14,8 +15,7 @@ const ProductContent = ({item}) => {
 
     return (
         <div key={item._id} className={item.stock ? "card" : "card out-of-stock"}>
-          <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
-
+            <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
             <div className="wishlist-icon">
               {  !loaderForWishlist && 
                  <button className="wishlist-button" onClick={() => handleWishlist(item,setLoaderForWishlist,setError)} >
@@ -25,7 +25,9 @@ const ProductContent = ({item}) => {
               <BtnSpinner show={loaderForWishlist}/> 
             </div>
 
-            <img alt="product" className="card-img" src={item.image+`?random=${Math.round(Math.random() * 1000)}`} />
+            <Link to={`/products/${item._id}`}>
+              <img alt="product" className="card-img" src={item.image+`?random=${Math.round(Math.random() * 1000)}`} />
+            </Link>
 
             <div className="card-content">
               <h4>{item.name}</h4>

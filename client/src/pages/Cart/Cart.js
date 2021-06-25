@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { useWishlist } from "../../contexts/WishContext";
 import Spinner from "../../utils/Spinner";
@@ -34,7 +34,9 @@ const Cart = () => {
       {cart.length > 0 ? (
         cart.map((item) => (
           <div key={item.product._id} className="card-horizontal">
-            <img alt="product" className="card-img" src={item.product.image} />
+            <Link to={`/products/${item.product._id}`}>
+               <img alt="product" className="card-img" src={item.product.image+`?random=${Math.round(Math.random() * 1000)}`} />
+            </Link>
             <div className="card-body">
               <h4 className="card-title">
                 {item.product.name}

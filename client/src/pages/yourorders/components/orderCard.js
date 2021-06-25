@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+
 const OrderCard = ({order}) => {
- let time = new Date(order?.Time).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
+ let time = new Date(order?.createdAt).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
 
  const totalPrice = () => {
     return order?.products.reduce( (total,p) => total + (p.price*p.quantity),0 );
@@ -14,7 +16,7 @@ const OrderCard = ({order}) => {
                       <small><strong>ORDER PLACED</strong>: {time}</small><br/>
                     </div>
                     <div>
-                       <small><strong>ORDER ID</strong> : #{order?.orderID}</small>
+                       <small><strong>ORDER ID</strong> : #{order?._id}</small>
                     </div>
                 </div>
                 <div className="orderDetails__content">
@@ -23,7 +25,9 @@ const OrderCard = ({order}) => {
                         <div key={p._id}>
                            <small><strong>PRODUCT ID</strong> : #{p?.product?._id}</small>
                           <div className="orderDetails__product">
-                               <img alt="product" width="150" height="100" src={p?.product?.image}/>
+                             <Link to={`/products/${p?.product?._id}`}>
+                               <img alt="product" width="150" height="100" src={p?.product?.image+`?random=${Math.round(Math.random() * 1000)}`}/>
+                             </Link>
                              <div>
                                <small><strong>PRODUCT Name</strong> : {p.name}</small><br/>
                                <small><strong>Quantity</strong> : {p.quantity}</small><br/><br/>

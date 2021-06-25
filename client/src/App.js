@@ -20,8 +20,7 @@ import { useAuth } from "./contexts/AuthContext";
 
 import MyAccount from "./pages/myaccount/MyAccount";
 import YourOrders from "./pages/yourorders/YourOrders";
-// import ForgetPassword from "./auth/ForgetPassword";
-
+import IndividualProductPage from "./pages/IndividualProductPage/IndividualProductPage";
 import RouteNotFound from "./utils/RouteNotFound";
 
 import "./App.css";
@@ -32,14 +31,14 @@ const App = () => {
 
   return (
     <div className="container">
-      <Header/>
+       <Header/>
        <Routes>
-          <Route path="/" element={<ProductListing/>}/>
-
           { !isUserloggedIn && <Route path="/login" element={<Login/>}/>}
           { !isUserloggedIn && <Route path="/signup" element={<SignUp/>}/>}
-          {/* { !isUserloggedIn && <Route path="/resetpassword" element={<ForgetPassword/>}/>} */}
 
+          <Route path="/" element={<ProductListing/>}/>
+          <Route path="/products/:productId" element={<IndividualProductPage/>}/>
+          
           <PrivateRoute path="/wishlist" element={<WishList/>}/>
           <PrivateRoute path="/cart" element={<Cart/>}/>
           <PrivateRoute path="/address" element={<DisplayAddresses/>}/>

@@ -24,6 +24,7 @@ const ProductReducer = () => {
     fastDelivery: false,
     priceRange:null
   });
+  
   return { state, dispatch };
 };
 

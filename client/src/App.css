@@ -2,6 +2,7 @@
 
 :root {
   --danger-color: red;
+  --success-color:teal;
   --primary:#dab600;
   --secondary:#181818;
   --tertiary:aliceblue;
@@ -106,10 +107,10 @@ h4 {
 
 .sidebar{
   width:200px;
-  min-height: 100vh;
   height: 100%;
-  background:#181818;
-  color:#dab600;
+  min-height:100vh;
+  background:var(--secondary);
+  color:var(--primary);
   transform: translate(-250px);
   position: absolute;
   top: 0;
@@ -160,7 +161,6 @@ h4 {
 .sidebar__links__section{
   display: flex;
   width: 100%;
-  height: 100%;
   flex-direction: column;
 }
 
@@ -281,7 +281,6 @@ fieldset input {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  cursor: pointer;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12),
     0 2px 2px rgba(0, 0, 0, 0.12),
     0 4px 4px rgba(0, 0, 0, 0.12),
@@ -349,6 +348,7 @@ fieldset input {
   background: var(--secondary);
   color: var(--primary);
   padding: 8px 16px;
+  border: 1px solid var(--tertiary);
   cursor: pointer;
   border:none;
   font-weight: 700;
@@ -593,6 +593,8 @@ p {
   border: 1px solid var(--success-color);
 }
 
+
+/* order summary */
 .order_summary_container {
   min-height: 61.5vh;
 }
@@ -634,6 +636,7 @@ p {
 
 .sorting-container {
   display: flex;
+  align-items: center;
   margin: 0.5rem 0.2rem;
   margin-left: 7%;
 }

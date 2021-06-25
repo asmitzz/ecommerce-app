@@ -75,7 +75,7 @@ const OrderSummary = () => {
                            <li key={i.product._id}>
                               <h5>{i.product.name}</h5>
                               <div className="order_summary">
-                                <img alt="" width="150" height="100" src={i.product.image}/>
+                                <img alt="" width="150" height="100" src={i.product.image+`?random=${Math.round(Math.random() * 1000)}`}/>
                                 <div className="order_summary_content">
                                   <small>Price : ₹{i.product.price}</small>
                                   <small>Quantity : {i.quantity}</small>

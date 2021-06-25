@@ -3,6 +3,7 @@ import { useCart } from '../../contexts/CartContext';
 import { useWishlist } from '../../contexts/WishContext';
 import Spinner from "../../utils/Spinner";
 import Toast from "../../utils/Toast";
+import { Link } from 'react-router-dom';
 
 const WishList = () => {
 
@@ -28,7 +29,9 @@ const WishList = () => {
                       <div className="remove-icon">
                         <i onClick={() => handleWishlist(item,setSpinner,setError)} style={{ color:'rgb(223, 71, 89)' }} className="fa fa-trash" aria-hidden="true"></i>
                       </div>
-                      <img alt="product" className="card-img" src={item.image}/>
+                      <Link to={`/products/${item._id}`}>
+                        <img alt="product" className="card-img" src={item.image+`?random=${Math.round(Math.random() * 1000)}`} />
+                     </Link>
                       <div className="card-content">
                         <h4>{item.name}</h4>
                         <small className="card-content-details">Price:{item.price}</small>

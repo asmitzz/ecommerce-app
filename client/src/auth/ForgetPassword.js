@@ -104,7 +104,8 @@ const ForgetPassword = () => {
               <span className="invalid-feedback">{errors.password}</span>
             </div>
           </div>
-}
+          }
+          
           { isOtp && <div className="form__group">
             <label className="form__label" htmlFor="confirmPassword">Confirm new password : </label>
             <div className="form__input__container">
