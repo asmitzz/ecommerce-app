@@ -24,17 +24,7 @@ const addAddress = async(req,res) => {
     try {
         if(!userAddress){
             const createAddress = await Addresses.create({uid,addresses:[req.body]});
-            let userReference = await Users.findOne({_id:uid});
-            userReference.addresses = createAddress.id;
-            await userReference.save((err,user)=>{
-                 if(err){
-                    return res.status(500).json({success:false, message:"Something went wrong with server"})
-                 }
-                 if(user){
-                    return res.status(200).json({success:true,addresses:createAddress.addresses,message:"Address added successfully"})
-                 }
-            })
-            return;
+            return res.status(200).json({success:true,addresses:createAddress.addresses,message:"Address added successfully"})
         }
 
         userAddress.addresses.push(req.body);

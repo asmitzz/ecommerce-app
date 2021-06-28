@@ -17,7 +17,6 @@ const ordersRoutes = require("./routes/orders.routes");
 
 dotenv.config();
 
-
 const port = process.env.PORT || 5000;
 
 initializeDB(process.env.URI);

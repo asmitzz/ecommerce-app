@@ -1,6 +1,5 @@
 const Carts = require('../models/cart.model');
 const Products = require('../models/product.model');
-const Users = require('../models/user.model');
 
 const checkCart = async(req,res,next,uid) => {
     try {
@@ -65,17 +64,8 @@ const addProductInCart = async(req,res) => {
     }
 
     const createCart = await Carts.create({ uid,products:[{product:product.id,quantity}] });
-    let userReference = await Users.findById(uid);
-    userReference.cart = createCart.id;
-    userReference = await userReference.save(async(err,user) => {
-        if(err){
-            return res.status(500).json({success:false, message:"Something went wrong with server"})
-        }
-        if(user){
-            const cart = await createCart.execPopulate({ path:"products",populate:"product" });
-            return res.status(200).json({ success:true,cart,message:"Product added in cart"})
-        }
-    })
+    await createCart.execPopulate({ path:"products",populate:"product" });
+    return res.status(200).json({ success:true,cart:createCart,message:"Product added in cart"})
     
 }
 

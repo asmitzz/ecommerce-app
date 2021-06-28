@@ -1,6 +1,5 @@
 const Wishlists = require('../models/wishlist.model');
 const Products = require('../models/product.model');
-const Users = require('../models/user.model');
 
 const checkWishlist = async(req,res,next,uid) => {
     try {
@@ -65,17 +64,8 @@ const addProductInWishlist = async(req,res) => {
     }
 
     const createWishlist = await Wishlists.create({ uid,products:[product.id] });
-    let userReference = await Users.findById(uid);
-    userReference.wishlist = createWishlist.id;
-    userReference = await userReference.save(async(err,user)=>{
-        if(err){
-            return res.status(500).json({success:false, message:"Something went wrong with server"})
-         }
-         if(user){
-            const wishlist = await createWishlist.execPopulate({ path:"products",populate:"product" });
-            return res.status(200).json({success:true,wishlist,message:"Product added in wishlist"})
-         }
-    })
+    await createWishlist.execPopulate({ path:"products",populate:"product" });
+    res.status(200).json({success:true,wishlist:createWishlist,message:"Product added in wishlist"})
 
 }
 
