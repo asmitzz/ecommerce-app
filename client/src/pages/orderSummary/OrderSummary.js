@@ -62,8 +62,8 @@ const OrderSummary = () => {
 
     return (
         <div className="order_summary_container">
-          <Toast show={success} onClick={() => setSuccess(false)} message="Order Placed successfully" background="#181818" color="#dab600"/>
-          <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
+          <Toast show={success} onClick={() => setSuccess(false)} message="Order Placed successfully" background="var(--secondary)" color="var(--primary)"/>
+          <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="var(--danger-color)" color="var(--tertiary)"/>
           
           <Spinner show={spinner}/>
             <h2 className="order_summary_container_header">Order Summary</h2>

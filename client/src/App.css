@@ -836,7 +836,7 @@ p {
   display: block;
   margin:auto;
   border-radius: 50%;
-  border:2px solid #dab600;
+  border:2px solid var(--primary);
   border-left-color:white;
   animation: btnspinner 1s ease infinite; 
 }
