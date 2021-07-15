@@ -1,6 +1,7 @@
 import { useReducer,useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAuth} from '../contexts/AuthContext';
+import { API } from "../constants";
 
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ const CartReducer = () => {
       }
       ( async function(){
         try {
-          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid);
+          const res = await axios.get(`${API}/api/carts/${uid}`);
           dispatch({ type:"UPDATE_CART",payload:res.data?.cart})
         } catch (error) {
           return dispatch({ type:"UPDATE_CART",payload:[]})
@@ -42,7 +43,7 @@ const CartReducer = () => {
         }
         loader(true);
         try {
-          const {data,status} = await axios.post("https://shopping-hub-2021.herokuapp.com/api/carts/"+uid,{productID:item._id,quantity:1});
+          const {data,status} = await axios.post(`${API}/api/carts/${uid}`,{productID:item._id,quantity:1});
           if(status === 200){
             dispatch({ type:"UPDATE_CART",payload:data.cart.products})
             loader(false);
@@ -60,7 +61,7 @@ const CartReducer = () => {
     const removeFromCart = async(productID,loader,toast) => {
           loader(true)
         try {
-           const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}`)
+           const {data,status} = await axios.delete(`${API}/api/carts/${uid}/${productID}`)
            if(status === 200){
             dispatch({ type:"UPDATE_CART",payload:data.cart.products})
             loader(false);
@@ -77,7 +78,7 @@ const CartReducer = () => {
     const increaseQuantityOfProduct = async(productID,loader,toast) => {
       loader(true)
       try {
-        const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/increasequantity`)
+        const {data,status} = await axios.post(`${API}/api/carts/${uid}/${productID}/increasequantity`)
         if(status === 200){
           dispatch({ type:"UPDATE_CART",payload:data.cart.products})
           loader(false);
@@ -94,7 +95,7 @@ const CartReducer = () => {
     const decreaseQuantityOfProduct = async(productID,loader,toast) => {
       loader(true);
       try {
-        const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}/${productID}/decreasequantity`);
+        const {data,status} = await axios.post(`${API}/api/carts/${uid}/${productID}/decreasequantity`);
         if(status === 200){
           dispatch({ type:"UPDATE_CART",payload:data.cart.products})
           loader(false);
@@ -110,7 +111,7 @@ const CartReducer = () => {
 
     const emptyCart = async(toast) => {
       try {
-        const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/carts/${uid}`);
+        const {data,status} = await axios.delete(`${API}/api/carts/${uid}`);
         if(status === 200){
           dispatch({ type:"UPDATE_CART",payload:data.cart.products})
         }

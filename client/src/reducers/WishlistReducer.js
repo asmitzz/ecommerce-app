@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import {useAuth} from '../contexts/AuthContext';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { API } from "../constants";
 
 const WishlistReducer = () => {
   
@@ -14,7 +15,7 @@ const WishlistReducer = () => {
       }
       ( async function(){
         try {
-          const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/wishlists/"+uid);
+          const res = await axios.get(`${API}/api/wishlists/${uid}`);
           dispatch({ type:"UPDATE_WISHLIST",payload:res?.data?.wishlist})
         } catch (error) {
           return dispatch({ type:"UPDATE_WISHLIST",payload:[]})
@@ -41,13 +42,13 @@ const WishlistReducer = () => {
         
         try {
           if (state.find((i) => i._id === item._id)) {
-            const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}/${item._id}`)
+            const {data,status} = await axios.delete(`${API}/api/wishlists/${uid}/${item._id}`)
             if(status === 200){
               loader(false)
               return dispatch({type: "UPDATE_WISHLIST",payload: data.wishlist.products});
             }
           }
-           const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/wishlists/${uid}`,{productID:item._id})
+           const {data,status} = await axios.post(`${API}/api/wishlists/${uid}`,{productID:item._id})
            if(status === 200){
             loader(false)
             return dispatch({type: "UPDATE_WISHLIST",payload: data.wishlist.products});

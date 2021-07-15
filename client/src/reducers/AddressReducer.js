@@ -3,6 +3,7 @@ import {useAuth} from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
+import { API } from "../constants";
 
 const AddressReducer = () => {
 
@@ -15,7 +16,7 @@ const AddressReducer = () => {
         }
         ( async function(){
           try {
-            const res = await axios.get("https://shopping-hub-2021.herokuapp.com/api/addresses/"+uid);
+            const res = await axios.get(`${API}/api/addresses/${uid}`);
             dispatch({ type:"INITIAL_STATE",payload:{address:res?.data?.addresses,selectedAddress:res?.data?.selectedAddress}})
           } catch (error) {
             return dispatch({ type:"INITIAL_STATE",payload:{address:[],selectedAddress:""}})
@@ -42,7 +43,7 @@ const AddressReducer = () => {
     const addAddress = async(address,loader,path) => {
         loader(true)
         try {
-            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}`,address);
+            const {data,status} = await axios.post(`${API}/api/addresses/${uid}`,address);
             if(status === 200){
                 dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
                 loader(false);
@@ -56,7 +57,7 @@ const AddressReducer = () => {
     const removeAddress = async(_id,loader) => {
         loader(true)
         try {
-           const {data,status} = await axios.delete(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${_id}`);
+           const {data,status} = await axios.delete(`${API}/api/addresses/${uid}/${_id}`);
            if(status === 200){
                 dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
                 loader(false)
@@ -70,7 +71,7 @@ const AddressReducer = () => {
     const editAddress = async(address,loader) => {
         loader(true)
         try {
-            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${address._id}`,address);
+            const {data,status} = await axios.post(`${API}/api/addresses/${uid}/${address._id}`,address);
             if(status === 200){
                 dispatch({ type:"UPDATE_ADDRESSES",payload:data.addresses.addresses});
                 loader(false)
@@ -84,7 +85,7 @@ const AddressReducer = () => {
     const setSelectedAddress = async(_id,loader) => {
         loader(true)
         try {
-            const {data,status} = await axios.post(`https://shopping-hub-2021.herokuapp.com/api/addresses/${uid}/${_id}/setaddress`);
+            const {data,status} = await axios.post(`${API}/api/addresses/${uid}/${_id}/setaddress`);
             console.log(data.selectedAddress);
             if(status === 200){
                 dispatch({ type:"SELECTED_ADDRESS",payload:data.selectedAddress});

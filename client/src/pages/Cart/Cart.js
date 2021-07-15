@@ -62,8 +62,8 @@ const Cart = () => {
                   onClick={() => handleWishlist(item.product,setSpinner,setError)}
                   style={{
                     color: wishlist.find((i) => i._id === item.product._id)
-                      ? "red"
-                      : "white",
+                      ? "var(--danger-color)"
+                      : "var(--tertiary)",
                   }}
                   className="fa fa-heart fa-border"
                   aria-hidden="true"

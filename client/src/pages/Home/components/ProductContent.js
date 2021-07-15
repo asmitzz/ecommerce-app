@@ -19,7 +19,7 @@ const ProductContent = ({item}) => {
             <div className="wishlist-icon">
               {  !loaderForWishlist && 
                  <button className="wishlist-button" onClick={() => handleWishlist(item,setLoaderForWishlist,setError)} >
-                   <i style={{ color: wishlist.find((i) => i?._id === item?._id) ? "#dab600" : "#181818"}} className="fa fa-heart" aria-hidden="true"></i>
+                   <i style={{ color: wishlist.find((i) => i?._id === item?._id) ? "var(--danger-color)" : "var(--tertiary)"}} className="fa fa-heart" aria-hidden="true"></i>
                  </button>
               }
               <BtnSpinner show={loaderForWishlist}/> 

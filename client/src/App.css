@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 :root {
-  --danger-color: red;
+  --danger-color:rgb(255,0,59);
   --success-color:teal;
-  --primary:#dab600;
+  --primary:#10dca7;
   --secondary:#181818;
   --tertiary:aliceblue;
 }
@@ -512,9 +512,9 @@ p {
 }
 
 .address_type {
-  background: var(--secondary);
-  padding: 0.2rem;
-  color: var(--primary);
+  background: var(--primary);
+  padding: 0.2rem 0.5rem;
+  color: var(--secondary);
   width: fit-content;
   margin-left: 1rem;
   border-radius: 5px;

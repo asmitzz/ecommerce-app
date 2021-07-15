@@ -50,7 +50,7 @@ const AddressContent = (props) => {
               <strong> {pincode}</strong>
             </p>
             { path === "cart" && _id === selectedAddress._id  && 
-            <button className="secondary-btn" 
+            <button style={{width:"fit-content"}} className="secondary-btn" 
             onClick={ () => cart.length > 0 ? navigate("/ordersummary",{state:{from:"address"}}) : navigate("/cart") }>Deliver to this address</button>}
           </div>
         </>
