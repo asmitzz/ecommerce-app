@@ -2,7 +2,6 @@ import React,{useEffect, useState} from "react";
 import { useNavigate,Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { useWishlist } from "../../contexts/WishContext";
-import Spinner from "../../utils/Spinner";
 import Toast from "../../utils/Toast";
 
 const Cart = () => {
@@ -14,7 +13,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const { wishlist, handleWishlist } = useWishlist();
-  const [spinner,setSpinner] = useState(false);
   const [error,setError] = useState(false);
   
   const { 
@@ -29,7 +27,6 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <Toast show={error} onClick={() => setError(false)} message="Something went wrong with server" error={true} background="red" color="white"/>
-      <Spinner show={spinner}/>
       <h1>My Cart({totalCartItem})</h1>
       {cart.length > 0 ? (
         cart.map((item) => (
@@ -45,13 +42,13 @@ const Cart = () => {
                 <small>Price : ₹{item.product.price}</small>&nbsp;<br/><br/>
                 <button
                   disabled={item.quantity <= 1}
-                  onClick={() => decreaseQuantityOfProduct(item.product._id,setSpinner,setError)}
+                  onClick={() => decreaseQuantityOfProduct(item.product._id,setError)}
                 >
                   -
                 </button>
                 &nbsp;{item.quantity}&nbsp;
                 <button
-                  onClick={() =>increaseQuantityOfProduct(item.product._id,setSpinner,setError)}
+                  onClick={() =>increaseQuantityOfProduct(item.product._id,setError)}
                 >
                   +
                 </button>
@@ -59,7 +56,7 @@ const Cart = () => {
               <div className="card-footer">
                <div className="wishlist-icon">
                <i 
-                  onClick={() => handleWishlist(item.product,setSpinner,setError)}
+                  onClick={() => handleWishlist(item.product,()=>{},setError)}
                   style={{
                     color: wishlist.find((i) => i._id === item.product._id)
                       ? "var(--danger-color)"
@@ -70,7 +67,7 @@ const Cart = () => {
                 ></i>
                </div>
                 <button
-                  onClick={() => removeFromCart(item.product._id,setSpinner,setError)}
+                  onClick={() => removeFromCart(item.product._id,setError)}
                   className="secondary-btn"
                   style={{
                     padding:'0.2rem 0.5rem',

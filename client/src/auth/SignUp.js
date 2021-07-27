@@ -6,6 +6,7 @@ import Spinner from '../utils/Spinner';
 import Toast from '../utils/Toast';
 
 import axios from 'axios';
+import { API } from '../constants';
 
 const SignUp = () => {
    useEffect(() => {
@@ -50,7 +51,7 @@ const SignUp = () => {
        if(formValidate(state)){
          setSpinner(true)
           try {
-            const {data,status} = await axios.post("https://shopping-hub-2021.herokuapp.com/api/users/signup",state);
+            const {data,status} = await axios.post(`${API}/api/users/signup`,state);
 
             if(status === 200){
               setToast(data.message);

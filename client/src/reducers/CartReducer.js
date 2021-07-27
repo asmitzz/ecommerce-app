@@ -58,16 +58,13 @@ const CartReducer = () => {
        
     };
 
-    const removeFromCart = async(productID,loader,toast) => {
-          loader(true)
+    const removeFromCart = async(productID,toast) => {
         try {
            const {data,status} = await axios.delete(`${API}/api/carts/${uid}/${productID}`)
            if(status === 200){
             dispatch({ type:"UPDATE_CART",payload:data.cart.products})
-            loader(false);
           }
         } catch (error) {
-          loader(false)
           toast(true)
           setTimeout( () => {
             toast(false)
@@ -75,16 +72,13 @@ const CartReducer = () => {
         }
     }
 
-    const increaseQuantityOfProduct = async(productID,loader,toast) => {
-      loader(true)
+    const increaseQuantityOfProduct = async(productID,toast) => {
       try {
         const {data,status} = await axios.post(`${API}/api/carts/${uid}/${productID}/increasequantity`)
         if(status === 200){
           dispatch({ type:"UPDATE_CART",payload:data.cart.products})
-          loader(false);
         }
      } catch (error) {
-      loader(false)
       toast(true)
       setTimeout( () => {
         toast(false)
@@ -92,16 +86,13 @@ const CartReducer = () => {
      }
     }
 
-    const decreaseQuantityOfProduct = async(productID,loader,toast) => {
-      loader(true);
+    const decreaseQuantityOfProduct = async(productID,toast) => {
       try {
         const {data,status} = await axios.post(`${API}/api/carts/${uid}/${productID}/decreasequantity`);
         if(status === 200){
           dispatch({ type:"UPDATE_CART",payload:data.cart.products})
-          loader(false);
         }
      } catch (error) {
-      loader(false)
       toast(true)
       setTimeout( () => {
         toast(false)

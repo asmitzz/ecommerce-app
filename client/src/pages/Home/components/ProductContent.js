@@ -38,7 +38,7 @@ const ProductContent = ({item}) => {
             </div>
 
             <button onClick={() => addToCart(item,setLoaderForCart,setError)}  className="primary-btn" disabled={(!item?.stock || loaderForCart)} >
-              { !loaderForCart && (item.stock ? (cart.find((i) => i?.product._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of cart")}
+              { !loaderForCart && (item.stock ? (cart.find((i) => i?.product._id === item?._id) ? "Go to cart" : "Add to cart") : "Out of stock")}
               <BtnSpinner show={loaderForCart}/>
             </button>
             
