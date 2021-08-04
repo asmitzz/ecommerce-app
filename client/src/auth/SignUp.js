@@ -78,9 +78,10 @@ const SignUp = () => {
     }
 
     return (
-      <div className="login__container">
-        <Spinner show={spinner}/>
+     <div>
+       <Spinner show={spinner}/>
         <Toast show={toast} message={toast} className="toast__content" background="var(--secondary)" color="var(--primary)"/>
+      <div className="login__container">
 
       <form onSubmit={handleSubmit}>
           <h1 className="form__heading">SIGN UP</h1>
@@ -115,6 +116,7 @@ const SignUp = () => {
       <br/>
       <small>Already have an account? <Link to="/login" className="signup__link">LOGIN</Link></small>
     </div>
+   </div> 
     );
 };
 

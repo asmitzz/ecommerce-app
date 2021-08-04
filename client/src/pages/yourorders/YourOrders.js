@@ -26,7 +26,7 @@ const MyOrders = () => {
 
       return (
         <div className="yourorders__container">
-            <h1 className="yourorders__container__heading">Your Orders</h1>
+            <h1 className="yourorders__container__heading">My Orders</h1>
             <BtnSpinner show={spinner}/>
             
              { orders ? orders.map( order => (

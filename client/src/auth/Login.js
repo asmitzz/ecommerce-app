@@ -87,8 +87,10 @@ const Login = () => {
     }
   
     return (
-      <div className="login__container">
+      <div>
         <Spinner show={spinner}/>
+
+      <div className="login__container">
         <form onSubmit={handleSubmit}>
             <h1 className="form__heading">LOGIN</h1>
             <div className="form__group">
@@ -126,7 +128,7 @@ const Login = () => {
             <button onClick={handleLoginAsGuest} style={{display:"block",width:"100%"}} className="primary-btn">Login as guest</button>
         </div>
       </div>
-
+   </div>
     );
 };
 
